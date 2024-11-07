@@ -28,6 +28,13 @@ public class CameraZoom : MonoBehaviour
     {   
         if (haveToZoom){
             zoom += Time.deltaTime * zoomSpeed * 0.01f;
+            float newY = gameObject.transform.position.y;
+            
+            if (zoom < maxZoom){
+                newY -= Time.deltaTime * 0.73f;
+            }
+            
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, newY, -10);
             if (zoom >= maxZoom){
                 zoom = maxZoom;
             }

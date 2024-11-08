@@ -1327,7 +1327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weekCount: 0
-  weekDuration: 5
+  weekDuration: 120
   upgradeScreen: {fileID: 2055379446}
   weekText: {fileID: 2144928873}
   locomotiveButton: {fileID: 771030246}

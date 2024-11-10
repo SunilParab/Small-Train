@@ -16,7 +16,14 @@ public class WeeklyUpgradeManager : MonoBehaviour
     public Button upgradeButton2;
     public Button[] allUpgradeButtons;
 
-    private string[] upgradeOptions = { "Trains", "Carriages", "New Lines", "Tunnels/Bridges", "Interchanges" };
+    private string[] upgradeOptions = { "Train", "Carriage", "New Line", "Tunnel", "Interchange" };
+    public int trainCount = 3;
+    public int carriageCount = 0;
+    public int newlineCount = 3;
+    public int tunnelCount = 3;
+    public int interchangeCount = 0;
+
+    // private int[] upgradeStorage = { 1, 2, 3, 4, 5 };
 
     private void Start()
     {
@@ -25,10 +32,10 @@ public class WeeklyUpgradeManager : MonoBehaviour
         upgradeButton1.gameObject.SetActive(false);
         upgradeButton2.gameObject.SetActive(false);
 
-        locomotiveButton.onClick.AddListener(OnLocomotiveButtonClicked);
+      //  locomotiveButton.onClick.AddListener(OnLocomotiveButtonClicked);
         foreach (Button btn in allUpgradeButtons)
         {
-            btn.onClick.AddListener(() => OnUpgradeSelected(btn));
+           // btn.onClick.AddListener(() => OnUpgradeSelected(btn));
         }
         foreach (Button upgradeButton in allUpgradeButtons)
         {
@@ -41,7 +48,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
         if (Time.timeScale > 0)
         {
             timer -= Time.deltaTime;
-            Debug.Log("Time until next upgrade: " + Mathf.Ceil(timer) + " seconds");
+          //  Debug.Log("Time until next upgrade: " + Mathf.Ceil(timer) + " seconds");
 
             if (timer <= 0)
             {
@@ -70,6 +77,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     public void OnLocomotiveButtonClicked()
     {
+        trainCount++;
         locomotiveButton.gameObject.SetActive(false);
         ShowRandomUpgradeOptions();
     }
@@ -129,7 +137,33 @@ public class WeeklyUpgradeManager : MonoBehaviour
     }
     private void ApplyUpgrade(string selectedUpgrade)
     {
-        Debug.Log("Applying upgrade: " + selectedUpgrade);
+        Debug.Log(selectedUpgrade);
+        if (selectedUpgrade.Equals("Train"))
+        {
+            trainCount++;
+            Debug.Log("train " + trainCount);
+        }
+        if (selectedUpgrade.Equals("Carriage"))
+        {
+            carriageCount++;
+            Debug.Log("carriage " + carriageCount);
+        }
+        if (selectedUpgrade.Equals("New Line"))
+        {
+            newlineCount++;
+            Debug.Log("new line " + newlineCount);
+        }
+        if (selectedUpgrade.Equals("Interchange"))
+        {
+            interchangeCount++;
+            Debug.Log("inter " + interchangeCount);
+        }
+        if (selectedUpgrade.Equals("Tunnel"))
+        {
+            tunnelCount++;
+            Debug.Log("tunnel " + tunnelCount);
+        }
+       // Debug.Log("Applying upgrade: " + selectedUpgrade);
     }
 
     private void CloseUpgradeScreen()

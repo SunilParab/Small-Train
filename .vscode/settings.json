@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "SmallTrain.sln"
+    "dotnet.defaultSolution": "Small-Train.sln"
 }

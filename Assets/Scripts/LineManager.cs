@@ -58,7 +58,10 @@ public class LineManager : MonoBehaviour
             endy = Mathf.Round(mousePos.y);
 
             //Calculate angle
-            float angle = Mathf.Atan((endy-starty)/(endx-startx)) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2((endy-starty),(endx-startx)) * Mathf.Rad2Deg;
+            if (angle < 0) {
+                angle += 360;
+            }
 
             //Calculate angle of first and second part
             if (angle >= 337.5 || angle < 22.5) {
@@ -161,32 +164,32 @@ public class LineManager : MonoBehaviour
 
             switch (firstAngle) {
                 case 0:
-                    offsetx += segLength / 2;
+                    offsetx = segLength / 2;
                     break;
                 case 45:
-                    offsetx += segLength / 2;
-                    offsety += segLength / 2;
+                    offsetx = segLength / 2;
+                    offsety = segLength / 2;
                     break;
                 case 90:
-                    offsety += segLength / 2;
+                    offsety = segLength / 2;
                     break;
                 case 135:
-                    offsetx -= segLength / 2;
-                    offsety += segLength / 2;
+                    offsetx = -segLength / 2;
+                    offsety = segLength / 2;
                     break;
                 case 180:
-                    offsetx -= segLength / 2;
+                    offsetx = -segLength / 2;
                     break;
                 case 225:
-                    offsetx -= segLength / 2;
-                    offsety -= segLength / 2;
+                    offsetx = -segLength / 2;
+                    offsety = -segLength / 2;
                     break;
                 case 270:
-                    offsety -= segLength / 2;
+                    offsety = -segLength / 2;
                     break;
                 case 315:
-                    offsetx += segLength / 2;
-                    offsety -= segLength / 2;
+                    offsetx = segLength / 2;
+                    offsety = -segLength / 2;
                     break;
             }
 
@@ -231,41 +234,45 @@ public class LineManager : MonoBehaviour
                         break;
                 }
 
-                if (Mathf.Atan((endy-cury)/(endx-curx)) * Mathf.Rad2Deg == endAngle) {
+                float secondAngle = Mathf.Atan2((endy-cury),(endx-curx)) * Mathf.Rad2Deg;
+                if (secondAngle < 0) {
+                    secondAngle += 360;
+                }
+                if (secondAngle == endAngle) {
                     firstHalf = false;
                 }
-                counter++;
 
+                counter++;
             }
 
             switch (endAngle) {
                 case 0:
-                    offsetx += segLength / 2;
+                    offsetx = segLength / 2;
                     break;
                 case 45:
-                    offsetx += segLength / 2;
-                    offsety += segLength / 2;
+                    offsetx = segLength / 2;
+                    offsety = segLength / 2;
                     break;
                 case 90:
-                    offsety += segLength / 2;
+                    offsety = segLength / 2;
                     break;
                 case 135:
-                    offsetx -= segLength / 2;
-                    offsety += segLength / 2;
+                    offsetx = -segLength / 2;
+                    offsety = segLength / 2;
                     break;
                 case 180:
-                    offsetx -= segLength / 2;
+                    offsetx = -segLength / 2;
                     break;
                 case 225:
-                    offsetx -= segLength / 2;
-                    offsety -= segLength / 2;
+                    offsetx = -segLength / 2;
+                    offsety = -segLength / 2;
                     break;
                 case 270:
-                    offsety -= segLength / 2;
+                    offsety = -segLength / 2;
                     break;
                 case 315:
-                    offsetx += segLength / 2;
-                    offsety -= segLength / 2;
+                    offsetx = segLength / 2;
+                    offsety = -segLength / 2;
                     break;
             }
 

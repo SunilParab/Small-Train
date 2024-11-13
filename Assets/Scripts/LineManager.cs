@@ -19,10 +19,11 @@ public class LineManager : MonoBehaviour
     public GameObject segment;
     public float segLength = 0.5f;
 
-    // Start is called before the first frame update
-    void Start()
+    public static LineManager reference;
+
+    void Awake()
     {
-        
+        reference = this;
     }
 
 
@@ -31,20 +32,12 @@ public class LineManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) ) {
-            Vector2 mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-
-            startx = Mathf.Round(mousePos.x);
-            starty = Mathf.Round(mousePos.y);
-            making = true;
-        }
-
-        if (Input.GetMouseButtonUp(0)) {
-            making = false;
-        }
 
         if (making) {
+
+            if (Input.GetMouseButtonUp(0)) {
+                making = false;
+            }
 
             //Clear out linelist of old segments
             for (int i = lineSegments.Count - 1; i >= 0; i--) {
@@ -321,4 +314,14 @@ public class LineManager : MonoBehaviour
         }
 
     }
+
+    public void Activate() {
+        Vector2 mousePos = Input.mousePosition;
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        startx = Mathf.Round(mousePos.x);
+        starty = Mathf.Round(mousePos.y);
+        making = true;
+    }
+
 }

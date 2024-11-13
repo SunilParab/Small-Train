@@ -18,6 +18,7 @@ public class LineManager : MonoBehaviour
     public List<GameObject> lineSegments;
     public GameObject segment;
     public float segLength = 0.5f;
+    bool snapped;
 
     public static LineManager reference;
 
@@ -37,6 +38,14 @@ public class LineManager : MonoBehaviour
 
             if (Input.GetMouseButtonUp(0)) {
                 making = false;
+                if (!snapped) {
+                    //Clear out linelist of old segments
+                    for (int i = lineSegments.Count - 1; i >= 0; i--) {
+                        Destroy(lineSegments[i]);
+                        lineSegments.RemoveAt(i);
+                    }
+                }
+                return;
             }
 
             //Clear out linelist of old segments
@@ -45,10 +54,12 @@ public class LineManager : MonoBehaviour
                 lineSegments.RemoveAt(i);
             }
 
-            Vector2 mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-            endx = Mathf.Round(mousePos.x);
-            endy = Mathf.Round(mousePos.y);
+            if (!snapped) {
+                Vector2 mousePos = Input.mousePosition;
+                mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+                endx = Mathf.Round(mousePos.x);
+                endy = Mathf.Round(mousePos.y);
+            }
 
             //Calculate angle
             float angle = Mathf.Atan2((endy-starty),(endx-startx)) * Mathf.Rad2Deg;
@@ -322,6 +333,16 @@ public class LineManager : MonoBehaviour
         startx = Mathf.Round(mousePos.x);
         starty = Mathf.Round(mousePos.y);
         making = true;
+    }
+
+    public void Snap(GameObject target) {
+        snapped = true;
+        endx = target.transform.position.x;
+        endy = target.transform.position.y;
+    }
+
+    public void UnSnap() {
+        snapped = false;
     }
 
 }

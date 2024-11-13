@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class StationTrigger : MonoBehaviour
 {
+
+    bool snappedTo;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +20,18 @@ public class StationTrigger : MonoBehaviour
     }
 
     void OnMouseOver() {
-        if (Input.GetMouseButtonDown(0) ) {
+        if (LineManager.reference.making) {
+            LineManager.reference.Snap(this.gameObject);
+            snappedTo = true;
+        } else if (Input.GetMouseButtonDown(0) ) {
             LineManager.reference.Activate();
+        }
+    }
+
+    void OnMouseExit() {
+        if (snappedTo) {
+            snappedTo = false;
+            LineManager.reference.UnSnap();
         }
     }
 

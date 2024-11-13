@@ -233,6 +233,62 @@ MonoBehaviour:
   haveToZoom: 0
   haveToZoomDur: 0
   haveToZoomDurBase: 2
+--- !u!1 &1233270450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1233270452}
+  - component: {fileID: 1233270451}
+  m_Layer: 0
+  m_Name: StationSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1233270451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233270450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780fde3806e956440919b5461d354c19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  square: {fileID: 4726122562657182680, guid: 961d6ac0fc9a5ff49b6b02bc3ab71f91, type: 3}
+  triangle: {fileID: 7468823198725206100, guid: 26de4170e6291154dbbdb79d27a42907, type: 3}
+  circle: {fileID: 2170594321882325360, guid: 6348d6dd0dcc827408edd4e197bc8ab7, type: 3}
+  diamond: {fileID: 8860073474385657582, guid: 2381a16766295c14aafb531340b416a3, type: 3}
+  pie: {fileID: 3303606978826350699, guid: 4417bf7708439d64f845833b2d24251c, type: 3}
+  star: {fileID: 4201471323814122878, guid: 8ef63da6d4cab6545b25eab8326bb5af, type: 3}
+  rhombus: {fileID: 7098804374732146268, guid: ab6c80203f10a5f47a52960858ad6c4e, type: 3}
+  plus: {fileID: 8759835319379929105, guid: 3ef8ef5f6cc672f4cae9951743b21157, type: 3}
+  eye: {fileID: 2674243341689348389, guid: b26a001e565728d4394d5f9c5f91d7c7, type: 3}
+  pentagon: {fileID: 6274525582987846165, guid: 6bb0b51c1803ec64290006d216661878, type: 3}
+  xRange: 0
+  yRange: 0
+--- !u!4 &1233270452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233270450}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.39032492, y: -2.3964403, z: 0.021547966}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1504053771
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,3 +920,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 1504053774}
+  - {fileID: 1233270452}

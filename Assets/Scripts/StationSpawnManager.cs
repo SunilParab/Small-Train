@@ -17,6 +17,7 @@ public class StationSpawnManager : MonoBehaviour
     public GameObject pentagon;
 
     private int spawnTime;
+    private List<GameObject> stations;
 
     public int xRange;
     public int yRange;
@@ -43,6 +44,7 @@ public class StationSpawnManager : MonoBehaviour
         eye.transform.localScale = new Vector3(scale, scale, scale);
         pentagon.transform.localScale = new Vector3(scale, scale, scale);
         
+        stations = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -52,19 +54,77 @@ public class StationSpawnManager : MonoBehaviour
 
         if (spawnTime % 240 == 0)
         {
-            int stationType = Random.Range(0, 10);
+            int stationNum = Random.Range(0, 10);
+            GameObject station = square;
             int xPos = Random.Range(-xRange, xRange);
             int yPos = Random.Range(-yRange, yRange);
-            if (stationType == 0) Instantiate(square, new Vector3(xPos, yPos, -1), Quaternion.identity);
-            else if (stationType == 1) Instantiate(triangle, new Vector3(xPos, yPos, -1), Quaternion.identity);
-            else if (stationType == 2) Instantiate(circle, new Vector3(xPos, yPos, -1), Quaternion.identity);
-            else if (stationType == 3) Instantiate(diamond, new Vector3(xPos, yPos, -1), Quaternion.identity);
-            else if (stationType == 4) Instantiate(pie, new Vector3(xPos, yPos, -1), Quaternion.identity);
-            else if (stationType == 5) Instantiate(star, new Vector3(xPos, yPos, -1), Quaternion.identity);
-            else if (stationType == 6) Instantiate(rhombus, new Vector3(xPos, yPos, -1), Quaternion.identity);
-            else if (stationType == 7) Instantiate(plus, new Vector3(xPos, yPos, -1), Quaternion.identity);
-            else if (stationType == 8) Instantiate(eye, new Vector3(xPos, yPos, -1), Quaternion.identity);
-            else if (stationType == 9) Instantiate(pentagon, new Vector3(xPos, yPos, -1), Quaternion.identity);
+            
+            switch (stationNum) {
+                case 0:
+                    station = square;
+                    break;
+                case 1:
+                    station = triangle;
+                    break;
+                case 2:
+                    station = circle;
+                    break;
+                case 3: 
+                    station = pie;
+                    break;
+                case 4:
+                    station = star;
+                    break;
+                case 5:
+                    station = rhombus;
+                    break;
+                case 6:
+                    station = diamond;
+                    break;
+                case 7:
+                    station = plus;
+                    break;
+                case 8:
+                    station = eye;
+                    break;
+                case 9:
+                    station = pentagon;
+                    break;
+            }
+
+            //while trying to find a location, check where I'll spawn against all existing stations
+            //if there's one too close, change my location, and then reiterate through the whole for loop again, tries++
+            //if there's no station too close, set spawned to true and spawn the station
+            bool spawned = false;
+            int tries = 0;
+            while (!spawned && tries < 10)
+            {
+                bool clearToSpawn = true;
+
+                for (int i = 0; i < stations.Count; i++)
+                {
+                    Debug.Log(stations[i].transform.position.x + " " + stations[i].transform.position.y);
+                    if (xPos < stations[i].transform.position.x + 2 && xPos > stations[i].transform.position.x - 2 &&
+                        yPos < stations[i].transform.position.y + 2 && yPos > stations[i].transform.position.y - 2)
+                    {
+                        Debug.Log("Failed Spawn");
+                        clearToSpawn = false;
+                    }
+                }
+
+                if (clearToSpawn)
+                {
+                    var curStation = Instantiate(station, new Vector3(xPos, yPos, -1), Quaternion.identity);
+                    stations.Add(curStation);
+                    spawned = true;
+                } else
+                {
+                    tries++;
+                    xPos = Random.Range(-9, 9);
+                    yPos = Random.Range(-4, 4);
+                }
+
+            }
 
         }
     }

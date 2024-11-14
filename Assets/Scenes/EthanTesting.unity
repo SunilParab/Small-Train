@@ -122,55 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &135512231 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8132863958245623534, guid: ffa34443c5fdc4d42a8bc4257a764a7d, type: 3}
-  m_PrefabInstance: {fileID: 1808981632}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &135512232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 135512231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 537384264078a904282723ed5ebbc10c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startx: 0
-  starty: 0
-  firstAngle: 0
-  endAngle: 0
-  endx: 0
-  endy: 0
-  making: 0
-  lineSegments: []
-  segment: {fileID: 7748952813244632066, guid: 7ad253e5d5bb23e41af915a6c9b2d76b, type: 3}
-  segLength: 0.5
---- !u!114 &135512233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 135512231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 780fde3806e956440919b5461d354c19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  square: {fileID: 4726122562657182680, guid: 961d6ac0fc9a5ff49b6b02bc3ab71f91, type: 3}
-  triangle: {fileID: 7468823198725206100, guid: 26de4170e6291154dbbdb79d27a42907, type: 3}
-  circle: {fileID: 2170594321882325360, guid: 6348d6dd0dcc827408edd4e197bc8ab7, type: 3}
-  diamond: {fileID: 8860073474385657582, guid: 2381a16766295c14aafb531340b416a3, type: 3}
-  pie: {fileID: 3303606978826350699, guid: 4417bf7708439d64f845833b2d24251c, type: 3}
-  star: {fileID: 4201471323814122878, guid: 8ef63da6d4cab6545b25eab8326bb5af, type: 3}
-  rhombus: {fileID: 7098804374732146268, guid: ab6c80203f10a5f47a52960858ad6c4e, type: 3}
-  plus: {fileID: 8759835319379929105, guid: 3ef8ef5f6cc672f4cae9951743b21157, type: 3}
-  eye: {fileID: 2674243341689348389, guid: b26a001e565728d4394d5f9c5f91d7c7, type: 3}
-  pentagon: {fileID: 6274525582987846165, guid: 6bb0b51c1803ec64290006d216661878, type: 3}
 --- !u!1 &1289803790
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,13 +269,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8132863958245623534, guid: ffa34443c5fdc4d42a8bc4257a764a7d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 135512233}
-    - targetCorrespondingSourceObject: {fileID: 8132863958245623534, guid: ffa34443c5fdc4d42a8bc4257a764a7d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 135512232}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa34443c5fdc4d42a8bc4257a764a7d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

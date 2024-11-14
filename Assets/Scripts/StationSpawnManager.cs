@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class StationSpawnManager : MonoBehaviour
@@ -19,11 +20,14 @@ public class StationSpawnManager : MonoBehaviour
     private int spawnTime;
     private List<GameObject> stations;
 
+    public float rareProb = 0.9f;
+
     // Start is called before the first frame update
     void Start()
     {
         spawnTime = 0;
         stations = new List<GameObject>();
+
     }
 
     // Update is called once per frame
@@ -31,12 +35,26 @@ public class StationSpawnManager : MonoBehaviour
     {
         spawnTime++;
 
-        if (spawnTime % 240 == 0)
+        if (spawnTime % 20 == 0)
         {
-            int stationNum = Random.Range(0, 10);
+            Debug.Log(rareProb);
+            int stationNum = 0;
+            if (RandomGaussian(0f, 1f) >= rareProb)
+            {
+                stationNum = UnityEngine.Random.Range(3, 10);
+                //Make the probability of rare stations decrease
+                rareProb += 0.02f;
+            }
+            else
+            {
+                stationNum = UnityEngine.Random.Range(0, 3);
+                //Make the probability of rare stations increase
+                rareProb -= 0.02f;
+            }
             GameObject station = square;
-            int xPos = Random.Range(-9, 9);
-            int yPos = Random.Range(-4, 4);
+
+            int xPos = UnityEngine.Random.Range(-9, 9);
+            int yPos = UnityEngine.Random.Range(-4, 4);
             
             switch (stationNum) {
                 case 0:
@@ -82,7 +100,7 @@ public class StationSpawnManager : MonoBehaviour
 
                 for (int i = 0; i < stations.Count; i++)
                 {
-                    Debug.Log(stations[i].transform.position.x + " " + stations[i].transform.position.y);
+                    //Debug.Log(stations[i].transform.position.x + " " + stations[i].transform.position.y);
                     if (xPos < stations[i].transform.position.x + 2 && xPos > stations[i].transform.position.x - 2 &&
                         yPos < stations[i].transform.position.y + 2 && yPos > stations[i].transform.position.y - 2)
                     {
@@ -99,12 +117,35 @@ public class StationSpawnManager : MonoBehaviour
                 } else
                 {
                     tries++;
-                    xPos = Random.Range(-9, 9);
-                    yPos = Random.Range(-4, 4);
+                    xPos = UnityEngine.Random.Range(-9, 9);
+                    yPos = UnityEngine.Random.Range(-4, 4);
                 }
 
             }
 
+
         }
+    }
+
+    public static float RandomGaussian(float minValue = 0.0f, float maxValue = 1.0f)
+    {
+        float u, v, S;
+
+        do
+        {
+            u = 2.0f * UnityEngine.Random.value - 1.0f;
+            v = 2.0f * UnityEngine.Random.value - 1.0f;
+            S = u * u + v * v;
+        }
+        while (S >= 1.0f);
+
+        // Standard Normal Distribution
+        float std = u * Mathf.Sqrt(-2.0f * Mathf.Log(S) / S);
+
+        // Normal Distribution centered between the min and max value
+        // and clamped following the "three-sigma rule"
+        float mean = (minValue + maxValue) / 2.0f;
+        float sigma = (maxValue - mean) / 3.0f;
+        return Mathf.Clamp(std * sigma + mean, minValue, maxValue);
     }
 }

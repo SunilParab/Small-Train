@@ -21,6 +21,7 @@ public class StationSpawnManager : MonoBehaviour
 
     public int xRange;
     public int yRange;
+    int range = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -28,11 +29,14 @@ public class StationSpawnManager : MonoBehaviour
         spawnTime = 0;
 
         //change this based on zoom amount
-        xRange = 3;
-        yRange = 1;
+        xRange = 5;
+        yRange = 3;
+
+        //station distance range
+        range = 3;
 
         //resize prefabs
-        float scale = 0.025f;
+        float scale = 0.07f;
         square.transform.localScale = new Vector3(scale, scale, scale);
         triangle.transform.localScale = new Vector3(scale, scale, scale);
         circle.transform.localScale = new Vector3(scale, scale, scale);
@@ -100,12 +104,13 @@ public class StationSpawnManager : MonoBehaviour
             while (!spawned && tries < 10)
             {
                 bool clearToSpawn = true;
+            
 
                 for (int i = 0; i < stations.Count; i++)
                 {
                     Debug.Log(stations[i].transform.position.x + " " + stations[i].transform.position.y);
-                    if (xPos < stations[i].transform.position.x + 2 && xPos > stations[i].transform.position.x - 2 &&
-                        yPos < stations[i].transform.position.y + 2 && yPos > stations[i].transform.position.y - 2)
+                    if (xPos < stations[i].transform.position.x + range && xPos > stations[i].transform.position.x - range &&
+                        yPos < stations[i].transform.position.y + range && yPos > stations[i].transform.position.y - range)
                     {
                         Debug.Log("Failed Spawn");
                         clearToSpawn = false;
@@ -120,8 +125,8 @@ public class StationSpawnManager : MonoBehaviour
                 } else
                 {
                     tries++;
-                    xPos = Random.Range(-9, 9);
-                    yPos = Random.Range(-4, 4);
+                    xPos = Random.Range(-xRange, xRange);
+                    yPos = Random.Range(-yRange, yRange);
                 }
 
             }

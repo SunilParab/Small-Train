@@ -39,6 +39,7 @@ public class TrainCircleManager : MonoBehaviour
         bottomCircleTargetPosition = new Vector3(0, -175, 0);
 
         StartCoroutine(MoveTrainCircle());
+
     }
 
     void UpdateTrainCount(int count)

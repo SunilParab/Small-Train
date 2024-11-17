@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StationTrigger : MonoBehaviour
+public class TTrigger : MonoBehaviour
 {
+
+    public int trainLine;
 
     bool snappedTo;
 
@@ -23,8 +25,8 @@ public class StationTrigger : MonoBehaviour
         if (LineDrawer.reference.making) {
             LineDrawer.reference.Snap(this.gameObject);
             snappedTo = true;
-        } else if (Input.GetMouseButtonDown(0) ) {
-            LineDrawer.reference.Activate(-1); //-1 Means new line
+        } else if (Input.GetMouseButtonDown(0)) {
+            LineDrawer.reference.Activate(trainLine);
         }
     }
 

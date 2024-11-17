@@ -23,8 +23,6 @@ public class WeeklyUpgradeManager : MonoBehaviour
     public int tunnelCount = 3;
     public int interchangeCount = 0;
 
-    // private int[] upgradeStorage = { 1, 2, 3, 4, 5 };
-
     private void Start()
     {
         timer = weekDuration;

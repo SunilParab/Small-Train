@@ -11,6 +11,12 @@ public class LineInfo : MonoBehaviour
     public int startCount;
     public int endCount;
 
+    public bool hasStartT;
+    public bool hasEndT;
+
+    public GameObject startT;
+    public GameObject endT;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,4 +28,5 @@ public class LineInfo : MonoBehaviour
     {
         
     }
+
 }

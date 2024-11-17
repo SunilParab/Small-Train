@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 677847871}
   - component: {fileID: 677847870}
+  - component: {fileID: 677847872}
   m_Layer: 0
   m_Name: LineDrawer
   m_TagString: Untagged
@@ -160,6 +161,7 @@ MonoBehaviour:
   making: 0
   lineSegments: []
   segment: {fileID: 7748952813244632066, guid: 7ad253e5d5bb23e41af915a6c9b2d76b, type: 3}
+  lineHolder: {fileID: 4307126451031699490, guid: b10867a9425a45e46a71a107245ad2a6, type: 3}
   segLength: 0.5
 --- !u!4 &677847871
 Transform:
@@ -176,6 +178,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &677847872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677847869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a3720889e209a743b28c608def78d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yellowLine: []
+  TSegment: {fileID: 9078661265080835869, guid: 469ba934b1c109f45bf8f663da19a7ee, type: 3}
 --- !u!1 &766661532
 GameObject:
   m_ObjectHideFlags: 0

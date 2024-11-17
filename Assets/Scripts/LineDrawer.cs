@@ -5,7 +5,7 @@ using System.Diagnostics.Tracing;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class LineManager : MonoBehaviour
+public class LineDrawer : MonoBehaviour
 {
 
     public float startx;
@@ -24,7 +24,10 @@ public class LineManager : MonoBehaviour
     int startCount;
     int endCount;
 
-    public static LineManager reference;
+    // Lets the Line Draer know if its making a new Train Line
+    private int targetLine;
+
+    public static LineDrawer reference;
 
     void Awake()
     {
@@ -44,20 +47,8 @@ public class LineManager : MonoBehaviour
                         Destroy(lineSegments[i]);
                         lineSegments.RemoveAt(i);
                     }
-                } else { //Actually make line
-
-                    var holder = Instantiate(lineHolder);
+                } else { //Actually make line                   
                     LineMake();
-                    var holderInfo = holder.GetComponent<LineInfo>();
-                    holderInfo.firstAngle = firstAngle;
-                    holderInfo.endAngle = endAngle;
-                    holderInfo.startCount = startCount;
-                    holderInfo.endCount = endCount;
-
-                    for (int i = lineSegments.Count - 1; i >= 0; i--) {
-                        lineSegments[i].transform.SetParent(holder.transform);
-                        lineSegments.RemoveAt(i);
-                    }
                 }
                 return;
             }
@@ -340,13 +331,15 @@ public class LineManager : MonoBehaviour
 
     }
 
-    public void Activate() {
+    public void Activate(int targetLine) {
         Vector2 mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
         startx = Mathf.Round(mousePos.x);
         starty = Mathf.Round(mousePos.y);
         making = true;
+
+        this.targetLine = targetLine;
     }
 
     public void Snap(GameObject target) {
@@ -366,6 +359,10 @@ public class LineManager : MonoBehaviour
             Destroy(lineSegments[i]);
             lineSegments.RemoveAt(i);
         }
+
+        var holder = Instantiate(lineHolder);
+        var holderInfo = holder.GetComponent<LineInfo>();
+                    
 
         //Calculate angle
         float angle = Mathf.Atan2((endy-starty),(endx-startx)) * Mathf.Rad2Deg;
@@ -631,6 +628,19 @@ public class LineManager : MonoBehaviour
         }
 
         endCount = counter;
+
+        //Set the variables for the lineHolder
+
+        holderInfo.firstAngle = firstAngle;
+        holderInfo.endAngle = endAngle;
+        holderInfo.startCount = startCount;
+        holderInfo.endCount = endCount;
+        for (int i = lineSegments.Count - 1; i >= 0; i--) {
+            lineSegments[i].transform.SetParent(holder.transform);
+            lineSegments.RemoveAt(i);
+        }
+
+        TrainList.reference.addSegment(holderInfo,targetLine);
 
     }
 

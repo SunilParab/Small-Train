@@ -55,6 +55,8 @@ MonoBehaviour:
   plus: {fileID: 8759835319379929105, guid: 3ef8ef5f6cc672f4cae9951743b21157, type: 3}
   eye: {fileID: 2674243341689348389, guid: b26a001e565728d4394d5f9c5f91d7c7, type: 3}
   pentagon: {fileID: 6274525582987846165, guid: 6bb0b51c1803ec64290006d216661878, type: 3}
+  spawnSpeed: 20
+  rareProb: 0.9
 --- !u!114 &175355356061046621
 MonoBehaviour:
   m_ObjectHideFlags: 0

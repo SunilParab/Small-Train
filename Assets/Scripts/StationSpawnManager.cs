@@ -18,6 +18,8 @@ public class StationSpawnManager : MonoBehaviour
     public GameObject pentagon;
 
     private int spawnTime;
+    public int spawnSpeed;
+
     private List<GameObject> stations;
 
     public float rareProb = 0.9f;
@@ -35,7 +37,7 @@ public class StationSpawnManager : MonoBehaviour
     {
         spawnTime++;
 
-        if (spawnTime % 20 == 0)
+        if (spawnTime % spawnSpeed == 0)
         {
             Debug.Log(rareProb);
             int stationNum = 0;
@@ -43,7 +45,7 @@ public class StationSpawnManager : MonoBehaviour
             {
                 stationNum = UnityEngine.Random.Range(3, 10);
                 //Make the probability of rare stations decrease
-                rareProb += 0.02f;
+                rareProb += 0.06f;
             }
             else
             {

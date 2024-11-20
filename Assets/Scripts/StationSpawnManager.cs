@@ -17,16 +17,15 @@ public class StationSpawnManager : MonoBehaviour
     public GameObject eye;
     public GameObject pentagon;
 
-    private int spawnTime;
-    public int spawnSpeed;
-
     private List<GameObject> stations;
 
+    [Header("Variables")]
+    private int spawnTime;
+    public int spawnSpeed;
     public float rareProb = 0.9f;
-
     public int xRange;
     public int yRange;
-    int range = 3;
+    public int range = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +37,7 @@ public class StationSpawnManager : MonoBehaviour
         yRange = 3;
 
         //station distance range
-        range = 3;
+        range = 2;
 
         //resize prefabs
         float scale = 0.07f;
@@ -128,7 +127,7 @@ public class StationSpawnManager : MonoBehaviour
 
                 for (int i = 0; i < stations.Count; i++)
                 {
-                    Debug.Log(stations[i].transform.position.x + " " + stations[i].transform.position.y);
+                    //Debug.Log(stations[i].transform.position.x + " " + stations[i].transform.position.y);
                     if (xPos < stations[i].transform.position.x + range && xPos > stations[i].transform.position.x - range &&
                         yPos < stations[i].transform.position.y + range && yPos > stations[i].transform.position.y - range)
                     {

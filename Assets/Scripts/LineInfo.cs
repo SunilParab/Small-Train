@@ -16,6 +16,7 @@ public class LineInfo : MonoBehaviour
 
     public GameObject startT;
     public GameObject endT;
+    public List<GameObject> segments;
 
     // Start is called before the first frame update
     void Start()

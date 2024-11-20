@@ -31,7 +31,7 @@ public class CameraZoom : MonoBehaviour
             float newY = gameObject.transform.position.y;
             
             if (zoom < maxZoom){
-                newY -= Time.deltaTime * zoomSpeed * 0.0072f;
+                newY -= Time.deltaTime * zoomSpeed * 0.01f;
             }
             
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, newY, -10);

@@ -23,21 +23,22 @@ public class TrainLineInfo : ScriptableObject
 
         //Lines need to be stored as an object that contains the list and the T references
         Destroy(startT);
-        startT = MakeT(LineSegments[0].segments[0],true);
+        startT = MakeT(LineSegments[0].segments[0],true,LineSegments[0].startStation);
         Destroy(endT);
-        endT = MakeT(LineSegments.Last().segments.Last(),false);
+        endT = MakeT(LineSegments.Last().segments.Last(),false,LineSegments.Last().endStation);
         //Go through the target line and generate T's
     }
 
-    GameObject MakeT(GameObject target, bool isStart) {
+    GameObject MakeT(GameObject targetPiece, bool isStart, GameObject givenStation) {
 
-        var curT = Instantiate(TSegment, target.gameObject.transform);
+        var curT = Instantiate(TSegment, targetPiece.gameObject.transform);
 
         curT.GetComponent<TTrigger>().trainLine = trainLine;
         curT.GetComponent<TTrigger>().isStart = isStart;
+        curT.GetComponent<TTrigger>().myStation = givenStation;
 
         if (isStart) {
-            curT.transform.RotateAround(curT.transform.position, target.transform.up, 180f);
+            curT.transform.RotateAround(curT.transform.position, targetPiece.transform.up, 180f);
         }
         return curT;
 

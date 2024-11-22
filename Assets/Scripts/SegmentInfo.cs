@@ -11,8 +11,8 @@ public class SegmentInfo : MonoBehaviour
     public int startCount;
     public int endCount;
 
-    public bool hasStartT;
-    public bool hasEndT;
+    public GameObject startStation;
+    public GameObject endStation;
 
     public List<GameObject> segments;
 

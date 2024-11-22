@@ -24,8 +24,9 @@ public class LineDrawer : MonoBehaviour
     int startCount;
     int endCount;
 
-    // Lets the Line Draer know if its making a new Train Line
+    // Lets the Line Drawer know if its making a new Train Line
     private int targetLine;
+    private bool isStart;
 
     public static LineDrawer reference;
 
@@ -331,7 +332,7 @@ public class LineDrawer : MonoBehaviour
 
     }
 
-    public void Activate(int targetLine) {
+    public void Activate(int targetLine, bool isStart) {
         Vector2 mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
@@ -340,6 +341,7 @@ public class LineDrawer : MonoBehaviour
         making = true;
 
         this.targetLine = targetLine;
+        this.isStart = isStart;
     }
 
     public void Snap(GameObject target) {
@@ -361,7 +363,7 @@ public class LineDrawer : MonoBehaviour
         }
 
         var holder = Instantiate(lineHolder);
-        var holderInfo = holder.GetComponent<LineInfo>();
+        var holderInfo = holder.GetComponent<SegmentInfo>();
                     
 
         //Calculate angle
@@ -637,10 +639,11 @@ public class LineDrawer : MonoBehaviour
         holderInfo.endCount = endCount;
         for (int i = lineSegments.Count - 1; i >= 0; i--) {
             lineSegments[i].transform.SetParent(holder.transform);
+            holderInfo.segments.Add(lineSegments[i]);
             lineSegments.RemoveAt(i);
         }
 
-        TrainList.reference.addSegment(holderInfo,targetLine);
+        TrainList.reference.addSegment(holderInfo,targetLine,isStart);
 
     }
 

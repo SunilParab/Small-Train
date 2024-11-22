@@ -6,8 +6,10 @@ public class TTrigger : MonoBehaviour
 {
 
     public int trainLine;
-
+    public bool isStart;
     bool snappedTo;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +28,7 @@ public class TTrigger : MonoBehaviour
             LineDrawer.reference.Snap(this.gameObject);
             snappedTo = true;
         } else if (Input.GetMouseButtonDown(0)) {
-            LineDrawer.reference.Activate(trainLine);
+            LineDrawer.reference.Activate(trainLine,isStart);
         }
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LineInfo : MonoBehaviour
+public class SegmentInfo : MonoBehaviour
 {
 
     public float firstAngle;
@@ -14,8 +14,7 @@ public class LineInfo : MonoBehaviour
     public bool hasStartT;
     public bool hasEndT;
 
-    public GameObject startT;
-    public GameObject endT;
+    public List<GameObject> segments;
 
     // Start is called before the first frame update
     void Start()

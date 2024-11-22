@@ -1,21 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TrainList : MonoBehaviour
 {
     
-    public List<LineInfo>[] lineList = new List<LineInfo>[7];
+    public TrainLineInfo[] lineList = new TrainLineInfo[7];
 
-    //Make enumerator
+    //Make enumerator (it might be better with ints)
 
     public static TrainList reference;
-
+    public int availableLines = 3;
     public GameObject TSegment;
 
     void Awake()
     {
         reference = this;
+        for (int i = 0; i < lineList.Length; i++) {
+            lineList[i] = ScriptableObject.CreateInstance<TrainLineInfo>();
+            lineList[i].trainLine = i;
+            lineList[i].LineSegments = new List<SegmentInfo>();
+            lineList[i].TSegment = this.TSegment;
+        }
     }
 
     // Start is called before the first frame update
@@ -30,21 +37,36 @@ public class TrainList : MonoBehaviour
         
     }
 
-    public void addSegment(LineInfo segment, int targetLine) { //Change the int to enumerator with the line names
-        //Add the segment to the target line
+    public void addSegment(SegmentInfo segment, int targetLine, bool isStart) { //Change the int to enumerator with the line names
+
+        if (targetLine == -1) {
             //If target is -1 create it in the first empty line
-        
+            bool spotFound = false;
+            for (int i = 0; i < availableLines; i++) {
+                if (lineList[i].LineSegments.Count == 0) {
+                    lineList[i].addSegment(segment,isStart);
+                    spotFound = true;
+                    targetLine = i;
+                    break;
+
+                }
+            }
+
+            if (!spotFound) {
+                Destroy(segment.gameObject);
+            }
+            //ToDo makes thing that says you have no lines
+
+        } else {    
+            lineList[targetLine].addSegment(segment,isStart);
+        }
+
+        //Lines need to be stored as an object that contains the list and the T references
+        /*Destroy(segment.startT);
+        segment.startT = MakeT(segment.segments[0],targetLine,true);
+        Destroy(segment.endT);
+        segment.endT = MakeT(segment.segments.Last(),targetLine,false);*/
         //Go through the target line and generate T's
-    }
-
-    void makeT(LineInfo target, bool isStart) {
-        //If is start grab the first child
-
-
-        //T goes directly on top of chosen segment, copies its rotation
-            //If !isStart then angle - 180
-
-        //give the T its trainLine
     }
 
 }

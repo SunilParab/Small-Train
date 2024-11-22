@@ -363,7 +363,7 @@ public class LineDrawer : MonoBehaviour
         }
 
         var holder = Instantiate(lineHolder);
-        var holderInfo = holder.GetComponent<LineInfo>();
+        var holderInfo = holder.GetComponent<SegmentInfo>();
                     
 
         //Calculate angle

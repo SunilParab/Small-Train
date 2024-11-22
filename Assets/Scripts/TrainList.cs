@@ -6,7 +6,7 @@ using UnityEngine;
 public class TrainList : MonoBehaviour
 {
     
-    public List<LineInfo>[] lineList = new List<LineInfo>[7];
+    public TrainLineInfo[] lineList = new TrainLineInfo[7];
 
     //Make enumerator (it might be better with ints)
 
@@ -18,7 +18,10 @@ public class TrainList : MonoBehaviour
     {
         reference = this;
         for (int i = 0; i < lineList.Length; i++) {
-            lineList[i] = new List<LineInfo>();
+            lineList[i] = ScriptableObject.CreateInstance<TrainLineInfo>();
+            lineList[i].trainLine = i;
+            lineList[i].LineSegments = new List<SegmentInfo>();
+            lineList[i].TSegment = this.TSegment;
         }
     }
 
@@ -34,45 +37,36 @@ public class TrainList : MonoBehaviour
         
     }
 
-    public void addSegment(LineInfo segment, int targetLine, bool isStart) { //Change the int to enumerator with the line names
+    public void addSegment(SegmentInfo segment, int targetLine, bool isStart) { //Change the int to enumerator with the line names
 
         if (targetLine == -1) {
             //If target is -1 create it in the first empty line
+            bool spotFound = false;
             for (int i = 0; i < availableLines; i++) {
-                if (lineList[i].Count == 0) {
-                    lineList[i].Add(segment);
+                if (lineList[i].LineSegments.Count == 0) {
+                    lineList[i].addSegment(segment,isStart);
+                    spotFound = true;
+                    targetLine = i;
                     break;
-                    print("agadg");
+
                 }
             }
 
+            if (!spotFound) {
+                Destroy(segment.gameObject);
+            }
             //ToDo makes thing that says you have no lines
 
         } else {    
-            if (isStart) {
-                lineList[targetLine].Insert(0,segment);
-            } else {
-                lineList[targetLine].Add(segment);
-            }
-
+            lineList[targetLine].addSegment(segment,isStart);
         }
 
-        makeT(segment.segments[0],targetLine,true);
-        makeT(segment.segments.Last(),targetLine,false);
+        //Lines need to be stored as an object that contains the list and the T references
+        /*Destroy(segment.startT);
+        segment.startT = MakeT(segment.segments[0],targetLine,true);
+        Destroy(segment.endT);
+        segment.endT = MakeT(segment.segments.Last(),targetLine,false);*/
         //Go through the target line and generate T's
-    }
-
-    void makeT(GameObject target, int targetLine, bool isStart) {
-
-        var curT = Instantiate(TSegment, target.gameObject.transform);
-
-        curT.GetComponent<TTrigger>().trainLine = targetLine;
-        curT.GetComponent<TTrigger>().isStart = isStart;
-
-        if (isStart) {
-            curT.transform.RotateAround(curT.transform.position, transform.up, 180f);
-        }
-
     }
 
 }

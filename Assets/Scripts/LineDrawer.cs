@@ -28,6 +28,10 @@ public class LineDrawer : MonoBehaviour
     private int targetLine;
     private bool isStart;
 
+    //Passes these to the segment info
+    public GameObject startStation;
+    public GameObject endStation;
+
     public static LineDrawer reference;
 
     void Awake()
@@ -60,7 +64,7 @@ public class LineDrawer : MonoBehaviour
                 lineSegments.RemoveAt(i);
             }
 
-            if (!snapped) { //Find endpoitn
+            if (!snapped) { //Find endpoint
                 Vector2 mousePos = Input.mousePosition;
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
                 endx = Mathf.Round(mousePos.x);
@@ -332,26 +336,32 @@ public class LineDrawer : MonoBehaviour
 
     }
 
-    public void Activate(int targetLine, bool isStart) {
-        Vector2 mousePos = Input.mousePosition;
+    public void Activate(int targetLine, bool isStart, GameObject startStation) {
+        /*Vector2 mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
         startx = Mathf.Round(mousePos.x);
-        starty = Mathf.Round(mousePos.y);
+        starty = Mathf.Round(mousePos.y);*/
+        startx = startStation.transform.position.x;
+        starty = startStation.transform.position.y;
+
         making = true;
 
         this.targetLine = targetLine;
         this.isStart = isStart;
+        this.startStation = startStation;
     }
 
     public void Snap(GameObject target) {
         snapped = true;
         endx = target.transform.position.x;
         endy = target.transform.position.y;
+        endStation = target;
     }
 
     public void UnSnap() {
         snapped = false;
+        endStation = null;
     }
 
     void LineMake() {
@@ -637,10 +647,21 @@ public class LineDrawer : MonoBehaviour
         holderInfo.endAngle = endAngle;
         holderInfo.startCount = startCount;
         holderInfo.endCount = endCount;
-        for (int i = lineSegments.Count - 1; i >= 0; i--) {
+
+        for (int i = 0; i < lineSegments.Count; i++) {
             lineSegments[i].transform.SetParent(holder.transform);
             holderInfo.segments.Add(lineSegments[i]);
-            lineSegments.RemoveAt(i);
+        }
+
+        lineSegments.Clear();
+
+        if (isStart && targetLine != -1) { //Flip list is made from a start T
+            holderInfo.segments.Reverse();
+            holderInfo.startStation = endStation;
+            holderInfo.endStation = startStation;
+        } else {
+            holderInfo.startStation = startStation;
+            holderInfo.endStation = endStation;
         }
 
         TrainList.reference.addSegment(holderInfo,targetLine,isStart);

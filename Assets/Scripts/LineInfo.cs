@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TrainLineInfo : ScriptableObject
+public class LineInfo : ScriptableObject
 {
     public int trainLine;
     public List<SegmentInfo> LineSegments;

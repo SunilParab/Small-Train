@@ -21,6 +21,11 @@ public class LineDrawer : MonoBehaviour
     public float segLength = 0.5f;
     bool snapped;
 
+    //For instantiating the train on the line
+    public GameObject train;
+    public LineList lineScript;
+    private int ourLine = 0;
+
     int startCount;
     int endCount;
 
@@ -34,9 +39,14 @@ public class LineDrawer : MonoBehaviour
 
     public static LineDrawer reference;
 
-    void Awake()
+    private void Awake()
     {
         reference = this;
+    }
+
+    private void Start()
+    {
+        lineScript = LineList.reference;
     }
 
     // Update is called once per frame
@@ -53,7 +63,12 @@ public class LineDrawer : MonoBehaviour
                         lineSegments.RemoveAt(i);
                     }
                 } else { //Actually make line                   
-                    LineMake();
+                    //If we're making a new line, make a new train on this new line
+                    if (targetLine == -1)
+                    {
+                        ourLine = TrainReadyMake();
+                    }
+                    LineMake(ourLine);
                 }
                 return;
             }
@@ -364,7 +379,7 @@ public class LineDrawer : MonoBehaviour
         endStation = null;
     }
 
-    void LineMake() {
+    void LineMake(int lineInfoArrayIndex) {
 
         //Clear out linelist of old segments
         for (int i = lineSegments.Count - 1; i >= 0; i--) {
@@ -664,8 +679,38 @@ public class LineDrawer : MonoBehaviour
             holderInfo.endStation = endStation;
         }
 
-        TrainList.reference.addSegment(holderInfo,targetLine,isStart);
+        LineList.reference.addSegment(holderInfo,targetLine,isStart);
 
+        //lineInfos is our array of lineInfos
+        if (lineInfoArrayIndex != -1)
+        {
+            LineInfo[] lineInfos = lineScript.lineList;
+            float xPos = lineInfos[lineInfoArrayIndex].LineSegments[0].segments[0].transform.position.x;
+            float yPos = lineInfos[lineInfoArrayIndex].LineSegments[0].segments[0].transform.position.y;
+            GameObject me = GameObject.Instantiate(train, new Vector2(xPos, yPos), Quaternion.identity);
+            me.GetComponent<TrainManager>().myLine = lineInfoArrayIndex;
+        }
+
+    }
+
+    int TrainReadyMake()
+    {
+
+        int thisLine = -1;
+
+        //lineInfos is our array of lineInfos
+        LineInfo[] lineInfos = lineScript.lineList;
+
+        for (int i = 0; i < lineScript.availableLines; i++) {
+            //if this lineInfo's list of line segments is empty...
+            if (lineInfos[i].LineSegments.Count == 0)
+            {
+                thisLine = i;
+                break;
+            }
+        }
+
+        return thisLine;
     }
 
 }

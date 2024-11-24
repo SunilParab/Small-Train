@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TrainList : MonoBehaviour
+public class LineList : MonoBehaviour
 {
     
-    public TrainLineInfo[] lineList = new TrainLineInfo[7];
+    public LineInfo[] lineList = new LineInfo[7];
 
     //Make enumerator (it might be better with ints)
 
-    public static TrainList reference;
+    public static LineList reference;
     public int availableLines = 3;
     public GameObject TSegment;
 
@@ -18,7 +18,7 @@ public class TrainList : MonoBehaviour
     {
         reference = this;
         for (int i = 0; i < lineList.Length; i++) {
-            lineList[i] = ScriptableObject.CreateInstance<TrainLineInfo>();
+            lineList[i] = ScriptableObject.CreateInstance<LineInfo>();
             lineList[i].trainLine = i;
             lineList[i].LineSegments = new List<SegmentInfo>();
             lineList[i].TSegment = this.TSegment;

@@ -121,12 +121,19 @@ public class StationSpawnManager : MonoBehaviour
             bool spawned = false;
             int tries = 0;
             while (!spawned && tries < 10)
-            {
+            {   
+                
+                spawned = SpawnStation(station, xPos, yPos);
+                xPos = UnityEngine.Random.Range(-xRange, xRange);
+                yPos = UnityEngine.Random.Range(-yRange, yRange);
+                tries++;
+
+                /*
                 bool clearToSpawn = true;
-            
 
                 for (int i = 0; i < stations.Count; i++)
                 {
+                    //fail spawn when stations are too close
                     //Debug.Log(stations[i].transform.position.x + " " + stations[i].transform.position.y);
                     if (xPos < stations[i].transform.position.x + range && xPos > stations[i].transform.position.x - range &&
                         yPos < stations[i].transform.position.y + range && yPos > stations[i].transform.position.y - range)
@@ -134,6 +141,10 @@ public class StationSpawnManager : MonoBehaviour
                         Debug.Log("Failed Spawn");
                         clearToSpawn = false;
                     }
+
+                    //fail spawn when station is on water
+
+                    
                 }
 
                 if (clearToSpawn)
@@ -141,6 +152,7 @@ public class StationSpawnManager : MonoBehaviour
                     var curStation = Instantiate(station, new Vector3(xPos, yPos, -1), Quaternion.identity);
                     stations.Add(curStation);
                     spawned = true;
+
                 } else
                 {
                     tries++;
@@ -148,8 +160,11 @@ public class StationSpawnManager : MonoBehaviour
                     xPos = UnityEngine.Random.Range(-xRange, xRange);
                     yPos = UnityEngine.Random.Range(-yRange, yRange);
                 }
+                */
+
 
             }
+            
 
 
         }
@@ -176,4 +191,34 @@ public class StationSpawnManager : MonoBehaviour
         float sigma = (maxValue - mean) / 3.0f;
         return Mathf.Clamp(std * sigma + mean, minValue, maxValue);
     }
+
+    //spawn station boolean
+    public bool SpawnStation(GameObject station, int xPos, int yPos){
+
+        for (int i = 0; i < stations.Count; i++){
+
+            //fail spawn when stations are too close
+            if (xPos < stations[i].transform.position.x + range && xPos > stations[i].transform.position.x - range &&
+                yPos < stations[i].transform.position.y + range && yPos > stations[i].transform.position.y - range)
+            {
+                Debug.Log("Failed Spawn");
+                return false;
+            }
+            
+        }
+        var curStation = Instantiate(station, new Vector3(xPos, yPos, -1), Quaternion.identity);
+        //var stationF = curStation.GetComponent<StationCollideWater>();
+        //stationF.WaterCollide(curStation.GetComponent<PolygonCollider2D>());
+
+        if (StationCollideWater.waterCollide){
+            Debug.Log("Water Spawn");
+            Destroy(curStation);
+            StationCollideWater.waterCollide = false;
+            return false;
+        }
+
+        stations.Add(curStation);
+        return true;
+    }
+
 }

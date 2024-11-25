@@ -228,8 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseZoom: 4
-  maxZoom: 9
-  zoomSpeed: 6
+  maxZoom: 7
+  zoomSpeed: 24
   haveToZoom: 0
   haveToZoomDur: 0
   haveToZoomDurBase: 2

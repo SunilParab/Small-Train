@@ -14,18 +14,6 @@ public class SegmentInfo : MonoBehaviour
     public GameObject startStation;
     public GameObject endStation;
 
-    public List<GameObject> segments;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public LineRenderer lineRenderer;
 
 }

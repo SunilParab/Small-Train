@@ -16,7 +16,7 @@ public class LineDrawer : MonoBehaviour
     public float endy;
     public bool making;
     GameObject segment; //Current segment
-    public GameObject segmentPrefab;
+    public GameObject lineHolder;
 
     float midx;
     float midy;
@@ -337,7 +337,7 @@ public class LineDrawer : MonoBehaviour
                 counter++;
             }
 
-            segment = Instantiate(segmentPrefab);
+            segment = Instantiate(lineHolder);
             var segInfo = segment.GetComponent<SegmentInfo>();
             Vector3[] linePoints = new Vector3[3];
             linePoints[0] = new Vector3(startx,starty,0);
@@ -382,7 +382,7 @@ public class LineDrawer : MonoBehaviour
         //Clear out old segment
         Destroy(segment);
 
-        var holder = Instantiate(segmentPrefab);
+        var holder = Instantiate(lineHolder);
         var holderInfo = holder.GetComponent<SegmentInfo>();
                     
 

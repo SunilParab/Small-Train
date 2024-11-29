@@ -201,7 +201,7 @@ public class StationSpawnManager : MonoBehaviour
             if (xPos < stations[i].transform.position.x + range && xPos > stations[i].transform.position.x - range &&
                 yPos < stations[i].transform.position.y + range && yPos > stations[i].transform.position.y - range)
             {
-                Debug.Log("Failed Spawn");
+                //Debug.Log("Failed Spawn");
                 return false;
             }
             
@@ -211,7 +211,7 @@ public class StationSpawnManager : MonoBehaviour
         //stationF.WaterCollide(curStation.GetComponent<PolygonCollider2D>());
 
         if (StationCollideWater.waterCollide){
-            Debug.Log("Water Spawn");
+            //Debug.Log("Water Spawn");
             Destroy(curStation);
             StationCollideWater.waterCollide = false;
             return false;

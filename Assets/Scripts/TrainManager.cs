@@ -43,7 +43,9 @@ public class TrainManager : MonoBehaviour
         y = transform.position.y;
 
 
-        //set start and cur target TODO set curSegment
+        //set start and cur target
+        curSegment = lineInfos[myLine].LineSegments[0];
+
         curStart = curSegment.lineRenderer.GetPosition(0+curHalf);
         curTarget = curSegment.lineRenderer.GetPosition(1+curHalf);
     }
@@ -99,8 +101,8 @@ public class TrainManager : MonoBehaviour
             }
         }
 
-        //TODO check if distance is more than half-segment length
 
+        //Move the train in the direction by _distance_ amount
         var directionVector = Vector3.Normalize(curTarget - curStart);
         transform.position = curStart + directionVector * distance;
 

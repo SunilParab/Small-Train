@@ -262,10 +262,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 175355356061046621, guid: ffa34443c5fdc4d42a8bc4257a764a7d, type: 3}
-      propertyPath: train
-      value: 
-      objectReference: {fileID: 2735024215327003098, guid: e7b9f61f5b29ff943a303440ac2bac5c, type: 3}
     - target: {fileID: 8132863958245623534, guid: ffa34443c5fdc4d42a8bc4257a764a7d, type: 3}
       propertyPath: m_Name
       value: TrainStationManager

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 using Unity.VisualScripting.Dependencies.Sqlite;
@@ -28,9 +29,17 @@ public class TrainManager : MonoBehaviour
     bool goingToStop;
 
 
+    //Iterating through all the segments in these arrays
     private LineInfo[] lineInfos;
-    private int[] segmentNum;
-    private int ourSegment = 0;
+    private int[] segmentNum; //Stores an array that is the number of line segments long, and each value is the number of track pieces
+    private int ourPiece = 0; //What track piece are we on in this line segment
+    private int ourSegment = 0; //What line segment are we on in this train line
+
+    //Position of a track piece and the next track piece
+    private float startXPos;
+    private float startYPos;
+    private float endXPos;
+    private float endYPos;
 
     // Start is called before the first frame update
     void Start()
@@ -42,12 +51,38 @@ public class TrainManager : MonoBehaviour
         x = transform.position.x;
         y = transform.position.y;
 
-
         //set start and cur target
         curSegment = lineInfos[myLine].LineSegments[0];
 
         curStart = curSegment.lineRenderer.GetPosition(0+curHalf);
         curTarget = curSegment.lineRenderer.GetPosition(1+curHalf);
+
+        SpriteRenderer SR = this.gameObject.GetComponent<SpriteRenderer>();
+        switch (myLine)
+        {
+            case 0:
+                SR.color = Color.yellow;
+                break;
+            case 1:
+                SR.color = Color.red;
+                break;
+            case 2:
+                SR.color = Color.blue;
+                break;
+            case 3:
+                SR.color = Color.cyan;
+                break;
+            case 4:
+                SR.color = Color.green;
+                break;
+            case 5:
+                SR.color = Color.magenta;
+                break;
+            case 6:
+                SR.color = Color.white;
+                break;
+
+        }
     }
 
     // Update is called once per frame

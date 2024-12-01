@@ -17,6 +17,8 @@ public class StationSpawnManager : MonoBehaviour
     public GameObject eye;
     public GameObject pentagon;
 
+    public GameObject map;
+
     private List<GameObject> stations;
 
     [Header("Variables")]
@@ -207,10 +209,10 @@ public class StationSpawnManager : MonoBehaviour
             
         }
         var curStation = Instantiate(station, new Vector3(xPos, yPos, -1), Quaternion.identity);
-        //var stationF = curStation.GetComponent<StationCollideWater>();
-        //stationF.WaterCollide(curStation.GetComponent<PolygonCollider2D>());
-
-        if (StationCollideWater.waterCollide){
+        var stationF = curStation.GetComponent<StationCollideWater>();
+        
+        //fail spawn when station is on water
+        if (stationF.WaterCollide(curStation.GetComponent<PolygonCollider2D>(), map.GetComponent<PolygonCollider2D>(), new Vector3(curStation.transform.position.x, curStation.transform.position.y))){
             //Debug.Log("Water Spawn");
             Destroy(curStation);
             StationCollideWater.waterCollide = false;
@@ -220,5 +222,4 @@ public class StationSpawnManager : MonoBehaviour
         stations.Add(curStation);
         return true;
     }
-
 }

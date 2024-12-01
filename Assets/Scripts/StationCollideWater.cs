@@ -13,18 +13,10 @@ public class StationCollideWater : MonoBehaviour
         }
     }
 
-    public void WaterCollide(Collider2D station){
+    public bool WaterCollide(Collider2D station, Collider2D water, Vector3 stationCenter){
 
-        List<Collider2D> list = new();
-        //Collider2D[] array = new Collider2D[1];
-
-        var collider = GetComponent<Collider2D>();
-        //Physics2D.OverlapPoint()
-
-        //Physics2D.OverlapCollider(collider, ,collider2Ds);
-
-        if (station.gameObject.CompareTag("Water")){
-            waterCollide = true;
-        }   
+        Vector3 waterClosest = water.ClosestPoint(stationCenter);
+        Vector3 stationClosest = station.ClosestPoint(waterClosest);
+        return waterClosest == stationClosest;
     }
 }

@@ -12,11 +12,17 @@ public class TrainCircleManager : MonoBehaviour
     public WeeklyUpgradeManager weeklyUpgradeManager;
     private Vector3 bottomCircleTargetPosition = new Vector3(0, -175, 0);
     private Vector3 targetPosition;
+    private Vector3 targetTunnelPosition;
     private bool InventoryOpen = false;
+
+    public RectTransform tunnelCircle;
+    public TextMeshProUGUI tunnelCountText;
     void Start()
     {
         trainCircle.anchoredPosition = new Vector2(0, -Screen.height * 0.75f);
         trainCircle.gameObject.SetActive(false);
+        tunnelCircle.anchoredPosition = new Vector2(200, -Screen.height * 0.75f);
+        tunnelCircle.gameObject.SetActive(false);
         bottomCircleButton.onClick.AddListener(OnBottomCircleClicked);
     }
 
@@ -25,6 +31,7 @@ public class TrainCircleManager : MonoBehaviour
         if (weeklyUpgradeManager != null)
         {
             UpdateTrainCount(weeklyUpgradeManager.trainCount);
+            UpdateTunnelCount(weeklyUpgradeManager.tunnelCount);
         }
     }
 
@@ -33,18 +40,25 @@ public class TrainCircleManager : MonoBehaviour
 
     if (InventoryOpen == false)
     {
+            tunnelCircle.gameObject.SetActive(true);
             trainCircle.gameObject.SetActive(true);
             targetPosition = new Vector3(0, -240, 0);
+            targetTunnelPosition = new Vector3(200, -240, 0);
             bottomCircleTargetPosition = new Vector3(0, -175, 0);
             StartCoroutine(MoveTrainCircle());
             InventoryOpen = true;
         } else
         {
+            targetTunnelPosition = new Vector3(200, -323, 0);
             targetPosition = new Vector3(0, -323, 0);
             bottomCircleTargetPosition = new Vector3(0, -250, 0);
             StartCoroutine(MoveTrainCircleDown());
             InventoryOpen = false;
         }
+    }
+    void UpdateTunnelCount(int count)
+    {
+       tunnelCountText.text = count.ToString();
     }
 
     void UpdateTrainCount(int count)
@@ -59,6 +73,8 @@ public class TrainCircleManager : MonoBehaviour
         Vector3 targetTrainPosition = new Vector3(0, -240, 0);
         Vector3 startBottomPosition = bottomCircle.transform.localPosition;
         Vector3 targetBottomPosition = bottomCircleTargetPosition;
+        Vector3 startTunnelPosition = tunnelCircle.transform.localPosition;
+        Vector3 targetTunnelPosition = new Vector3(200, -240, 0);
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
@@ -66,10 +82,12 @@ public class TrainCircleManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
             trainCircle.transform.localPosition = Vector3.Lerp(startTrainPosition, targetTrainPosition, t);
+            tunnelCircle.transform.localPosition = Vector3.Lerp(startTunnelPosition, targetTunnelPosition, t);
             bottomCircle.transform.localPosition = Vector3.Lerp(startBottomPosition, targetBottomPosition, t);
             yield return null;
         }
         trainCircle.transform.localPosition = targetTrainPosition;
+        tunnelCircle.transform.localPosition = targetTunnelPosition;
         bottomCircle.transform.localPosition = targetBottomPosition;
     }
 
@@ -78,6 +96,8 @@ public class TrainCircleManager : MonoBehaviour
         float duration = 0.5f;
         Vector3 startTrainPosition = trainCircle.transform.localPosition;
         Vector3 targetTrainPosition = new Vector3(0, -323, 0);
+        Vector3 startTunnelPosition = tunnelCircle.transform.localPosition;
+        Vector3 targetTunnelPosition = new Vector3(200, -323, 0);
         Vector3 startBottomPosition = bottomCircle.transform.localPosition;
         Vector3 targetBottomPosition = bottomCircleTargetPosition;
         float elapsedTime = 0f;
@@ -87,11 +107,14 @@ public class TrainCircleManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
             trainCircle.transform.localPosition = Vector3.Lerp(startTrainPosition, targetTrainPosition, t);
+            tunnelCircle.transform.localPosition = Vector3.Lerp(startTunnelPosition, targetTunnelPosition, t);
             bottomCircle.transform.localPosition = Vector3.Lerp(startBottomPosition, targetBottomPosition, t);
             yield return null;
         }
         trainCircle.transform.localPosition = targetTrainPosition;
+        tunnelCircle.transform.localPosition = targetTunnelPosition;
         bottomCircle.transform.localPosition = targetBottomPosition;
         trainCircle.gameObject.SetActive(false);
+        tunnelCircle.gameObject.SetActive(false);
     }
 }

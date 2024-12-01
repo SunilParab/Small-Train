@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 69505426832204591}
   - component: {fileID: 895453828244648667}
   - component: {fileID: 175355356061046621}
+  - component: {fileID: 8065730402727991937}
   m_Layer: 0
   m_Name: TrainStationManager
   m_TagString: Untagged
@@ -79,7 +80,31 @@ MonoBehaviour:
   endx: 0
   endy: 0
   making: 0
-  lineSegments: []
-  segment: {fileID: 7748952813244632066, guid: 7ad253e5d5bb23e41af915a6c9b2d76b, type: 3}
-  lineHolder: {fileID: 0}
+  lineHolder: {fileID: 4307126451031699490, guid: b10867a9425a45e46a71a107245ad2a6, type: 3}
   segLength: 0.5
+  train: {fileID: 2735024215327003098, guid: e7b9f61f5b29ff943a303440ac2bac5c, type: 3}
+  lineScript: {fileID: 0}
+  startStation: {fileID: 0}
+  endStation: {fileID: 0}
+--- !u!114 &8065730402727991937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132863958245623534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a3720889e209a743b28c608def78d6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  availableLines: 3
+  TSegment: {fileID: 9078661265080835869, guid: 469ba934b1c109f45bf8f663da19a7ee, type: 3}

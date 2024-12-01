@@ -141,7 +141,7 @@ public class StationSpawnManager : MonoBehaviour
                     if (xPos < stations[i].transform.position.x + range && xPos > stations[i].transform.position.x - range &&
                         yPos < stations[i].transform.position.y + range && yPos > stations[i].transform.position.y - range)
                     {
-                        Debug.Log("Failed Spawn");
+                        //Debug.Log("Failed Spawn");
                         clearToSpawn = false;
                     }
 
@@ -222,5 +222,4 @@ public class StationSpawnManager : MonoBehaviour
         stations.Add(curStation);
         return true;
     }
-
 }

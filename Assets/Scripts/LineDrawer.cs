@@ -15,23 +15,41 @@ public class LineDrawer : MonoBehaviour
     public float endx;
     public float endy;
     public bool making;
-    public List<GameObject> lineSegments;
-    public GameObject segment;
+    GameObject segment; //Current segment
     public GameObject lineHolder;
+
+    float midx;
+    float midy;
+
     public float segLength = 0.5f;
     bool snapped;
+
+    //For instantiating the train on the line
+    public GameObject train;
+    public LineList lineScript;
+    private int ourLine = 0;
 
     int startCount;
     int endCount;
 
-    // Lets the Line Draer know if its making a new Train Line
+    // Lets the Line Drawer know if its making a new Train Line
     private int targetLine;
+    private bool isStart;
+
+    //Passes these to the segment info
+    public GameObject startStation;
+    public GameObject endStation;
 
     public static LineDrawer reference;
 
-    void Awake()
+    private void Awake()
     {
         reference = this;
+    }
+
+    private void Start()
+    {
+        lineScript = LineList.reference;
     }
 
     // Update is called once per frame
@@ -42,24 +60,23 @@ public class LineDrawer : MonoBehaviour
 
             if (Input.GetMouseButtonUp(0)) {
                 making = false;
-                if (!snapped) { //Clear out linelist of old segments
-                    for (int i = lineSegments.Count - 1; i >= 0; i--) {
-                        Destroy(lineSegments[i]);
-                        lineSegments.RemoveAt(i);
-                    }
+                if (!snapped) { //Clear out old segment
+                    Destroy(segment);
                 } else { //Actually make line                   
-                    LineMake();
+                    //If we're making a new line, make a new train on this new line
+                    if (targetLine == -1)
+                    {
+                        ourLine = TrainReadyMake();
+                    }
+                    LineMake(ourLine);
                 }
                 return;
             }
 
-            //Clear out linelist of old segments
-            for (int i = lineSegments.Count - 1; i >= 0; i--) {
-                Destroy(lineSegments[i]);
-                lineSegments.RemoveAt(i);
-            }
+            //Clear out old segment
+            Destroy(segment);
 
-            if (!snapped) { //Find endpoitn
+            if (!snapped) { //Find endpoint
                 Vector2 mousePos = Input.mousePosition;
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
                 endx = Mathf.Round(mousePos.x);
@@ -206,11 +223,6 @@ public class LineDrawer : MonoBehaviour
             int counter = 0;
 
             while (firstHalf && (curx != endx || cury != endy) && counter < 100) {
-                var curSeg = Instantiate(segment,new Vector3(curx+offsetx,cury+offsety,0), new Quaternion());
-
-                //Set curSeg angle
-
-                lineSegments.Add(curSeg);
 
                 switch (firstAngle) {
                     case 0:
@@ -254,6 +266,9 @@ public class LineDrawer : MonoBehaviour
                 counter++;
             }
 
+            midx = curx;
+            midy = cury;
+
             switch (endAngle) {
                 case 0:
                     offsetx = segLength / 2;
@@ -288,11 +303,6 @@ public class LineDrawer : MonoBehaviour
 
             counter = 0;
             while ((curx != endx || cury != endy) && counter < 100) {
-                var curSeg = Instantiate(segment,new Vector3(curx+offsetx,cury+offsety,0), new Quaternion());
-
-                //To-Do Set curSeg rotation angle here
-
-                lineSegments.Add(curSeg);
 
                 switch (endAngle) {
                     case 0:
@@ -327,41 +337,53 @@ public class LineDrawer : MonoBehaviour
                 counter++;
             }
 
+            segment = Instantiate(lineHolder);
+            var segInfo = segment.GetComponent<SegmentInfo>();
+            Vector3[] linePoints = new Vector3[3];
+            linePoints[0] = new Vector3(startx,starty,0);
+            linePoints[1] = new Vector3(midx,midy,0);
+            linePoints[2] = new Vector3(endx,endy,0);
+            segInfo.lineRenderer.SetPositions(linePoints);
+
         }
 
     }
 
-    public void Activate(int targetLine) {
-        Vector2 mousePos = Input.mousePosition;
+    public void Activate(int targetLine, bool isStart, GameObject startStation) {
+        /*Vector2 mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
         startx = Mathf.Round(mousePos.x);
-        starty = Mathf.Round(mousePos.y);
+        starty = Mathf.Round(mousePos.y);*/
+        startx = startStation.transform.position.x;
+        starty = startStation.transform.position.y;
+
         making = true;
 
         this.targetLine = targetLine;
+        this.isStart = isStart;
+        this.startStation = startStation;
     }
 
     public void Snap(GameObject target) {
         snapped = true;
         endx = target.transform.position.x;
         endy = target.transform.position.y;
+        endStation = target;
     }
 
     public void UnSnap() {
         snapped = false;
+        endStation = null;
     }
 
-    void LineMake() {
+    void LineMake(int lineInfoArrayIndex) {
 
-        //Clear out linelist of old segments
-        for (int i = lineSegments.Count - 1; i >= 0; i--) {
-            Destroy(lineSegments[i]);
-            lineSegments.RemoveAt(i);
-        }
+        //Clear out old segment
+        Destroy(segment);
 
         var holder = Instantiate(lineHolder);
-        var holderInfo = holder.GetComponent<LineInfo>();
+        var holderInfo = holder.GetComponent<SegmentInfo>();
                     
 
         //Calculate angle
@@ -504,11 +526,6 @@ public class LineDrawer : MonoBehaviour
         int counter = 0;
 
         while (firstHalf && (curx != endx || cury != endy) && counter < 100) {
-            var curSeg = Instantiate(segment,new Vector3(curx+offsetx,cury+offsety,0), new Quaternion());
-
-            //Set curSeg angle
-
-            lineSegments.Add(curSeg);
 
             switch (firstAngle) {
                 case 0:
@@ -552,6 +569,9 @@ public class LineDrawer : MonoBehaviour
             counter++;
         }
 
+        midx = curx;
+        midy = cury;
+
         startCount = counter;
 
         switch (endAngle) {
@@ -588,11 +608,6 @@ public class LineDrawer : MonoBehaviour
 
         counter = 0;
         while ((curx != endx || cury != endy) && counter < 100) {
-            var curSeg = Instantiate(segment,new Vector3(curx+offsetx,cury+offsety,0), new Quaternion());
-
-            //To-Do Set curSeg rotation angle here
-
-            lineSegments.Add(curSeg);
 
             switch (endAngle) {
                 case 0:
@@ -635,13 +650,62 @@ public class LineDrawer : MonoBehaviour
         holderInfo.endAngle = endAngle;
         holderInfo.startCount = startCount;
         holderInfo.endCount = endCount;
-        for (int i = lineSegments.Count - 1; i >= 0; i--) {
-            lineSegments[i].transform.SetParent(holder.transform);
-            lineSegments.RemoveAt(i);
+
+        //Make the line segment renderere
+
+        if (isStart && targetLine != -1) { //Flip list is made from a start T
+            
+            Vector3[] linePoints = new Vector3[3];
+            linePoints[2] = new Vector3(startx,starty,0);
+            linePoints[1] = new Vector3(midx,midy,0);
+            linePoints[0] = new Vector3(endx,endy,0);
+            holderInfo.lineRenderer.SetPositions(linePoints);
+
+            holderInfo.startStation = endStation;
+            holderInfo.endStation = startStation;
+        } else {
+            Vector3[] linePoints = new Vector3[3];
+            linePoints[0] = new Vector3(startx,starty,0);
+            linePoints[1] = new Vector3(midx,midy,0);
+            linePoints[2] = new Vector3(endx,endy,0);
+            holderInfo.lineRenderer.SetPositions(linePoints);
+
+            holderInfo.startStation = startStation;
+            holderInfo.endStation = endStation;
         }
 
-        TrainList.reference.addSegment(holderInfo,targetLine);
+        LineList.reference.addSegment(holderInfo,targetLine,isStart);
 
+        //lineInfos is our array of lineInfos
+        if (lineInfoArrayIndex != -1)
+        {
+            LineInfo[] lineInfos = lineScript.lineList;
+            float xPos = lineInfos[lineInfoArrayIndex].LineSegments[0].lineRenderer.GetPosition(0).x;
+            float yPos = lineInfos[lineInfoArrayIndex].LineSegments[0].lineRenderer.GetPosition(0).y;
+            GameObject me = GameObject.Instantiate(train, new Vector2(xPos, yPos), Quaternion.identity);
+            me.GetComponent<TrainManager>().myLine = lineInfoArrayIndex;
+        }
+
+    }
+
+    int TrainReadyMake()
+    {
+
+        int thisLine = -1;
+
+        //lineInfos is our array of lineInfos
+        LineInfo[] lineInfos = lineScript.lineList;
+
+        for (int i = 0; i < lineScript.availableLines; i++) {
+            //if this lineInfo's list of line segments is empty...
+            if (lineInfos[i].LineSegments.Count == 0)
+            {
+                thisLine = i;
+                break;
+            }
+        }
+
+        return thisLine;
     }
 
 }

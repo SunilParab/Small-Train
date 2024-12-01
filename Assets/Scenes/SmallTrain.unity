@@ -1519,6 +1519,7 @@ MonoBehaviour:
   plus: {fileID: 8759835319379929105, guid: 3ef8ef5f6cc672f4cae9951743b21157, type: 3}
   eye: {fileID: 2674243341689348389, guid: b26a001e565728d4394d5f9c5f91d7c7, type: 3}
   pentagon: {fileID: 6274525582987846165, guid: 6bb0b51c1803ec64290006d216661878, type: 3}
+  map: {fileID: 715691830}
   spawnSpeed: 50
   rareProb: 0.9
   xRange: 0
@@ -2417,6 +2418,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3720889e209a743b28c608def78d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lineList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  availableLines: 3
   TSegment: {fileID: 9078661265080835869, guid: 469ba934b1c109f45bf8f663da19a7ee, type: 3}
 --- !u!114 &1812473467
 MonoBehaviour:
@@ -2437,10 +2447,12 @@ MonoBehaviour:
   endx: 0
   endy: 0
   making: 0
-  lineSegments: []
-  segment: {fileID: 7748952813244632066, guid: 7ad253e5d5bb23e41af915a6c9b2d76b, type: 3}
   lineHolder: {fileID: 4307126451031699490, guid: b10867a9425a45e46a71a107245ad2a6, type: 3}
   segLength: 0.5
+  train: {fileID: 2735024215327003098, guid: e7b9f61f5b29ff943a303440ac2bac5c, type: 3}
+  lineScript: {fileID: 0}
+  startStation: {fileID: 0}
+  endStation: {fileID: 0}
 --- !u!4 &1812473468
 Transform:
   m_ObjectHideFlags: 0

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class TrainManager : MonoBehaviour
@@ -13,13 +15,18 @@ public class TrainManager : MonoBehaviour
     public float x;
     public float y;
 
-    public float xDelta;
-    public float yDelta;
+    public float speed; //How much to move per second
+    float distance; //How far along current half-segment the train has moved
+    Vector3 curStart; //Start of current half-segment
+    Vector3 curTarget; //End of current half-segment
 
-    //Track piece indexes and % of the way between the two
-    private int segmentIndexStart;
-    private int segmentIndexEnd;
-    private float segmentPercentageCount = 0;
+    //Storing current position
+    SegmentInfo curSegment;
+    int curHalf;
+
+    bool reversed; //If the train is going backwards
+    bool goingToStop;
+
 
     //Iterating through all the segments in these arrays
     private LineInfo[] lineInfos;
@@ -40,105 +47,103 @@ public class TrainManager : MonoBehaviour
         lineScript = LineList.reference;
         lineInfos = lineScript.lineList;
 
-        //Count the total number of gameObjects in this line segment, then the next, and so on
-        segmentNum = new int[lineInfos[myLine].LineSegments.Count];
-        for (int i = 0; i < lineInfos[myLine].LineSegments.Count; i++)
-        {
-            segmentNum[i] = lineInfos[myLine].LineSegments[i].segments.Count;
-        }
-
-        x = this.transform.position.x;
-        y = this.transform.position.y;
+        x = transform.position.x;
+        y = transform.position.y;
 
         segmentIndexEnd = segmentIndexStart + 1;
 
-        // + lineInfos[myLine].LineSegments[0].segments[segmentIndexEnd].transform.parent.position.x;
-        startXPos = lineInfos[myLine].LineSegments[0].segments[segmentIndexStart].transform.position.x;
-        startYPos = lineInfos[myLine].LineSegments[0].segments[segmentIndexStart].transform.position.y;
-        endXPos = lineInfos[myLine].LineSegments[0].segments[segmentIndexEnd].transform.position.x;
-        endYPos = lineInfos[myLine].LineSegments[0].segments[segmentIndexEnd].transform.position.y;
+        //set start and cur target
+        curSegment = lineInfos[myLine].LineSegments[0];
 
-        xDelta = (endXPos - startXPos) / 10;
-        yDelta = (endYPos - startYPos) / 10;
+        curStart = curSegment.lineRenderer.GetPosition(0+curHalf);
+        curTarget = curSegment.lineRenderer.GetPosition(1+curHalf);
     }
 
     // Update is called once per frame
     void Update()
-    { 
-        updateSegmentNum();
+    {
 
-        x += xDelta * Time.deltaTime * 20;
-        y += yDelta * Time.deltaTime * 20;
+        distance += speed * Time.deltaTime;
 
-        this.transform.position = new Vector3(x, y, 0);
+        if (Mathf.Sqrt(Mathf.Pow(curTarget.y-curStart.y,2)+Mathf.Pow(curTarget.x-curStart.x,2)) < distance) {
+            distance -= Mathf.Sqrt(Mathf.Pow(curTarget.y-curStart.y,2)+Mathf.Pow(curTarget.x-curStart.x,2));
 
-        Debug.Log("\nx and y deltas: " + xDelta + " " + yDelta + 
-            "\nour track piece index: " + ourPiece +
-            "\nour segment index: " + ourSegment);
+            if (curHalf == 1) {
+                
+                var turningAround = false;
+                var curSegmentIndex = lineInfos[myLine].LineSegments.IndexOf(curSegment);
 
-        //If we're changing our x, base our segmentPercentageCount on the % of the way from startX to endX, else base it on Y
-        if (xDelta != 0) segmentPercentageCount += (x - startXPos) / (endXPos - startXPos);
-        else segmentPercentageCount += (y - startYPos) / (endYPos - startYPos);
-        //Vector2.Distance(transform.position, endPos)<.1f
+                //Check if its at the end of the line
+                if (reversed) {
+                    if (curSegmentIndex == 0) {
+                        reversed = false;
+                        turningAround = true;
+                    }
+                } else {
+                    if (lineInfos[myLine].LineSegments.Count - 1 == curSegmentIndex) {
+                        reversed = true;
+                        turningAround = true;
+                    }
+                }
 
-        //If segmentPercentageCount is >= 1, then go to the next gameObject segment. If we're at the end of this line segment,
-        //go to the next line segment. If we're out of segments, don't run this
-        if (segmentPercentageCount >= 1 && segmentIndexEnd < segmentNum[ourSegment] - 1)
-        {
-            segmentIndexStart++;
-            segmentIndexEnd++;
-            ourPiece++;
-
-            segmentPercentageCount = 0;
-
-            nextSegment();
+                //Get next segment
+                if (!turningAround) {
+                    if (reversed) {
+                        curSegment = lineInfos[myLine].LineSegments[curSegmentIndex-1];
+                    } else {
+                        curSegment = lineInfos[myLine].LineSegments[curSegmentIndex+1];
+                    }
+                }
 
 
+                curHalf = 0;
+            } else {
+                curHalf = 1;
+            }
 
+            if (!reversed) {
+                curStart = curSegment.lineRenderer.GetPosition(0+curHalf);
+                curTarget = curSegment.lineRenderer.GetPosition(1+curHalf);
+            } else {
+                curStart = curSegment.lineRenderer.GetPosition(2-curHalf);
+                curTarget = curSegment.lineRenderer.GetPosition(1-curHalf);
+            }
         }
-        else if (segmentPercentageCount >= 1 && ourPiece >= segmentNum.Length && ourSegment < lineInfos[myLine].LineSegments.Count)
-        {
-            ourPiece = 0;
-            segmentIndexStart = ourPiece;
-            segmentIndexEnd = ourPiece + 1;
-
-            segmentPercentageCount = 0;
-
-            ourSegment++;
-
-            nextSegment();
 
 
-        } 
+        //Move the train in the direction by _distance_ amount
+        var directionVector = Vector3.Normalize(curTarget - curStart);
+        transform.position = curStart + directionVector * distance;
+
     }
 
-    void nextSegment()
-    {
-        startXPos = lineInfos[myLine].LineSegments[ourSegment].segments[segmentIndexStart].transform.position.x;
-        startYPos = lineInfos[myLine].LineSegments[ourSegment].segments[segmentIndexStart].transform.position.y;
-        endXPos = lineInfos[myLine].LineSegments[ourSegment].segments[segmentIndexEnd].transform.position.x;
-        endYPos = lineInfos[myLine].LineSegments[ourSegment].segments[segmentIndexEnd].transform.position.y;
+    void nextSegment(int a)
+    {/*
+        float startXPos = lineInfos[myLine].LineSegments[0].segments[segmentIndexStart].transform.position.x;
+        float startYPos = lineInfos[myLine].LineSegments[0].segments[segmentIndexStart].transform.position.y;
+        float endXpos = lineInfos[myLine].LineSegments[0].segments[segmentIndexEnd].transform.position.x;
+        float endYpos = lineInfos[myLine].LineSegments[0].segments[segmentIndexEnd].transform.position.y;
 
-        xDelta = (endXPos - startXPos) / 10;
-        yDelta = (endYPos - startYPos) / 10;
+        xDelta = Mathf.Lerp(startXPos, endXpos, 0.1f);
+        yDelta = Mathf.Lerp(startYPos, endYpos, 0.1f);
 
-        ourPiece++;
+        */ourSegment++;
     }
 
-    void updateSegmentNum()
-    {
-        //Update the parameters of the train line if it is updated
-        segmentNum = new int[lineInfos[myLine].LineSegments.Count];
-        for (int i = 0; i < lineInfos[myLine].LineSegments.Count; i++)
-        {
-            segmentNum[i] = lineInfos[myLine].LineSegments[i].segments.Count;
-        }
+    void slowDown() {
+
     }
 
-    /*
-    int currentSegmentIndex
-    public void AddLineInfo(LineInfo lineInfo)
-    {
-        //append lineInfo to line array
-    }*/
+    void speedUp() {
+
+    }
+
+    void pickupPassengers() {
+
+    }
+
+    bool checkLineEnd() {
+        return false;
+    }
+
 }

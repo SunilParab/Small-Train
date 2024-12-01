@@ -27,6 +27,9 @@ public class StationSpawnManager : MonoBehaviour
     public int yRange;
     public int range = 3;
 
+    //map object
+    public GameObject map;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -201,24 +204,22 @@ public class StationSpawnManager : MonoBehaviour
             if (xPos < stations[i].transform.position.x + range && xPos > stations[i].transform.position.x - range &&
                 yPos < stations[i].transform.position.y + range && yPos > stations[i].transform.position.y - range)
             {
-                Debug.Log("Failed Spawn");
+                //Debug.Log("Failed Spawn");
                 return false;
             }
-            
         }
-        var curStation = Instantiate(station, new Vector3(xPos, yPos, -1), Quaternion.identity);
-        //var stationF = curStation.GetComponent<StationCollideWater>();
-        //stationF.WaterCollide(curStation.GetComponent<PolygonCollider2D>());
 
-        if (StationCollideWater.waterCollide){
-            Debug.Log("Water Spawn");
+        //fail spawn if collide with water
+        var curStation = Instantiate(station, new Vector3(xPos, yPos, 0), Quaternion.identity);
+        var waterScript = curStation.GetComponent<StationCollideWater>();
+
+        if (waterScript.IsCollidingWater(map.GetComponent<Collider2D>(), curStation.GetComponent<Collider2D>(), new Vector3(curStation.transform.position.x,curStation.transform.position.y,0))){
+            //Debug.Log("Water Spawn");
             Destroy(curStation);
-            StationCollideWater.waterCollide = false;
             return false;
         }
 
         stations.Add(curStation);
         return true;
     }
-
 }

@@ -23,22 +23,22 @@ public class LineInfo : ScriptableObject
 
         //Lines need to be stored as an object that contains the list and the T references
         Destroy(startT);
-        startT = MakeT(LineSegments[0].segments[0],true,LineSegments[0].startStation);
+        startT = MakeT(LineSegments[0].lineRenderer.GetPosition(0),true,LineSegments[0].startStation);
         Destroy(endT);
-        endT = MakeT(LineSegments.Last().segments.Last(),false,LineSegments.Last().endStation);
+        endT = MakeT(LineSegments.Last().lineRenderer.GetPosition(2),false,LineSegments.Last().endStation);
         //Go through the target line and generate T's
     }
 
-    GameObject MakeT(GameObject targetPiece, bool isStart, GameObject givenStation) {
+    GameObject MakeT(Vector3 targetPiece, bool isStart, GameObject givenStation) {
 
-        var curT = Instantiate(TSegment, targetPiece.gameObject.transform);
+        var curT = Instantiate(TSegment, targetPiece, Quaternion.identity);
 
         curT.GetComponent<TTrigger>().trainLine = trainLine;
         curT.GetComponent<TTrigger>().isStart = isStart;
         curT.GetComponent<TTrigger>().myStation = givenStation;
 
         if (isStart) {
-            curT.transform.RotateAround(curT.transform.position, targetPiece.transform.up, 180f);
+            curT.transform.RotateAround(curT.transform.position, Vector3.up, 180f);
         }
         return curT;
 

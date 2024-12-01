@@ -159,10 +159,10 @@ MonoBehaviour:
   endx: 0
   endy: 0
   making: 0
-  lineSegments: []
-  segment: {fileID: 7748952813244632066, guid: 7ad253e5d5bb23e41af915a6c9b2d76b, type: 3}
   lineHolder: {fileID: 4307126451031699490, guid: b10867a9425a45e46a71a107245ad2a6, type: 3}
   segLength: 0.5
+  train: {fileID: 2735024215327003098, guid: e7b9f61f5b29ff943a303440ac2bac5c, type: 3}
+  lineScript: {fileID: 0}
   startStation: {fileID: 0}
   endStation: {fileID: 0}
 --- !u!4 &677847871

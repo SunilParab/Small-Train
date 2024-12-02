@@ -662,7 +662,7 @@ public class LineDrawer : MonoBehaviour
                 lineColor = Color.red;
                 break;
             case 2:
-                lineColor = Color.green;
+                lineColor = Color.blue;
                 break;
             case 3:
                 lineColor = Color.cyan;

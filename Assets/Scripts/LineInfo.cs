@@ -7,6 +7,7 @@ public class LineInfo : ScriptableObject
 {
     public int trainLine;
     public List<SegmentInfo> LineSegments;
+    public List<GameObject> StationsInLine;
     public GameObject TSegment;
 
     public GameObject startT;

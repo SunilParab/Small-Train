@@ -10,8 +10,14 @@ public class TrainManager : MonoBehaviour
 
     public LineList lineScript;
 
+    //what line the train is in
     public int myLine;
 
+    //what station the train arrived at
+    public int myStation;
+    
+    //content of train as string
+    public List<string> insideTrain = new();
     public float x;
     public float y;
 
@@ -121,19 +127,36 @@ public class TrainManager : MonoBehaviour
         */ourSegment++;
     }
 
-    void slowDown() {
+    void SlowDown() {
 
     }
 
-    void speedUp() {
+    void SpeedUp() {
 
     }
 
-    void pickupPassengers() {
+    void PickupPassengers() {
+        //if train arrives and has enough space:
+        //if (insideTrain.Add.Count == 6) that means its full
 
+        //get list of passenger shape as string
+        var passengerList = LineList.reference.lineList[myLine].StationsInLine[myStation]
+        .GetComponent<PassengerSpawn>().passengersInStation;
+
+        //get station shape as string
+        var station = LineList.reference.lineList[myLine].StationsInLine[myStation]
+        .GetComponent<PassengerSpawn>().stationString;
+
+        for (int i = 0; i < passengerList.Count; i ++)
+        {
+            if (passengerList[i].Equals(station)){
+                
+                insideTrain.Add(passengerList[i]);
+            }
+        }
     }
 
-    bool checkLineEnd() {
+    bool CheckLineEnd() {
         return false;
     }
 

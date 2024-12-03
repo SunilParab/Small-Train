@@ -9,6 +9,9 @@ public class TrainCircleManager : MonoBehaviour
     public RectTransform trainCircle;
     public TextMeshProUGUI trainCountText;
     public GameObject bottomCircle;
+    public GameObject RedLineCircle;
+    public GameObject YellowLineCircle;
+    public GameObject BlueLineCircle;
     public WeeklyUpgradeManager weeklyUpgradeManager;
     private Vector3 bottomCircleTargetPosition = new Vector3(0, -175, 0);
     private Vector3 targetPosition;

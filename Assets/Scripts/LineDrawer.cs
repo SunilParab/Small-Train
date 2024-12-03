@@ -40,6 +40,9 @@ public class LineDrawer : MonoBehaviour
     public GameObject startStation;
     public GameObject endStation;
 
+    //Coloring
+    private Color lineColor;
+
     public static LineDrawer reference;
 
     private void Awake()
@@ -82,6 +85,44 @@ public class LineDrawer : MonoBehaviour
                 endx = Mathf.Round(mousePos.x);
                 endy = Mathf.Round(mousePos.y);
             }
+
+            //Create new segment
+            segment = Instantiate(lineHolder);
+            var segInfo = segment.GetComponent<SegmentInfo>();
+
+
+
+            int drawingLineColor = TrainReadyMake();
+
+
+            switch (drawingLineColor)
+            {
+                case 0:
+                    lineColor = Color.yellow;
+                    break;
+                case 1:
+                    lineColor = Color.red;
+                    break;
+                case 2:
+                    lineColor = Color.blue;
+                    break;
+                case 3:
+                    lineColor = Color.cyan;
+                    break;
+                case 4:
+                    lineColor = Color.green;
+                    break;
+                case 5:
+                    lineColor = Color.magenta;
+                    break;
+                case 6:
+                    lineColor = Color.white;
+                    break;
+            }
+            
+            segInfo.lineRenderer.startColor = lineColor;
+            segInfo.lineRenderer.endColor = lineColor;
+
 
             //Calculate angle
             float angle = Mathf.Atan2((endy-starty),(endx-startx)) * Mathf.Rad2Deg;
@@ -337,8 +378,6 @@ public class LineDrawer : MonoBehaviour
                 counter++;
             }
 
-            segment = Instantiate(lineHolder);
-            var segInfo = segment.GetComponent<SegmentInfo>();
             Vector3[] linePoints = new Vector3[3];
             linePoints[0] = new Vector3(startx,starty,0);
             linePoints[1] = new Vector3(midx,midy,0);
@@ -363,6 +402,33 @@ public class LineDrawer : MonoBehaviour
         this.targetLine = targetLine;
         this.isStart = isStart;
         this.startStation = startStation;
+
+        int drawingLineColor = targetLine;
+
+        switch (drawingLineColor)
+        {
+            case 0:
+                lineColor = Color.yellow;
+                break;
+            case 1:
+                lineColor = Color.red;
+                break;
+            case 2:
+                lineColor = Color.blue;
+                break;
+            case 3:
+                lineColor = Color.cyan;
+                break;
+            case 4:
+                lineColor = Color.green;
+                break;
+            case 5:
+                lineColor = Color.magenta;
+                break;
+            case 6:
+                lineColor = Color.white;
+                break;
+        }
     }
 
     public void Snap(GameObject target) {

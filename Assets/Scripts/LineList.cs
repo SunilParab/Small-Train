@@ -61,6 +61,9 @@ public class LineList : MonoBehaviour
             lineList[targetLine].addSegment(segment,isStart);
         }
 
+        segment.myLine = targetLine;
+        segment.PutStationsInList(LineList.reference.lineList[targetLine].StationsInLine);
+
         //Lines need to be stored as an object that contains the list and the T references
         /*Destroy(segment.startT);
         segment.startT = MakeT(segment.segments[0],targetLine,true);

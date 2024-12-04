@@ -13,6 +13,7 @@ public class TrainCircleManager : MonoBehaviour
     public GameObject YellowLineCircle;
     public GameObject BlueLineCircle;
     public WeeklyUpgradeManager weeklyUpgradeManager;
+  //  public LineList lineList;
     private Vector3 bottomCircleTargetPosition = new Vector3(0, -175, 0);
     private Vector3 targetPosition;
     private Vector3 targetTunnelPosition;
@@ -22,6 +23,7 @@ public class TrainCircleManager : MonoBehaviour
     public TextMeshProUGUI tunnelCountText;
     void Start()
     {
+       // Transform scaleredcircle = RedLineCircle.GetComponent<Transform>();
         trainCircle.anchoredPosition = new Vector2(0, -Screen.height * 0.75f);
         trainCircle.gameObject.SetActive(false);
         tunnelCircle.anchoredPosition = new Vector2(200, -Screen.height * 0.75f);
@@ -31,6 +33,11 @@ public class TrainCircleManager : MonoBehaviour
 
     void Update()
     {
+       // if (LineList.lineList[0].LineSegments.Count != 0)
+       // {
+      //      RedLineCircle.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+      //  }
+    //    RedLineCircle.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
         if (weeklyUpgradeManager != null)
         {
             UpdateTrainCount(weeklyUpgradeManager.trainCount);

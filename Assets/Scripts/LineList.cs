@@ -21,6 +21,7 @@ public class LineList : MonoBehaviour
             lineList[i] = ScriptableObject.CreateInstance<LineInfo>();
             lineList[i].trainLine = i;
             lineList[i].LineSegments = new List<SegmentInfo>();
+            lineList[i].StationsInLine = new List<GameObject>();
             lineList[i].TSegment = this.TSegment;
         }
     }
@@ -61,8 +62,9 @@ public class LineList : MonoBehaviour
             lineList[targetLine].addSegment(segment,isStart);
         }
 
+        //add stations of this line into list
         segment.myLine = targetLine;
-        segment.PutStationsInList(LineList.reference.lineList[targetLine].StationsInLine);
+        segment.PutStationsInList(lineList[targetLine].StationsInLine);
 
         //Lines need to be stored as an object that contains the list and the T references
         /*Destroy(segment.startT);

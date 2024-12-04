@@ -11,7 +11,7 @@ public class CameraZoom : MonoBehaviour
     public float zoomSpeed;
 
 
-    public bool haveToZoom;
+    public static bool haveToZoom;
     public float haveToZoomDur;
     public float haveToZoomDurBase;
 

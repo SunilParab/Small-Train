@@ -7,20 +7,20 @@ public class PassengerSpawn : MonoBehaviour
 {
     //give this (script) list to all the spawned stations
     public List<String> passengersInStation = new();
-    public List<GameObject> stationsInLine = new();
+    //public List<GameObject> stationsInLine = new();
 
-    public List<int> linesAttached = new();
-
+    //lines the station is connected to 
+    public List<int> connectedLines = new();
     
 
     //passenger variables
-    private int passengerNum = UnityEngine.Random.Range(0,10);
+    private int passengerNum;
     private String passengerString;
     public String stationString; //will reference stationString in stations scripts
 
 
     //timer
-    public float passengerSpawnTime = UnityEngine.Random.Range(5,21); 
+    public float passengerSpawnTime;
     private float timer;   
 
     //segment reference stuff
@@ -32,6 +32,9 @@ public class PassengerSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        passengerNum = UnityEngine.Random.Range(0,10);
+        passengerSpawnTime = UnityEngine.Random.Range(5,21); 
+
         //instantiate passenger shape
         RandomizePassengerShape();
 
@@ -44,7 +47,7 @@ public class PassengerSpawn : MonoBehaviour
     {   
         //change later for optimization
         //stationsInLine = 
-        curSegment = lineInfos[myLine].LineSegments[0];
+        //curSegment = lineInfos[myLine].LineSegments[0];
 
 
         if (Time.timeScale > 0)
@@ -57,7 +60,7 @@ public class PassengerSpawn : MonoBehaviour
                 //they cannot be the same shape as the station
                 if (!passengerString.Equals(stationString)){
                     //add passenger
-                    //AddPassenger();
+                    AddPassenger(passengerString);
 
                     //reset timer
                     passengerSpawnTime = UnityEngine.Random.Range(5,21); 
@@ -70,6 +73,14 @@ public class PassengerSpawn : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void AddPassenger(string newPassenger){
+
+        //check if station is full...
+
+        //add passenger
+        passengersInStation.Add(newPassenger);
     }
 
     public void RandomizePassengerShape(){

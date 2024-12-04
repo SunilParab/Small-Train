@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2375636367541126838}
   - component: {fileID: -6071505397325757610}
   - component: {fileID: 6572625716682311288}
+  - component: {fileID: 1083900923547201584}
   m_Layer: 0
   m_Name: RhombusStation
   m_TagString: Untagged
@@ -282,3 +283,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9e6b88172168e74394af351b7e815ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1083900923547201584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098804374732146268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5083e9b0343ebd54d93d70a72b5d843f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passengersInStation: []
+  stationsInLine: []
+  linesAttached: 
+  stationString: 
+  passengerSpawnTime: 0
+  myLine: 0

@@ -27,6 +27,7 @@ public class StationSpawnManager : MonoBehaviour
     public int xRange;
     public int yRange;
     public int range = 3;
+    public int zoomCount = 0;
 
     public String stationString;
 
@@ -140,6 +141,20 @@ public class StationSpawnManager : MonoBehaviour
             {   
                 
                 spawned = SpawnStation(station, xPos, yPos);
+
+                if (spawned){
+                    //camera zoom
+                    CameraZoom.haveToZoom = true;
+                    zoomCount += 1;
+                    print("run thing");
+
+                    if (zoomCount == 10){
+                        xRange += 1;
+                        yRange += 1;
+                        zoomCount = 0;
+                    }
+                }
+
                 xPos = UnityEngine.Random.Range(-xRange, xRange);
                 yPos = UnityEngine.Random.Range(-yRange, yRange);
                 tries++;

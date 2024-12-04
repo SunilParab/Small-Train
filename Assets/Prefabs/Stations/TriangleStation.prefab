@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5485582508106032446}
   - component: {fileID: -3455655267199814314}
   - component: {fileID: 7704949115641712566}
+  - component: {fileID: -4150827837717465949}
   m_Layer: 0
   m_Name: TriangleStation
   m_TagString: Untagged
@@ -330,3 +331,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9e6b88172168e74394af351b7e815ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4150827837717465949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7468823198725206100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5083e9b0343ebd54d93d70a72b5d843f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passengersInStation: []
+  stationsInLine: []
+  linesAttached: 
+  stationString: 
+  passengerSpawnTime: 0
+  myLine: 0

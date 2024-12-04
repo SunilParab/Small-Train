@@ -12,6 +12,7 @@ public class CameraZoom : MonoBehaviour
 
 
     public static bool haveToZoom;
+    public static bool stopZoom;
     public float haveToZoomDur;
     public float haveToZoomDurBase;
 
@@ -37,6 +38,7 @@ public class CameraZoom : MonoBehaviour
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, newY, -10);
             if (zoom >= maxZoom){
                 zoom = maxZoom;
+                stopZoom = true;
             }
         }
         

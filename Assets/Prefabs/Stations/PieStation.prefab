@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4820866570442984321}
   - component: {fileID: -3264749207783413254}
   - component: {fileID: -9108131457266155018}
+  - component: {fileID: 8982024305388945188}
   m_Layer: 0
   m_Name: PieStation
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 0f59c92cdbccead41bbf6b1aa2df075f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -335,3 +336,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9e6b88172168e74394af351b7e815ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8982024305388945188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303606978826350699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5083e9b0343ebd54d93d70a72b5d843f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passengersInStation: []
+  connectedLines: 
+  stationString: 
+  passengerSpawnTime: 0
+  myLine: 0

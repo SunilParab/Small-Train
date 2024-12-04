@@ -651,8 +651,36 @@ public class LineDrawer : MonoBehaviour
         holderInfo.startCount = startCount;
         holderInfo.endCount = endCount;
 
-        //Make the line segment renderere
 
+        Color lineColor = Color.yellow; // variable to set the color
+        switch (lineInfoArrayIndex)
+        {
+            case 0:
+                lineColor = Color.yellow;
+                break;
+            case 1:
+                lineColor = Color.red;
+                break;
+            case 2:
+                lineColor = Color.green;
+                break;
+            case 3:
+                lineColor = Color.cyan;
+                break;
+            case 4:
+                lineColor = Color.green;
+                break;
+            case 5:
+                lineColor = Color.magenta;
+                break;
+            case 6:
+                lineColor = Color.white;
+                break;
+        }
+        holderInfo.lineRenderer.startColor = lineColor;
+        holderInfo.lineRenderer.endColor = lineColor;
+
+        //Make the line segment renderer
         if (isStart && targetLine != -1) { //Flip list is made from a start T
             
             Vector3[] linePoints = new Vector3[3];
@@ -673,6 +701,7 @@ public class LineDrawer : MonoBehaviour
             holderInfo.startStation = startStation;
             holderInfo.endStation = endStation;
         }
+
 
         LineList.reference.addSegment(holderInfo,targetLine,isStart);
 

@@ -121,9 +121,21 @@ public class TrainManager : MonoBehaviour
                 //Get next segment
                 if (!turningAround) {
                     if (reversed) {
+
+                        //choose station
+                        myStation = LineList.reference.lineList[myLine].StationsInLine.IndexOf(curSegment.GetComponent<SegmentInfo>().startStation);
                         curSegment = lineInfos[myLine].LineSegments[curSegmentIndex-1];
+
+                        //grab passengers
+                        PickupPassengers();
                     } else {
+
+                        //choose station
+                        myStation = LineList.reference.lineList[myLine].StationsInLine.IndexOf(curSegment.GetComponent<SegmentInfo>().endStation);
                         curSegment = lineInfos[myLine].LineSegments[curSegmentIndex+1];
+
+                        //grab passengers
+                        PickupPassengers();
                     }
                 }
 
@@ -174,25 +186,67 @@ public class TrainManager : MonoBehaviour
         //if train arrives and has enough space:
         //if (insideTrain.Add.Count == 6) that means its full
 
+        
+
+        //get station its reaching as GameObject
+        var station = LineList.reference.lineList[myLine].StationsInLine[myStation];
+
+        //myStation does not exist right now!!!
+
+        //get station shape as string
+        var stationString = station.GetComponent<PassengerSpawn>().stationString;
+
+        //check if the line has a station that is connected to a 
+        //different line that has passenger's shaped station
+        //or
+        //if connectedLines[i] has stations[j] with (passengrList[k] == station):
+        
+        //loop for lines
+        for (int i = 0; i < station.GetComponent<PassengerSpawn>().connectedLines.Count; i++){
+            
+            //loop for stations in that line
+            for (int j = 0; j < LineList.reference.lineList[i].StationsInLine.Count; j ++){
+                
+                //loop for passengers in that station in that line
+                for (int k = 0; k < PassengerListInStationInLine(j,i).Count; k ++){
+                    if (PassengerListInStationInLine(j,i)[k].Equals(stationString)){
+                        
+                        insideTrain.Add(PassengerListInStationInLine(i,j)[k]);
+                        return;
+                    }
+                }
+            }
+        }
+
+        /*
         //get list of passenger shape as string
         var passengerList = LineList.reference.lineList[myLine].StationsInLine[myStation]
         .GetComponent<PassengerSpawn>().passengersInStation;
 
-        //get station shape as string
-        var station = LineList.reference.lineList[myLine].StationsInLine[myStation]
-        .GetComponent<PassengerSpawn>().stationString;
-
+        /*
+        //check if the line has passenger's shaped station
         for (int i = 0; i < passengerList.Count; i ++)
         {
-            if (passengerList[i].Equals(station)){
+            if (passengerList[i].Equals(stationString)){
                 
                 insideTrain.Add(passengerList[i]);
             }
         }
+        */
     }
 
     bool CheckLineEnd() {
         return false;
+    }
+
+
+    //return list of passengers in specific station in specific line
+    public List<string> PassengerListInStationInLine(int chooseStation, int chooseLine){
+        
+        var list = LineList.reference.lineList[chooseLine].StationsInLine[chooseStation]
+        .GetComponent<PassengerSpawn>().passengersInStation;
+
+        return list;
     }
 
 }

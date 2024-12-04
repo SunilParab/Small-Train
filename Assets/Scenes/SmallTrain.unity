@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weekCount: 0
-  weekDuration: 10
+  weekDuration: 9999
   upgradeScreen: {fileID: 855820082}
   weekText: {fileID: 1706291427}
   locomotiveButton: {fileID: 1066680882}
@@ -941,11 +941,13 @@ MonoBehaviour:
   plus: {fileID: 8759835319379929105, guid: 3ef8ef5f6cc672f4cae9951743b21157, type: 3}
   eye: {fileID: 2674243341689348389, guid: b26a001e565728d4394d5f9c5f91d7c7, type: 3}
   pentagon: {fileID: 6274525582987846165, guid: 6bb0b51c1803ec64290006d216661878, type: 3}
-  spawnSpeed: 50
+  spawnSpeed: 550
   rareProb: 0.9
   xRange: 0
   yRange: 0
   range: 3
+  zoomCount: 0
+  stationString: 
   map: {fileID: 715691830}
 --- !u!4 &1277160607
 Transform:
@@ -1203,10 +1205,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseZoom: 4
   maxZoom: 7
-  zoomSpeed: 24
-  haveToZoom: 0
+  zoomSpeed: 1
   haveToZoomDur: 0
-  haveToZoomDurBase: 2
+  haveToZoomDurBase: 6
 --- !u!1 &1487523842
 GameObject:
   m_ObjectHideFlags: 0

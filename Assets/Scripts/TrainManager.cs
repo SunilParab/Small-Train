@@ -37,6 +37,9 @@ public class TrainManager : MonoBehaviour
 
     //Iterating through all the segments in these arrays
     private LineInfo[] lineInfos;
+
+
+    //Remove all of these useless variables at some point
     private int[] segmentNum; //Stores an array that is the number of line segments long, and each value is the number of track pieces
     private int ourPiece = 0; //What track piece are we on in this line segment
     private int ourSegment = 0; //What line segment are we on in this train line

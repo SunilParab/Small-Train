@@ -417,6 +417,11 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &956186860 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 410771532449170233, guid: 474c89e359e51cb43bcc389499df0249, type: 3}
+  m_PrefabInstance: {fileID: 288745969370547571}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1065328829
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,7 +946,10 @@ MonoBehaviour:
   xRange: 0
   yRange: 0
   range: 3
+  zoomCount: 0
+  threeSpawn: 0
   stationString: 
+  map: {fileID: 956186860}
 --- !u!4 &1277160607
 Transform:
   m_ObjectHideFlags: 0
@@ -1199,7 +1207,6 @@ MonoBehaviour:
   baseZoom: 4
   maxZoom: 7
   zoomSpeed: 1
-  haveToZoom: 0
   haveToZoomDur: 0
   haveToZoomDurBase: 6
 --- !u!1 &1487523842

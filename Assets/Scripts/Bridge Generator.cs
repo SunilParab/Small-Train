@@ -8,6 +8,7 @@ public class BridgeGenerator : MonoBehaviour
     public static float segLength = 0.5f;
     public static Collider2D segmentChecker;
     public static GameObject bridgePrefab;
+    public static StationSpawnManager spawner;
 
     //Check everypoint along the line renderer (intervals the size of a line segment-segment)
     //Use the collidewater check
@@ -79,7 +80,7 @@ public class BridgeGenerator : MonoBehaviour
                     break;
             }
 
-            if (StationCollideWater.IsCollidingWater(StationSpawnManager.map.GetComponent<Collider2D>(), segmentChecker, new Vector3(curx,cury,0))) {
+            if (StationCollideWater.IsCollidingWater(spawner.map.GetComponent<Collider2D>(), segmentChecker, new Vector3(curx,cury,0))) {
                 if (!startFound) {
                     startFound = true;
                     startOnFirstHalf = true;
@@ -133,7 +134,7 @@ public class BridgeGenerator : MonoBehaviour
                     break;
             }
 
-            if (StationCollideWater.IsCollidingWater(StationSpawnManager.map.GetComponent<Collider2D>(), segmentChecker, new Vector3(curx,cury,0))) {
+            if (StationCollideWater.IsCollidingWater(spawner.map.GetComponent<Collider2D>(), segmentChecker, new Vector3(curx,cury,0))) {
                 if (!startFound) {
                     startFound = true;
                     bridgeStart = new Vector2(curx,cury);

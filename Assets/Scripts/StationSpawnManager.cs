@@ -40,7 +40,7 @@ public class StationSpawnManager : MonoBehaviour
     public string stationString;
 
     //map object
-    public static GameObject map;
+    public GameObject map;
 
     // Start is called before the first frame update
     void Start()

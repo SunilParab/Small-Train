@@ -28,7 +28,7 @@ public class StationSpawnManager : MonoBehaviour
     public int range = 3;
 
     //map object
-    public GameObject map;
+    public static GameObject map;
 
     // Start is called before the first frame update
     void Start()
@@ -213,7 +213,7 @@ public class StationSpawnManager : MonoBehaviour
         var curStation = Instantiate(station, new Vector3(xPos, yPos, 0), Quaternion.identity);
         var waterScript = curStation.GetComponent<StationCollideWater>();
 
-        if (waterScript.IsCollidingWater(map.GetComponent<Collider2D>(), curStation.GetComponent<Collider2D>(), new Vector3(curStation.transform.position.x,curStation.transform.position.y,0))){
+        if (StationCollideWater.IsCollidingWater(map.GetComponent<Collider2D>(), curStation.GetComponent<Collider2D>(), new Vector3(curStation.transform.position.x,curStation.transform.position.y,0))){
             //Debug.Log("Water Spawn");
             Destroy(curStation);
             return false;

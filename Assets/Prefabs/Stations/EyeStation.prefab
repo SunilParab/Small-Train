@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6451947609461706635}
   - component: {fileID: 70919468933260099}
   - component: {fileID: 5354661058439024018}
+  - component: {fileID: -2831796870831253388}
   m_Layer: 0
   m_Name: EyeStation
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 4b995ef5b37690241b58b742f0b07d93, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -352,3 +353,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9e6b88172168e74394af351b7e815ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2831796870831253388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2674243341689348389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5083e9b0343ebd54d93d70a72b5d843f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passengersInStation: []
+  connectedLines: 
+  stationString: 
+  passengerSpawnTime: 0
+  myLine: 0

@@ -323,6 +323,10 @@ PrefabInstance:
       propertyPath: map
       value: 
       objectReference: {fileID: 1835190684}
+    - target: {fileID: 8065730402727991937, guid: ffa34443c5fdc4d42a8bc4257a764a7d, type: 3}
+      propertyPath: availableLines
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8132863958245623534, guid: ffa34443c5fdc4d42a8bc4257a764a7d, type: 3}
       propertyPath: m_Name
       value: TrainStationManager

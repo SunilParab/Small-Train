@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class LineDrawer : MonoBehaviour
 {
-
+    //availableLines
+    public WeeklyUpgradeManager weeklyUpgradeManager;
     public float startx;
     public float starty;
     public float firstAngle;
@@ -725,7 +726,7 @@ public class LineDrawer : MonoBehaviour
         //lineInfos is our array of lineInfos
         LineInfo[] lineInfos = lineScript.lineList;
 
-        for (int i = 0; i < lineScript.availableLines; i++) {
+        for (int i = 0; i < weeklyUpgradeManager.newlineCount; i++) {
             //if this lineInfo's list of line segments is empty...
             if (lineInfos[i].LineSegments.Count == 0)
             {

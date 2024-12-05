@@ -7,11 +7,11 @@ public class LineList : MonoBehaviour
 {
     
     public LineInfo[] lineList = new LineInfo[7];
-
+    public WeeklyUpgradeManager weeklyUpgradeManager;
     //Make enumerator (it might be better with ints)
 
     public static LineList reference;
-    public int availableLines = 3;
+   // public int availableLines = 3;
     public GameObject TSegment;
 
     void Awake()
@@ -43,7 +43,7 @@ public class LineList : MonoBehaviour
         if (targetLine == -1) {
             //If target is -1 create it in the first empty line
             bool spotFound = false;
-            for (int i = 0; i < availableLines; i++) {
+            for (int i = 0; i < weeklyUpgradeManager.newlineCount; i++) {
                 if (lineList[i].LineSegments.Count == 0) {
                     lineList[i].addSegment(segment,isStart);
                     spotFound = true;

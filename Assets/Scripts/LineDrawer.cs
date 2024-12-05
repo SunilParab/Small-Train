@@ -706,7 +706,7 @@ public class LineDrawer : MonoBehaviour
         LineList.reference.addSegment(holderInfo,targetLine,isStart);
 
         //lineInfos is our array of lineInfos
-        if (lineInfoArrayIndex != -1)
+        if (lineInfoArrayIndex != -1 && LineList.reference.lineList[lineInfoArrayIndex].LineSegments.Count <= 1)
         {
             LineInfo[] lineInfos = lineScript.lineList;
             float xPos = lineInfos[lineInfoArrayIndex].LineSegments[0].lineRenderer.GetPosition(0).x;

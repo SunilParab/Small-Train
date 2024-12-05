@@ -52,6 +52,7 @@ MonoBehaviour:
   startStation: {fileID: 0}
   endStation: {fileID: 0}
   lineRenderer: {fileID: 9023922357391437618}
+  myLine: 0
 --- !u!120 &9023922357391437618
 LineRenderer:
   serializedVersion: 2
@@ -100,7 +101,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.5
+    widthMultiplier: 0.4
     widthCurve:
       serializedVersion: 2
       m_Curve:

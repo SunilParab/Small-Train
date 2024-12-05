@@ -28,7 +28,6 @@ public class StationSpawnManager : MonoBehaviour
     public int yRange;
     public float range;
     public int zoomCount = 0;
-    public int threeSpawn = 0;
     bool spawned = false;
     bool spawnedFirst;
     bool spawnedSecond;
@@ -37,7 +36,9 @@ public class StationSpawnManager : MonoBehaviour
     int yPos;
     GameObject station;
 
-    public string stationString;
+    //passenger spawn timer variables
+    public float passengerSpawnTime;
+    private float passengerTimer;   
 
     //map object
     public GameObject map;
@@ -50,8 +51,13 @@ public class StationSpawnManager : MonoBehaviour
         xPos = UnityEngine.Random.Range(-xRange, xRange);
         yPos = UnityEngine.Random.Range(-yRange, yRange);
 
+        passengerSpawnTime = UnityEngine.Random.Range(5,21); 
+
+        //spawn every 5~20 seconds (random) approximately
+        passengerTimer = passengerSpawnTime; 
+
         //station distance range
-        range = 2.3f;
+        range = 2f;
         xRange = 4;
         yRange = 2;
 
@@ -97,7 +103,7 @@ public class StationSpawnManager : MonoBehaviour
             yPos = UnityEngine.Random.Range(-yRange, yRange + 1);
         }
 
-        range = 3;
+        range = 2;
         xRange = 5;
         yRange = 3;
 
@@ -133,43 +139,43 @@ public class StationSpawnManager : MonoBehaviour
             switch (stationNum) {
                 case 0:
                     station = square;
-                    stationString = "square";
+                    station.GetComponent<PassengerSpawn>().stationString = "square";
                     break;
                 case 1:
                     station = triangle;
-                    stationString = "triangle";
+                    station.GetComponent<PassengerSpawn>().stationString = "triangle";
                     break;
                 case 2:
                     station = circle;
-                    stationString = "circle";
+                    station.GetComponent<PassengerSpawn>().stationString = "circle";
                     break;
                 case 3: 
                     station = pie;
-                    stationString = "pie";
+                    station.GetComponent<PassengerSpawn>().stationString = "pie";
                     break;
                 case 4:
                     station = star;
-                    stationString = "star";
+                    station.GetComponent<PassengerSpawn>().stationString = "star";
                     break;
                 case 5:
                     station = rhombus;
-                    stationString = "rhombus";
+                    station.GetComponent<PassengerSpawn>().stationString = "rhombus";
                     break;
                 case 6:
                     station = diamond;
-                    stationString = "diamond";
+                    station.GetComponent<PassengerSpawn>().stationString = "diamond";
                     break;
                 case 7:
                     station = plus;
-                    stationString = "plus";
+                    station.GetComponent<PassengerSpawn>().stationString = "plus";
                     break;
                 case 8:
                     station = eye;
-                    stationString = "eye";
+                    station.GetComponent<PassengerSpawn>().stationString = "eye";
                     break;
                 case 9:
                     station = pentagon;
-                    stationString = "pentagon";
+                    station.GetComponent<PassengerSpawn>().stationString = "pentagon";
                     break;
             }
 

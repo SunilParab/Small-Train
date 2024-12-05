@@ -6,8 +6,7 @@ using UnityEngine;
 public class PassengerSpawn : MonoBehaviour
 {
     //give this (script) list to all the spawned stations
-    public List<String> passengersInStation = new();
-    //public List<GameObject> stationsInLine = new();
+    public List<string> passengersInStation = new();
 
     //lines the station is connected to 
     public List<int> connectedLines = new();
@@ -27,6 +26,17 @@ public class PassengerSpawn : MonoBehaviour
     SegmentInfo curSegment;
     private LineInfo[] lineInfos;    
     public int myLine;  
+
+    public GameObject circlePassenger;
+    public GameObject squarePassenger;
+    public GameObject trianglePassenger;
+    public GameObject starPassenger;
+    public GameObject pentagonPassenger;
+    public GameObject rhombusPassenger;
+    public GameObject plusPassenger;
+    public GameObject piePassenger;
+    public GameObject diamondPassenger;
+    public GameObject eyePassenger;
     
 
     // Start is called before the first frame update
@@ -45,11 +55,7 @@ public class PassengerSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        //change later for optimization
-        //stationsInLine = 
-        //curSegment = lineInfos[myLine].LineSegments[0];
-
-
+        
         if (Time.timeScale > 0)
         {
             timer -= Time.deltaTime;
@@ -61,23 +67,24 @@ public class PassengerSpawn : MonoBehaviour
                 if (!passengerString.Equals(stationString)){
                     //add passenger
                     AddPassenger(passengerString);
+                    SpawnPassengerIcons();
 
                     //reset timer
                     passengerSpawnTime = UnityEngine.Random.Range(5,21); 
                     timer = passengerSpawnTime;
+                    
                 }
-                else {
-                    //rerandomize shape
-                    passengerNum = UnityEngine.Random.Range(0,10);
-                    RandomizePassengerShape();
-                }
+                
+                passengerNum = UnityEngine.Random.Range(0,10);
+                RandomizePassengerShape();
             }
         }
+
     }
 
     public void AddPassenger(string newPassenger){
 
-        //check if station is full...
+        //check if train is full...
 
         //add passenger
         passengersInStation.Add(newPassenger);
@@ -116,5 +123,96 @@ public class PassengerSpawn : MonoBehaviour
                 passengerString = "pentagon";
                 break;
         }
+    }
+
+    public void SpawnPassengerIcons(){
+
+        GameObject passenger;
+
+        for (int i = 0; i < passengersInStation.Count; i ++){
+            if (passengersInStation[i].Equals("square")){
+                passenger = squarePassenger;     
+            }
+            else if (passengersInStation[i].Equals("triangle")){
+                passenger = trianglePassenger;
+            }
+            else if (passengersInStation[i].Equals("circle")){
+                passenger = circlePassenger;
+            }
+            else if (passengersInStation[i].Equals("pie")){
+                passenger = piePassenger;
+            }
+            else if (passengersInStation[i].Equals("star")){
+                passenger = starPassenger;
+            }
+            else if (passengersInStation[i].Equals("rhombus")){
+                passenger = rhombusPassenger;
+            }
+            else if (passengersInStation[i].Equals("diamond")){
+                passenger = diamondPassenger;
+            }
+            else if (passengersInStation[i].Equals("plus")){
+                passenger = plusPassenger;
+            }
+            else if (passengersInStation[i].Equals("eye")){
+                passenger = eyePassenger;
+            }
+            else {
+                passenger = pentagonPassenger;
+            }
+
+            Instantiate(passenger, PassengerPosition(i), Quaternion.identity);
+        }
+    }
+
+    public Vector2 PassengerPosition(int positionNum){
+        
+        Vector2 position = new();
+        float xPos = transform.position.x + 0.2f;
+        float yPos = transform.position.y - 0.2f;
+
+        float xDistance = 0.35f;
+        float yDistance = 0.175f;
+
+        //top
+        if (positionNum == 0){
+            position = new Vector2(xPos + xDistance * 1, yPos - yDistance * 2);
+        }
+        else if (positionNum == 1){
+            position = new Vector2(xPos + xDistance * 2, yPos - yDistance * 2);
+        }
+        else if (positionNum == 2){
+            position = new Vector2(xPos + xDistance * 3, yPos - yDistance * 2);
+        }
+        else if (positionNum == 3){
+            position = new Vector2(xPos + xDistance * 4, yPos - yDistance * 2);
+        }
+        else if (positionNum == 4){
+            position = new Vector2(xPos + xDistance * 5, yPos - yDistance * 2);
+        }
+        else if (positionNum == 5){
+            position = new Vector2(xPos + xDistance * 6, yPos - yDistance * 2);
+        }
+
+        //middle
+        else if (positionNum == 6){
+            position = new Vector2(xPos + xDistance * 7, yPos - yDistance * 3);
+        }
+
+        //bottom
+        else if (positionNum == 7){
+            position = new Vector2(xPos + xDistance * 6, yPos - yDistance * 4);
+        }
+        else if (positionNum == 8){
+            position = new Vector2(xPos + xDistance * 5, yPos - yDistance * 4);
+        }
+        else if (positionNum == 9){
+            position = new Vector2(xPos + xDistance * 4, yPos - yDistance * 4);
+        }
+        else {
+            position = new Vector2(xPos + xDistance * 3, yPos - yDistance * 4);
+        }
+
+        return position;
     }
 }

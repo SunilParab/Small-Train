@@ -75,10 +75,10 @@ public class PassengerSpawn : MonoBehaviour
                 }
 
                 //randomize passenger shape based on probability
-                if (StationSpawnManager.RandomGaussian(0f, 1f) >= StationSpawnManager.rareProb && StationSpawnManager.maxShapeNum == 10)
+                if (StationSpawnManager.RandomGaussian(0f, 1f) >= 0.8f && StationSpawnManager.spawnNextPassengerShape)
                 {
                     passengerNum = UnityEngine.Random.Range(3, StationSpawnManager.maxShapeNum); //3 ~ cap
-                }
+                }   
                 else
                 {   
                     passengerNum = UnityEngine.Random.Range(0, 3); //0 ~ 2
@@ -110,10 +110,10 @@ public class PassengerSpawn : MonoBehaviour
                 passengerString = "circle";
                 break;
             case 3: 
-                passengerString = "pie";
+                passengerString = "star";
                 break;
             case 4:
-                passengerString = "star";
+                passengerString = "plus";
                 break;
             case 5:
                 passengerString = "rhombus";
@@ -122,7 +122,7 @@ public class PassengerSpawn : MonoBehaviour
                 passengerString = "diamond";
                 break;
             case 7:
-                passengerString = "plus";
+                passengerString = "pie";
                 break;
             case 8:
                 passengerString = "eye";
@@ -147,11 +147,11 @@ public class PassengerSpawn : MonoBehaviour
             else if (passengersInStation[i].Equals("circle")){
                 passenger = circlePassenger;
             }
-            else if (passengersInStation[i].Equals("pie")){
-                passenger = piePassenger;
-            }
             else if (passengersInStation[i].Equals("star")){
                 passenger = starPassenger;
+            }
+            else if (passengersInStation[i].Equals("plus")){
+                passenger = plusPassenger;
             }
             else if (passengersInStation[i].Equals("rhombus")){
                 passenger = rhombusPassenger;
@@ -159,8 +159,8 @@ public class PassengerSpawn : MonoBehaviour
             else if (passengersInStation[i].Equals("diamond")){
                 passenger = diamondPassenger;
             }
-            else if (passengersInStation[i].Equals("plus")){
-                passenger = plusPassenger;
+            else if (passengersInStation[i].Equals("pie")){
+                passenger = piePassenger;
             }
             else if (passengersInStation[i].Equals("eye")){
                 passenger = eyePassenger;

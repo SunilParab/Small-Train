@@ -26,9 +26,8 @@ public class StationSpawnManager : MonoBehaviour
     public float rareProb = 0.9f;
     public int xRange;
     public int yRange;
-    public float range;
+    public int range;
     public int zoomCount = 0;
-    bool spawned = false;
     bool spawnedFirst;
     bool spawnedSecond;
     bool spawnedThird;
@@ -57,7 +56,7 @@ public class StationSpawnManager : MonoBehaviour
         passengerTimer = passengerSpawnTime; 
 
         //station distance range
-        range = 2f;
+        range = 2;
         xRange = 4;
         yRange = 2;
 
@@ -103,7 +102,7 @@ public class StationSpawnManager : MonoBehaviour
             yPos = UnityEngine.Random.Range(-yRange, yRange + 1);
         }
 
-        range = 2;
+        range = 3;
         xRange = 5;
         yRange = 3;
 
@@ -185,6 +184,9 @@ public class StationSpawnManager : MonoBehaviour
             
             int tries = 0;
             if (!CameraZoom.stopZoom){
+                
+                bool spawned = false;
+
                 while (!spawned && tries < 10)
                 {   
                     
@@ -195,7 +197,7 @@ public class StationSpawnManager : MonoBehaviour
                         CameraZoom.haveToZoom = true;
                         zoomCount += 1;
 
-                        if (zoomCount == 10){
+                        if (zoomCount == 8){
 
                             //increase spawn range
                             xRange += 1;
@@ -203,7 +205,6 @@ public class StationSpawnManager : MonoBehaviour
                             zoomCount = 0;
                         }
                     }
-
                     xPos = UnityEngine.Random.Range(-xRange, xRange);
                     yPos = UnityEngine.Random.Range(-yRange, yRange);
                     tries++;

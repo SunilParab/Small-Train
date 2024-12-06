@@ -947,8 +947,7 @@ MonoBehaviour:
   yRange: 0
   range: 3
   zoomCount: 0
-  threeSpawn: 0
-  stationString: 
+  passengerSpawnTime: 0
   map: {fileID: 956186860}
 --- !u!4 &1277160607
 Transform:
@@ -1136,7 +1135,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.9968583, g: 1, b: 0.94905657, a: 0}
+  m_BackGroundColor: {r: 0.19488637, g: 0.9496855, b: 0.18814513, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

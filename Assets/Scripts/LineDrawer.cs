@@ -345,7 +345,39 @@ public class LineDrawer : MonoBehaviour
             linePoints[2] = new Vector3(endx,endy,0);
             segInfo.lineRenderer.SetPositions(linePoints);
 
-        }
+            Color lineColor = Color.yellow; // variable to set the color
+            var possibleTarget = targetLine; //The line number for the color it will be
+            if (possibleTarget == -1) {
+                possibleTarget = TrainReadyMake();
+            }
+            switch (possibleTarget)
+            {
+                case 0:
+                    lineColor = Color.yellow;
+                    break;
+                case 1:
+                    lineColor = Color.red;
+                    break;
+                case 2:
+                    lineColor = Color.blue;
+                    break;
+                case 3:
+                    lineColor = Color.cyan;
+                    break;
+                case 4:
+                    lineColor = Color.green;
+                    break;
+                case 5:
+                    lineColor = Color.magenta;
+                    break;
+                case 6:
+                    lineColor = Color.white;
+                    break;
+            }
+            segInfo.lineRenderer.startColor = lineColor;
+            segInfo.lineRenderer.endColor = lineColor;
+
+            }
 
     }
 
@@ -662,7 +694,7 @@ public class LineDrawer : MonoBehaviour
                 lineColor = Color.red;
                 break;
             case 2:
-                lineColor = Color.green;
+                lineColor = Color.blue;
                 break;
             case 3:
                 lineColor = Color.cyan;

@@ -945,9 +945,9 @@ MonoBehaviour:
   rareProb: 0.9
   xRange: 0
   yRange: 0
-  range: 3
+  range: 0
   zoomCount: 0
-  stationString: 
+  passengerSpawnTime: 0
   map: {fileID: 715691830}
 --- !u!4 &1277160607
 Transform:

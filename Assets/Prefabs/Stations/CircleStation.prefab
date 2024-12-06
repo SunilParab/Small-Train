@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passengersInStation: []
   connectedLines: 
-  stationString: 
+  stationString: circle
   passengerSpawnTime: 0
   myLine: 0
   circlePassenger: {fileID: 5638830246612288042, guid: a58ad0b005e66584e9edf1353c248e85, type: 3}

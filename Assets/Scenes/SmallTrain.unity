@@ -942,9 +942,9 @@ MonoBehaviour:
   eye: {fileID: 2674243341689348389, guid: b26a001e565728d4394d5f9c5f91d7c7, type: 3}
   pentagon: {fileID: 6274525582987846165, guid: 6bb0b51c1803ec64290006d216661878, type: 3}
   spawnSpeed: 550
-  rareProb: 0.9
   xRange: 0
   yRange: 0
+  yDownRange: 0
   range: 0
   zoomCount: 0
   passengerSpawnTime: 0
@@ -1205,9 +1205,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseZoom: 4
   maxZoom: 7
-  zoomSpeed: 1
+  zoomSpeed: 2
   haveToZoomDur: 0
-  haveToZoomDurBase: 6
+  haveToZoomDurBase: 7
 --- !u!1 &1487523842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1904,7 +1904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4743926514845910675, guid: 474c89e359e51cb43bcc389499df0249, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4743926514845910675, guid: 474c89e359e51cb43bcc389499df0249, type: 3}
       propertyPath: m_LocalPosition.y

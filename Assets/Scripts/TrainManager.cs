@@ -130,7 +130,7 @@ public class TrainManager : MonoBehaviour
                         curSegment = lineInfos[myLine].LineSegments[curSegmentIndex-1];
 
                         //grab passengers
-                        PickupPassengers();
+                        //PickupPassengers();
                     } else {
 
                         //choose station
@@ -138,7 +138,7 @@ public class TrainManager : MonoBehaviour
                         curSegment = lineInfos[myLine].LineSegments[curSegmentIndex+1];
 
                         //grab passengers
-                        PickupPassengers();
+                        //PickupPassengers();
                     }
                 }
 

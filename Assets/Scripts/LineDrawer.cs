@@ -736,6 +736,7 @@ public class LineDrawer : MonoBehaviour
 
 
         LineList.reference.addSegment(holderInfo,targetLine,isStart);
+        BridgeGenerator.reference.BridgeGen(holderInfo);
 
         //lineInfos is our array of lineInfos
         if (lineInfoArrayIndex != -1 && LineList.reference.lineList[lineInfoArrayIndex].LineSegments.Count <= 1)

@@ -454,11 +454,11 @@ public class LineDrawer : MonoBehaviour
 
     public void Activate(int targetLine, bool isStart, GameObject startStation)
     {
-        /*Vector2 mousePos = Input.mousePosition;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        startx = Mathf.Round(mousePos.x);
-        starty = Mathf.Round(mousePos.y);*/
+        if (TrainReadyMake() == -1) {
+            return;
+        }
+
         startx = startStation.transform.position.x;
         starty = startStation.transform.position.y;
 

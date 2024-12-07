@@ -7,8 +7,7 @@ using UnityEngine;
 
 public class LineDrawer : MonoBehaviour
 {
-    //availableLines
-  //  public WeeklyUpgradeManager weeklyUpgradeManager;
+
     public float startx;
     public float starty;
     public float firstAngle;
@@ -455,11 +454,12 @@ public class LineDrawer : MonoBehaviour
 
     public void Activate(int targetLine, bool isStart, GameObject startStation)
     {
-        /*Vector2 mousePos = Input.mousePosition;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        startx = Mathf.Round(mousePos.x);
-        starty = Mathf.Round(mousePos.y);*/
+        if (TrainReadyMake() == -1)
+        {
+            return;
+        }
+
         startx = startStation.transform.position.x;
         starty = startStation.transform.position.y;
 
@@ -484,7 +484,8 @@ public class LineDrawer : MonoBehaviour
         endStation = null;
     }
 
-    void LineMake(int lineInfoArrayIndex) {
+    void LineMake(int lineInfoArrayIndex)
+    {
 
         //Clear out old segment
         Destroy(segment);
@@ -838,12 +839,8 @@ public class LineDrawer : MonoBehaviour
         //lineInfos is our array of lineInfos
         LineInfo[] lineInfos = lineScript.lineList;
 
-<<<<<<< HEAD
-        for (int i = 0; i < lineScript.availableLines; i++) {
-=======
         for (int i = 0; i < lineScript.availableLines; i++)
         {
->>>>>>> main
             //if this lineInfo's list of line segments is empty...
             if (lineInfos[i].LineSegments.Count == 0)
             {
@@ -855,7 +852,8 @@ public class LineDrawer : MonoBehaviour
         return thisLine;
     }
 
-    void CheckSegmentRemove() {
+    void CheckSegmentRemove()
+    {
         Destroy(LineList.reference.lineList[0].LineSegments[0].gameObject);
     }
 

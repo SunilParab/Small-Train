@@ -24,23 +24,37 @@ public class LineInfo : ScriptableObject
 
         //Lines need to be stored as an object that contains the list and the T references
         Destroy(startT);
-        startT = MakeT(LineSegments[0].lineRenderer.GetPosition(0),true,LineSegments[0].startStation);
+        startT = MakeT(LineSegments[0],true,LineSegments[0].startStation);
         Destroy(endT);
-        endT = MakeT(LineSegments.Last().lineRenderer.GetPosition(2),false,LineSegments.Last().endStation);
+        endT = MakeT(LineSegments.Last(),false,LineSegments.Last().endStation);
         //Go through the target line and generate T's
     }
 
-    GameObject MakeT(Vector3 targetPiece, bool isStart, GameObject givenStation) {
+    GameObject MakeT(SegmentInfo targetPiece, bool isStart, GameObject givenStation) {
 
-        var curT = Instantiate(TSegment, targetPiece, Quaternion.identity);
+        Vector3 targetPosition;
+        if (isStart) {
+            targetPosition = targetPiece.lineRenderer.GetPosition(0);
+        } else {
+            targetPosition = targetPiece.lineRenderer.GetPosition(2);
+        }
+
+        var curT = Instantiate(TSegment, targetPosition, Quaternion.identity);
 
         curT.GetComponent<TTrigger>().trainLine = trainLine;
         curT.GetComponent<TTrigger>().isStart = isStart;
         curT.GetComponent<TTrigger>().myStation = givenStation;
 
         if (isStart) {
-            curT.transform.RotateAround(curT.transform.position, Vector3.up, 180f);
+            curT.transform.RotateAround(curT.transform.position, Vector3.forward, 180f + targetPiece.firstAngle - 90);
+            curT.GetComponent<SpriteRenderer>().color = targetPiece.lineRenderer.startColor;
+        } else {
+            curT.transform.RotateAround(curT.transform.position, Vector3.forward, targetPiece.endAngle - 90);
+            curT.GetComponent<SpriteRenderer>().color = targetPiece.lineRenderer.endColor;
         }
+
+        
+
         return curT;
 
     }

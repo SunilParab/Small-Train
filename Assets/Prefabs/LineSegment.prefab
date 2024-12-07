@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7735748510906338852}
   - component: {fileID: 9023922357391437618}
   m_Layer: 0
-  m_Name: LineHolder
+  m_Name: LineSegment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,6 +52,7 @@ MonoBehaviour:
   startStation: {fileID: 0}
   endStation: {fileID: 0}
   lineRenderer: {fileID: 9023922357391437618}
+  myLine: 0
 --- !u!120 &9023922357391437618
 LineRenderer:
   serializedVersion: 2
@@ -73,7 +74,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,17 +97,17 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.5
+    widthMultiplier: 0.4
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.62807083
         inSlope: 0
         outSlope: 0
         tangentMode: 0

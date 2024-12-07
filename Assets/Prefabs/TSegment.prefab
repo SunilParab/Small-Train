@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3128246743960134856}
   - component: {fileID: 8501033593396478358}
   - component: {fileID: 2566293066159333165}
-  - component: {fileID: 9211438772979553732}
+  - component: {fileID: -2824177400984528962}
   m_Layer: 0
   m_Name: TSegment
   m_TagString: Untagged
@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 05c77794489bd6d419ccf61ebde0b820, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   trainLine: 0
   isStart: 0
   myStation: {fileID: 0}
---- !u!60 &9211438772979553732
+--- !u!60 &-2824177400984528962
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,7 +137,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.5}
+    oldSize: {x: 2.55, y: 2.55}
     newSize: {x: 1, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -145,8 +145,23 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 0.25}
-      - {x: -0.5, y: 0}
-      - {x: 0, y: -0.25}
-      - {x: 0.5, y: 0}
+    - - {x: 0.42499998, y: 0.315}
+      - {x: 0.765, y: 0.285}
+      - {x: 0.955, y: 0.33499998}
+      - {x: 0.955, y: 1.005}
+      - {x: 0.945, y: 1.015}
+      - {x: 0.205, y: 1.0649999}
+      - {x: -0.48499998, y: 1.0649999}
+      - {x: -1.005, y: 1.015}
+      - {x: -1.035, y: 1.005}
+      - {x: -1.035, y: 0.33499998}
+      - {x: -0.92499995, y: 0.295}
+      - {x: -0.615, y: 0.305}
+      - {x: -0.325, y: 0.325}
+      - {x: -0.345, y: -0.755}
+      - {x: -0.305, y: -1.1949999}
+      - {x: -0.275, y: -1.275}
+      - {x: 0.465, y: -1.275}
+      - {x: 0.405, y: -0.745}
+      - {x: 0.385, y: -0.745}
   m_UseDelaunayMesh: 0

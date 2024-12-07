@@ -37,6 +37,9 @@ public class TrainManager : MonoBehaviour
 
     //Iterating through all the segments in these arrays
     private LineInfo[] lineInfos;
+
+
+    //Remove all of these useless variables at some point
     private int[] segmentNum; //Stores an array that is the number of line segments long, and each value is the number of track pieces
     private int ourPiece = 0; //What track piece are we on in this line segment
     private int ourSegment = 0; //What line segment are we on in this train line
@@ -103,7 +106,13 @@ public class TrainManager : MonoBehaviour
             if (curHalf == 1) {
                 
                 var turningAround = false;
+
+
                 var curSegmentIndex = lineInfos[myLine].LineSegments.IndexOf(curSegment);
+
+                if (curSegmentIndex == -1) {
+
+                }
 
                 //Check if its at the end of the line
                 if (reversed) {
@@ -118,6 +127,10 @@ public class TrainManager : MonoBehaviour
                     }
                 }
 
+                //TODO Make so that the train decelerates when nearing a station, then when speed is 0, PickupPassengers()
+                //After picking up passengers is complete, accelerate again
+                //speed = speed * 0.5f;
+
                 //Get next segment
                 if (!turningAround) {
                     if (reversed) {
@@ -127,7 +140,7 @@ public class TrainManager : MonoBehaviour
                         curSegment = lineInfos[myLine].LineSegments[curSegmentIndex-1];
 
                         //grab passengers
-                        PickupPassengers();
+                        //PickupPassengers();
                     } else {
 
                         //choose station
@@ -135,7 +148,7 @@ public class TrainManager : MonoBehaviour
                         curSegment = lineInfos[myLine].LineSegments[curSegmentIndex+1];
 
                         //grab passengers
-                        PickupPassengers();
+                        //PickupPassengers();
                     }
                 }
 

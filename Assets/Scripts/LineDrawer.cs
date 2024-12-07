@@ -454,11 +454,12 @@ public class LineDrawer : MonoBehaviour
 
     public void Activate(int targetLine, bool isStart, GameObject startStation)
     {
-        /*Vector2 mousePos = Input.mousePosition;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        startx = Mathf.Round(mousePos.x);
-        starty = Mathf.Round(mousePos.y);*/
+        if (TrainReadyMake() == -1)
+        {
+            return;
+        }
+
         startx = startStation.transform.position.x;
         starty = startStation.transform.position.y;
 
@@ -483,7 +484,8 @@ public class LineDrawer : MonoBehaviour
         endStation = null;
     }
 
-    void LineMake(int lineInfoArrayIndex) {
+    void LineMake(int lineInfoArrayIndex)
+    {
 
         //Clear out old segment
         Destroy(segment);
@@ -850,7 +852,8 @@ public class LineDrawer : MonoBehaviour
         return thisLine;
     }
 
-    void CheckSegmentRemove() {
+    void CheckSegmentRemove()
+    {
         Destroy(LineList.reference.lineList[0].LineSegments[0].gameObject);
     }
 

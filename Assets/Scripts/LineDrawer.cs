@@ -457,7 +457,7 @@ public class LineDrawer : MonoBehaviour
     public void Activate(int targetLine, bool isStart, GameObject startStation)
     {
 
-        if (TrainReadyMake() == -1) {
+        if (TrainReadyMake() == -1 && targetLine == -1) {
             return;
         }
 

@@ -127,10 +127,6 @@ public class TrainManager : MonoBehaviour
                     }
                 }
 
-                //TODO Make so that the train decelerates when nearing a station, then when speed is 0, PickupPassengers()
-                //After picking up passengers is complete, accelerate again
-                //speed = speed * 0.5f;
-
                 //Get next segment
                 if (!turningAround) {
                     if (reversed) {

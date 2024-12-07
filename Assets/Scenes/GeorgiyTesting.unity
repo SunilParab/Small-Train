@@ -295,7 +295,7 @@ MonoBehaviour:
   allUpgradeButtons:
   - {fileID: 1671120230}
   - {fileID: 1077262039}
-  trainCount: 3
+  trainCount: 1
   carriageCount: 0
   newlineCount: 3
   tunnelCount: 3
@@ -691,6 +691,7 @@ GameObject:
   - component: {fileID: 777986267}
   - component: {fileID: 777986266}
   - component: {fileID: 777986265}
+  - component: {fileID: 777986268}
   m_Layer: 5
   m_Name: TrainButton
   m_TagString: Untagged
@@ -800,6 +801,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777986263}
   m_CullTransparentMesh: 1
+--- !u!114 &777986268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777986263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea9a67c2d2c99974284107ffe36e246f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPrefab: {fileID: 90074279266195032, guid: 6d4506deec5614d4cb2db59635acb4a9, type: 3}
+  isMaking: 0
 --- !u!1 &855820082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,13 +1775,12 @@ MonoBehaviour:
   eye: {fileID: 2674243341689348389, guid: b26a001e565728d4394d5f9c5f91d7c7, type: 3}
   pentagon: {fileID: 6274525582987846165, guid: 6bb0b51c1803ec64290006d216661878, type: 3}
   spawnSpeed: 550
-  rareProb: 0.9
   xRange: 0
   yRange: 0
+  yDownRange: 0
   range: 3
   zoomCount: 0
-  threeSpawn: 0
-  stationString: 
+  passengerSpawnTime: 0
   map: {fileID: 715691830}
 --- !u!4 &1277160607
 Transform:
@@ -2862,6 +2876,7 @@ GameObject:
   - component: {fileID: 1812473468}
   - component: {fileID: 1812473467}
   - component: {fileID: 1812473466}
+  - component: {fileID: 1812473469}
   m_Layer: 0
   m_Name: LineDrawer
   m_TagString: Untagged
@@ -2889,7 +2904,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  weeklyUpgradeManager: {fileID: 242742517}
   availableLines: 3
   TSegment: {fileID: 9078661265080835869, guid: 469ba934b1c109f45bf8f663da19a7ee, type: 3}
 --- !u!114 &1812473467
@@ -2904,7 +2918,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537384264078a904282723ed5ebbc10c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weeklyUpgradeManager: {fileID: 242742517}
   startx: 0
   starty: 0
   firstAngle: 0
@@ -2912,6 +2925,7 @@ MonoBehaviour:
   endx: 0
   endy: 0
   making: 0
+  piecePrefab: {fileID: 5379467457267164815, guid: 25d3edcbe2416d440a9f91d93b31eba4, type: 3}
   lineHolder: {fileID: 4307126451031699490, guid: b10867a9425a45e46a71a107245ad2a6, type: 3}
   segLength: 0.5
   train: {fileID: 2735024215327003098, guid: e7b9f61f5b29ff943a303440ac2bac5c, type: 3}
@@ -2933,6 +2947,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1812473469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812473465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba77d75b2105eff47ac71ffdeb9dc3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bridgePrefab: {fileID: 4307126451031699490, guid: 2a0b9d62bd84760458f7ca52d9052f8c, type: 3}
+  spawner: {fileID: 1277160606}
 --- !u!1001 &288745969370547571
 PrefabInstance:
   m_ObjectHideFlags: 0

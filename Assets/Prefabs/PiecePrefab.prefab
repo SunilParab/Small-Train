@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4814271050672521759}
   - component: {fileID: 302242300624065362}
   - component: {fileID: 6623636623651408818}
+  - component: {fileID: 5779912249955177179}
   m_Layer: 0
-  m_Name: SegmentBox
+  m_Name: PiecePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.113958925, g: 0.84276724, b: 0.20402956, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -130,3 +131,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5779912249955177179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5379467457267164815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ddc1043aac981a43822438854e17b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  segment: {fileID: 0}
+  myHalf: 0

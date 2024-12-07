@@ -50,8 +50,8 @@ public class TrainManager : MonoBehaviour
     private float endXPos;
     private float endYPos;
 
-    // Start is called before the first frame update
-    void Start()
+    // I replaced start with this, it just instantiate the variables
+    public void RegularMake()
     {
 
         lineScript = LineList.reference;
@@ -92,6 +92,62 @@ public class TrainManager : MonoBehaviour
                 break;
 
         }
+    }
+
+    // Make function for placing train on specific segement
+    public void PlaceMake(SegmentInfo segment, int targetHalf)
+    {
+
+        myLine = segment.myLine;
+
+        lineScript = LineList.reference;
+        lineInfos = lineScript.lineList;
+
+        x = transform.position.x;
+        y = transform.position.y;
+
+        //set start and cur target
+        curSegment = segment;
+
+
+        curStart = curSegment.lineRenderer.GetPosition(0+targetHalf);
+        curTarget = curSegment.lineRenderer.GetPosition(1+targetHalf);
+        curHalf = targetHalf;
+
+
+        curStart = curSegment.lineRenderer.GetPosition(0+curHalf);
+        curTarget = curSegment.lineRenderer.GetPosition(1+curHalf);
+
+        SpriteRenderer SR = this.gameObject.GetComponent<SpriteRenderer>();
+        switch (myLine)
+        {
+            case 0:
+                SR.color = Color.yellow;
+                break;
+            case 1:
+                SR.color = Color.red;
+                break;
+            case 2:
+                SR.color = Color.blue;
+                break;
+            case 3:
+                SR.color = Color.cyan;
+                break;
+            case 4:
+                SR.color = Color.green;
+                break;
+            case 5:
+                SR.color = Color.magenta;
+                break;
+            case 6:
+                SR.color = Color.white;
+                break;
+
+        }
+
+        //Set start position
+        transform.position = curStart;// + directionVector * distance
+
     }
 
     // Update is called once per frame

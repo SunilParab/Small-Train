@@ -55,13 +55,18 @@ public class LineDrawer : MonoBehaviour
     void Update()
     {
 
-        if (making) {
+        if (making)
+        {
 
-            if (Input.GetMouseButtonUp(0)) {
+            if (Input.GetMouseButtonUp(0))
+            {
                 making = false;
-                if (!snapped) { //Clear out old segment
+                if (!snapped)
+                { //Clear out old segment
                     Destroy(segment);
-                } else { //Actually make line                   
+                }
+                else
+                { //Actually make line                   
                     //If we're making a new line, make a new train on this new line
                     int ourLine = targetLine;
                     if (ourLine == -1)
@@ -76,7 +81,8 @@ public class LineDrawer : MonoBehaviour
             //Clear out old segment
             Destroy(segment);
 
-            if (!snapped) { //Find endpoint
+            if (!snapped)
+            { //Find endpoint
                 Vector2 mousePos = Input.mousePosition;
                 mousePos = Camera.main.ScreenToWorldPoint(mousePos);
                 endx = Mathf.Round(mousePos.x);
@@ -84,97 +90,153 @@ public class LineDrawer : MonoBehaviour
             }
 
             //Calculate angle
-            float angle = Mathf.Atan2((endy-starty),(endx-startx)) * Mathf.Rad2Deg;
-            if (angle < 0) {
+            float angle = Mathf.Atan2((endy - starty), (endx - startx)) * Mathf.Rad2Deg;
+            if (angle < 0)
+            {
                 angle += 360;
             }
 
             //Calculate angle of first and second part
-            if (angle >= 337.5 || angle < 22.5) {
+            if (angle >= 337.5 || angle < 22.5)
+            {
                 firstAngle = 0;
 
-                if (angle >= 337.5) { //Double check this (ang all the cases with the = part of the greater than or equal)
+                if (angle >= 337.5)
+                { //Double check this (ang all the cases with the = part of the greater than or equal)
                     endAngle = 315;
-                } else if (angle > 0) {
+                }
+                else if (angle > 0)
+                {
                     endAngle = 45;
-                } else {
+                }
+                else
+                {
                     endAngle = 0;
                 }
 
-            } else if (angle >= 22.5 && angle < 67.5) {
+            }
+            else if (angle >= 22.5 && angle < 67.5)
+            {
                 firstAngle = 45;
 
-                if (angle > 45) {
+                if (angle > 45)
+                {
                     endAngle = 90;
-                } else if (angle < 45) {
+                }
+                else if (angle < 45)
+                {
                     endAngle = 0;
-                } else {
+                }
+                else
+                {
                     endAngle = 45;
                 }
 
-            } else if (angle >= 67.5 && angle < 112.5) {
+            }
+            else if (angle >= 67.5 && angle < 112.5)
+            {
                 firstAngle = 90;
 
-                if (angle > 90) {
+                if (angle > 90)
+                {
                     endAngle = 135;
-                } else if (angle < 90) {
+                }
+                else if (angle < 90)
+                {
                     endAngle = 45;
-                } else {
+                }
+                else
+                {
                     endAngle = 90;
                 }
 
-            } else if (angle >= 112.5 && angle < 157.5) {
+            }
+            else if (angle >= 112.5 && angle < 157.5)
+            {
                 firstAngle = 135;
 
-                if (angle > 135) {
+                if (angle > 135)
+                {
                     endAngle = 180;
-                } else if (angle < 135) {
+                }
+                else if (angle < 135)
+                {
                     endAngle = 90;
-                } else {
+                }
+                else
+                {
                     endAngle = 135;
                 }
 
-            } else if (angle >= 157.5 && angle < 202.5) {
+            }
+            else if (angle >= 157.5 && angle < 202.5)
+            {
                 firstAngle = 180;
 
-                if (angle > 180) {
+                if (angle > 180)
+                {
                     endAngle = 225;
-                } else if (angle < 180) {
+                }
+                else if (angle < 180)
+                {
                     endAngle = 135;
-                } else {
+                }
+                else
+                {
                     endAngle = 180;
                 }
 
-            } else if (angle >= 202.5 && angle < 247.5) {
+            }
+            else if (angle >= 202.5 && angle < 247.5)
+            {
                 firstAngle = 225;
 
-                if (angle > 225) {
+                if (angle > 225)
+                {
                     endAngle = 270;
-                } else if (angle < 225) {
+                }
+                else if (angle < 225)
+                {
                     endAngle = 180;
-                } else {
+                }
+                else
+                {
                     endAngle = 225;
                 }
 
-            } else if (angle >= 247.5 && angle < 292.5) {
+            }
+            else if (angle >= 247.5 && angle < 292.5)
+            {
                 firstAngle = 270;
 
-                if (angle > 270) {
+                if (angle > 270)
+                {
                     endAngle = 315;
-                } else if (angle < 270) {
+                }
+                else if (angle < 270)
+                {
                     endAngle = 225;
-                } else {
+                }
+                else
+                {
                     endAngle = 270;
                 }
 
-            } else if (angle >= 292.5 && angle < 337.5) {
+            }
+            else if (angle >= 292.5 && angle < 337.5)
+            {
                 firstAngle = 315;
 
-                if (angle > 315) {
+                if (angle > 315)
+                {
                     endAngle = 0;
-                } else if (angle < 315) {
+                }
+                else if (angle < 315)
+                {
                     endAngle = 270;
-                } else {
+                }
+                else
+                {
                     endAngle = 315;
                 }
 
@@ -188,7 +250,8 @@ public class LineDrawer : MonoBehaviour
             float offsetx = 0;
             float offsety = 0;
 
-            switch (firstAngle) {
+            switch (firstAngle)
+            {
                 case 0:
                     offsetx = segLength / 2;
                     break;
@@ -222,9 +285,11 @@ public class LineDrawer : MonoBehaviour
             bool firstHalf = true;
             int counter = 0;
 
-            while (firstHalf && (curx != endx || cury != endy) && counter < 100) {
+            while (firstHalf && (curx != endx || cury != endy) && counter < 100)
+            {
 
-                switch (firstAngle) {
+                switch (firstAngle)
+                {
                     case 0:
                         curx += segLength;
                         break;
@@ -255,11 +320,13 @@ public class LineDrawer : MonoBehaviour
                         break;
                 }
 
-                float secondAngle = Mathf.Atan2((endy-cury),(endx-curx)) * Mathf.Rad2Deg;
-                if (secondAngle < 0) {
+                float secondAngle = Mathf.Atan2((endy - cury), (endx - curx)) * Mathf.Rad2Deg;
+                if (secondAngle < 0)
+                {
                     secondAngle += 360;
                 }
-                if (secondAngle == endAngle) {
+                if (secondAngle == endAngle)
+                {
                     firstHalf = false;
                 }
 
@@ -269,7 +336,8 @@ public class LineDrawer : MonoBehaviour
             midx = curx;
             midy = cury;
 
-            switch (endAngle) {
+            switch (endAngle)
+            {
                 case 0:
                     offsetx = segLength / 2;
                     break;
@@ -302,9 +370,11 @@ public class LineDrawer : MonoBehaviour
 
 
             counter = 0;
-            while ((curx != endx || cury != endy) && counter < 100) {
+            while ((curx != endx || cury != endy) && counter < 100)
+            {
 
-                switch (endAngle) {
+                switch (endAngle)
+                {
                     case 0:
                         curx += segLength;
                         break;
@@ -340,14 +410,15 @@ public class LineDrawer : MonoBehaviour
             segment = Instantiate(lineHolder);
             var segInfo = segment.GetComponent<SegmentInfo>();
             Vector3[] linePoints = new Vector3[3];
-            linePoints[0] = new Vector3(startx,starty,0);
-            linePoints[1] = new Vector3(midx,midy,0);
-            linePoints[2] = new Vector3(endx,endy,0);
+            linePoints[0] = new Vector3(startx, starty, 0);
+            linePoints[1] = new Vector3(midx, midy, 0);
+            linePoints[2] = new Vector3(endx, endy, 0);
             segInfo.lineRenderer.SetPositions(linePoints);
 
             Color lineColor = Color.yellow; // variable to set the color
             var possibleTarget = targetLine; //The line number for the color it will be
-            if (possibleTarget == -1) {
+            if (possibleTarget == -1)
+            {
                 possibleTarget = TrainReadyMake();
             }
             switch (possibleTarget)
@@ -377,11 +448,12 @@ public class LineDrawer : MonoBehaviour
             segInfo.lineRenderer.startColor = lineColor;
             segInfo.lineRenderer.endColor = lineColor;
 
-            }
+        }
 
     }
 
-    public void Activate(int targetLine, bool isStart, GameObject startStation) {
+    public void Activate(int targetLine, bool isStart, GameObject startStation)
+    {
         /*Vector2 mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
@@ -397,14 +469,16 @@ public class LineDrawer : MonoBehaviour
         this.startStation = startStation;
     }
 
-    public void Snap(GameObject target) {
+    public void Snap(GameObject target)
+    {
         snapped = true;
         endx = target.transform.position.x;
         endy = target.transform.position.y;
         endStation = target;
     }
 
-    public void UnSnap() {
+    public void UnSnap()
+    {
         snapped = false;
         endStation = null;
     }
@@ -416,100 +490,156 @@ public class LineDrawer : MonoBehaviour
 
         var holder = Instantiate(lineHolder);
         var holderInfo = holder.GetComponent<SegmentInfo>();
-                    
+
 
         //Calculate angle
-        float angle = Mathf.Atan2((endy-starty),(endx-startx)) * Mathf.Rad2Deg;
-        if (angle < 0) {
+        float angle = Mathf.Atan2((endy - starty), (endx - startx)) * Mathf.Rad2Deg;
+        if (angle < 0)
+        {
             angle += 360;
         }
 
         //Calculate angle of first and second part
-        if (angle >= 337.5 || angle < 22.5) {
+        if (angle >= 337.5 || angle < 22.5)
+        {
             firstAngle = 0;
 
-            if (angle >= 337.5) { //Double check this (ang all the cases with the = part of the greater than or equal)
+            if (angle >= 337.5)
+            { //Double check this (ang all the cases with the = part of the greater than or equal)
                 endAngle = 315;
-            } else if (angle > 0) {
+            }
+            else if (angle > 0)
+            {
                 endAngle = 45;
-            } else {
+            }
+            else
+            {
                 endAngle = 0;
             }
 
-        } else if (angle >= 22.5 && angle < 67.5) {
+        }
+        else if (angle >= 22.5 && angle < 67.5)
+        {
             firstAngle = 45;
 
-            if (angle > 45) {
+            if (angle > 45)
+            {
                 endAngle = 90;
-            } else if (angle < 45) {
+            }
+            else if (angle < 45)
+            {
                 endAngle = 0;
-            } else {
+            }
+            else
+            {
                 endAngle = 45;
             }
 
-        } else if (angle >= 67.5 && angle < 112.5) {
+        }
+        else if (angle >= 67.5 && angle < 112.5)
+        {
             firstAngle = 90;
 
-            if (angle > 90) {
+            if (angle > 90)
+            {
                 endAngle = 135;
-            } else if (angle < 90) {
+            }
+            else if (angle < 90)
+            {
                 endAngle = 45;
-            } else {
+            }
+            else
+            {
                 endAngle = 90;
             }
 
-        } else if (angle >= 112.5 && angle < 157.5) {
+        }
+        else if (angle >= 112.5 && angle < 157.5)
+        {
             firstAngle = 135;
 
-            if (angle > 135) {
+            if (angle > 135)
+            {
                 endAngle = 180;
-            } else if (angle < 135) {
+            }
+            else if (angle < 135)
+            {
                 endAngle = 90;
-            } else {
+            }
+            else
+            {
                 endAngle = 135;
             }
 
-        } else if (angle >= 157.5 && angle < 202.5) {
+        }
+        else if (angle >= 157.5 && angle < 202.5)
+        {
             firstAngle = 180;
 
-            if (angle > 180) {
+            if (angle > 180)
+            {
                 endAngle = 225;
-            } else if (angle < 180) {
+            }
+            else if (angle < 180)
+            {
                 endAngle = 135;
-            } else {
+            }
+            else
+            {
                 endAngle = 180;
             }
 
-        } else if (angle >= 202.5 && angle < 247.5) {
+        }
+        else if (angle >= 202.5 && angle < 247.5)
+        {
             firstAngle = 225;
 
-            if (angle > 225) {
+            if (angle > 225)
+            {
                 endAngle = 270;
-            } else if (angle < 225) {
+            }
+            else if (angle < 225)
+            {
                 endAngle = 180;
-            } else {
+            }
+            else
+            {
                 endAngle = 225;
             }
 
-        } else if (angle >= 247.5 && angle < 292.5) {
+        }
+        else if (angle >= 247.5 && angle < 292.5)
+        {
             firstAngle = 270;
 
-            if (angle > 270) {
+            if (angle > 270)
+            {
                 endAngle = 315;
-            } else if (angle < 270) {
+            }
+            else if (angle < 270)
+            {
                 endAngle = 225;
-            } else {
+            }
+            else
+            {
                 endAngle = 270;
             }
 
-        } else if (angle >= 292.5 && angle < 337.5) {
+        }
+        else if (angle >= 292.5 && angle < 337.5)
+        {
             firstAngle = 315;
 
-            if (angle > 315) {
+            if (angle > 315)
+            {
                 endAngle = 0;
-            } else if (angle < 315) {
+            }
+            else if (angle < 315)
+            {
                 endAngle = 270;
-            } else {
+            }
+            else
+            {
                 endAngle = 315;
             }
 
@@ -525,9 +655,11 @@ public class LineDrawer : MonoBehaviour
         bool firstHalf = true;
         int counter = 0;
 
-        while (firstHalf && (curx != endx || cury != endy) && counter < 100) {
+        while (firstHalf && (curx != endx || cury != endy) && counter < 100)
+        {
 
-            switch (firstAngle) {
+            switch (firstAngle)
+            {
                 case 0:
                     curx += segLength;
                     break;
@@ -558,11 +690,13 @@ public class LineDrawer : MonoBehaviour
                     break;
             }
 
-            float secondAngle = Mathf.Atan2((endy-cury),(endx-curx)) * Mathf.Rad2Deg;
-            if (secondAngle < 0) {
+            float secondAngle = Mathf.Atan2((endy - cury), (endx - curx)) * Mathf.Rad2Deg;
+            if (secondAngle < 0)
+            {
                 secondAngle += 360;
             }
-            if (secondAngle == endAngle) {
+            if (secondAngle == endAngle)
+            {
                 firstHalf = false;
             }
 
@@ -576,9 +710,11 @@ public class LineDrawer : MonoBehaviour
 
 
         counter = 0;
-        while ((curx != endx || cury != endy) && counter < 100) {
+        while ((curx != endx || cury != endy) && counter < 100)
+        {
 
-            switch (endAngle) {
+            switch (endAngle)
+            {
                 case 0:
                     curx += segLength;
                     break;
@@ -650,12 +786,13 @@ public class LineDrawer : MonoBehaviour
         holderInfo.lineRenderer.endColor = lineColor;
 
         //Make the line segment renderer
-        if (isStart && targetLine != -1) { //Flip list is made from a start T
-            
+        if (isStart && targetLine != -1)
+        { //Flip list is made from a start T
+
             Vector3[] linePoints = new Vector3[3];
-            linePoints[2] = new Vector3(startx,starty,0);
-            linePoints[1] = new Vector3(midx,midy,0);
-            linePoints[0] = new Vector3(endx,endy,0);
+            linePoints[2] = new Vector3(startx, starty, 0);
+            linePoints[1] = new Vector3(midx, midy, 0);
+            linePoints[0] = new Vector3(endx, endy, 0);
             holderInfo.lineRenderer.SetPositions(linePoints);
 
             holderInfo.startStation = endStation;
@@ -663,11 +800,13 @@ public class LineDrawer : MonoBehaviour
 
             holderInfo.FlipVariables(); //Flips the start/end angle and the start/end count
 
-        } else {
+        }
+        else
+        {
             Vector3[] linePoints = new Vector3[3];
-            linePoints[0] = new Vector3(startx,starty,0);
-            linePoints[1] = new Vector3(midx,midy,0);
-            linePoints[2] = new Vector3(endx,endy,0);
+            linePoints[0] = new Vector3(startx, starty, 0);
+            linePoints[1] = new Vector3(midx, midy, 0);
+            linePoints[2] = new Vector3(endx, endy, 0);
             holderInfo.lineRenderer.SetPositions(linePoints);
 
             holderInfo.startStation = startStation;
@@ -675,7 +814,7 @@ public class LineDrawer : MonoBehaviour
         }
 
 
-        LineList.reference.addSegment(holderInfo,targetLine,isStart);
+        LineList.reference.addSegment(holderInfo, targetLine, isStart);
         BridgeGenerator.reference.BridgeGen(holderInfo);
 
         //lineInfos is our array of lineInfos
@@ -698,7 +837,8 @@ public class LineDrawer : MonoBehaviour
         //lineInfos is our array of lineInfos
         LineInfo[] lineInfos = lineScript.lineList;
 
-        for (int i = 0; i < lineScript.availableLines; i++) {
+        for (int i = 0; i < lineScript.availableLines; i++)
+        {
             //if this lineInfo's list of line segments is empty...
             if (lineInfos[i].LineSegments.Count == 0)
             {

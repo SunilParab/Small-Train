@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -266,6 +266,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   passengersInStation: []
   connectedLines: 
-  stationString: 
+  stationString: square
   passengerSpawnTime: 0
   myLine: 0
+  circlePassenger: {fileID: 5638830246612288042, guid: a58ad0b005e66584e9edf1353c248e85, type: 3}
+  squarePassenger: {fileID: 329076722937781247, guid: 756c7e034bf6b6249b9d3757db8e4e62, type: 3}
+  trianglePassenger: {fileID: 3603332593760928543, guid: 3c58a37bd8f9feb4ba0dbbcd2ec0dbfb, type: 3}
+  starPassenger: {fileID: 404708683432862344, guid: 75d29fc62931c6d46990fbe04d45eb17, type: 3}
+  pentagonPassenger: {fileID: 8825458044237689585, guid: ed036daa8d086e7469d07cbaa8a1d831, type: 3}
+  rhombusPassenger: {fileID: 5425877093297865946, guid: cf54810d0fff79d4aaa478113a4a3537, type: 3}
+  plusPassenger: {fileID: 2686388981704244461, guid: f9ce768b4a50abc4cb7ef8480b0970fa, type: 3}
+  piePassenger: {fileID: 2282137085969397466, guid: b58c8b5bde245e74689be0feba638fd4, type: 3}
+  diamondPassenger: {fileID: 6000844119935074042, guid: 93c455a8cce7bfa4ab7ad4a50048224f, type: 3}
+  eyePassenger: {fileID: 1426260935997696814, guid: 9101f352675a32b4cbd62827bfea5106, type: 3}

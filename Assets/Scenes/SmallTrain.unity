@@ -1816,6 +1816,7 @@ GameObject:
   - component: {fileID: 1812473468}
   - component: {fileID: 1812473467}
   - component: {fileID: 1812473466}
+  - component: {fileID: 1812473469}
   m_Layer: 0
   m_Name: LineDrawer
   m_TagString: Untagged
@@ -1885,6 +1886,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1812473469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812473465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba77d75b2105eff47ac71ffdeb9dc3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bridgePrefab: {fileID: 4307126451031699490, guid: 2a0b9d62bd84760458f7ca52d9052f8c, type: 3}
+  spawner: {fileID: 1277160606}
 --- !u!1 &1832387164 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 410771532449170233, guid: 474c89e359e51cb43bcc389499df0249, type: 3}

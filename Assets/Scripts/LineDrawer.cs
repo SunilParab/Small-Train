@@ -27,7 +27,6 @@ public class LineDrawer : MonoBehaviour
     //For instantiating the train on the line
     public GameObject train;
     public LineList lineScript;
-    private int ourLine = 0;
 
     int startCount;
     int endCount;
@@ -64,7 +63,8 @@ public class LineDrawer : MonoBehaviour
                     Destroy(segment);
                 } else { //Actually make line                   
                     //If we're making a new line, make a new train on this new line
-                    if (targetLine == -1)
+                    int ourLine = targetLine;
+                    if (ourLine == -1)
                     {
                         ourLine = TrainReadyMake();
                     }
@@ -410,6 +410,7 @@ public class LineDrawer : MonoBehaviour
     }
 
     void LineMake(int lineInfoArrayIndex) {
+        Debug.Log("Input: "+lineInfoArrayIndex);
 
         //Clear out old segment
         Destroy(segment);
@@ -520,39 +521,7 @@ public class LineDrawer : MonoBehaviour
         //Keep adding segments in the first direction until the angle from the newest segment to the endpoint equals the final angle
         float curx = startx;
         float cury = starty;
-        float offsetx = 0;
-        float offsety = 0;
 
-        switch (firstAngle) {
-            case 0:
-                offsetx = segLength / 2;
-                break;
-            case 45:
-                offsetx = segLength / 2;
-                offsety = segLength / 2;
-                break;
-            case 90:
-                offsety = segLength / 2;
-                break;
-            case 135:
-                offsetx = -segLength / 2;
-                offsety = segLength / 2;
-                break;
-            case 180:
-                offsetx = -segLength / 2;
-                break;
-            case 225:
-                offsetx = -segLength / 2;
-                offsety = -segLength / 2;
-                break;
-            case 270:
-                offsety = -segLength / 2;
-                break;
-            case 315:
-                offsetx = segLength / 2;
-                offsety = -segLength / 2;
-                break;
-        }
 
         bool firstHalf = true;
         int counter = 0;
@@ -605,37 +574,6 @@ public class LineDrawer : MonoBehaviour
         midy = cury;
 
         startCount = counter;
-
-        switch (endAngle) {
-            case 0:
-                offsetx = segLength / 2;
-                break;
-            case 45:
-                offsetx = segLength / 2;
-                offsety = segLength / 2;
-                break;
-            case 90:
-                offsety = segLength / 2;
-                break;
-            case 135:
-                offsetx = -segLength / 2;
-                offsety = segLength / 2;
-                break;
-            case 180:
-                offsetx = -segLength / 2;
-                break;
-            case 225:
-                offsetx = -segLength / 2;
-                offsety = -segLength / 2;
-                break;
-            case 270:
-                offsety = -segLength / 2;
-                break;
-            case 315:
-                offsetx = segLength / 2;
-                offsety = -segLength / 2;
-                break;
-        }
 
 
         counter = 0;

@@ -661,6 +661,9 @@ public class LineDrawer : MonoBehaviour
 
             holderInfo.startStation = endStation;
             holderInfo.endStation = startStation;
+
+            holderInfo.FlipVariables(); //Flips the start/end angle and the start/end count
+
         } else {
             Vector3[] linePoints = new Vector3[3];
             linePoints[0] = new Vector3(startx,starty,0);

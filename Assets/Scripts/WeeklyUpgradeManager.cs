@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
 public class WeeklyUpgradeManager : MonoBehaviour
 {
@@ -16,10 +17,9 @@ public class WeeklyUpgradeManager : MonoBehaviour
     public Button upgradeButton2;
     public Button[] allUpgradeButtons;
 
-    private string[] upgradeOptions = { "Train", "Carriage", "New Line", "Tunnel", "Interchange" };
+    private List<string> upgradeOptions = new List<string>{ "Train", "Carriage", "New Line", "Tunnel", "Interchange" };
     public int trainCount = 3;
     public int carriageCount = 0;
-    public int newlineCount = 3;
     public int tunnelCount = 3;
     public int interchangeCount = 0;
 
@@ -92,24 +92,24 @@ public class WeeklyUpgradeManager : MonoBehaviour
     {
         upgradeButton1.gameObject.SetActive(false);
         upgradeButton2.gameObject.SetActive(false);
-        Debug.Log("Showing random upgrade options...");
+        //Debug.Log("Showing random upgrade options...");
 
         if (upgradeButton1 == null)
             Debug.LogError("upgradeButton1 is not assigned!");
         else
-            Debug.Log("upgradeButton1 is assigned");
+            //Debug.Log("upgradeButton1 is assigned");
 
         if (upgradeButton2 == null)
             Debug.LogError("upgradeButton2 is not assigned!");
         else
-            Debug.Log("upgradeButton2 is assigned");
+            //Debug.Log("upgradeButton2 is assigned");
 
         foreach (Button upgradeButton in allUpgradeButtons)
         {
             if (upgradeButton == null)
                 Debug.LogError("One of the buttons in allUpgradeButtons is not assigned!");
             else
-                Debug.Log("Button in allUpgradeButtons is assigned");
+                //Debug.Log("Button in allUpgradeButtons is assigned");
 
             upgradeButton.gameObject.SetActive(true);
         }
@@ -123,7 +123,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     public string[] GetRandomUpgrades()
     {
-        string[] shuffledUpgrades = (string[])upgradeOptions.Clone();
+        string[] shuffledUpgrades = (string[])upgradeOptions.ToArray();
         for (int i = 0; i < shuffledUpgrades.Length; i++)
         {
             string temp = shuffledUpgrades[i];
@@ -137,37 +137,42 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     public void OnUpgradeSelected(Button selectedButton)
     {
-        Debug.Log("Player selected: " + selectedButton.GetComponentInChildren<TextMeshProUGUI>().text);
+        //Debug.Log("Player selected: " + selectedButton.GetComponentInChildren<TextMeshProUGUI>().text);
         ApplyUpgrade(selectedButton.GetComponentInChildren<TextMeshProUGUI>().text);
         CloseUpgradeScreen();
     }
     private void ApplyUpgrade(string selectedUpgrade)
     {
-        Debug.Log(selectedUpgrade);
+        //Debug.Log(selectedUpgrade);
         if (selectedUpgrade.Equals("Train"))
         {
             trainCount++;
-            Debug.Log("train " + trainCount);
+            //Debug.Log("train " + trainCount);
         }
         if (selectedUpgrade.Equals("Carriage"))
         {
             carriageCount++;
-            Debug.Log("carriage " + carriageCount);
+            //Debug.Log("carriage " + carriageCount);
         }
         if (selectedUpgrade.Equals("New Line"))
         {
-            newlineCount++;
-            Debug.Log("new line " + newlineCount);
+            LineList.reference.availableLines++;
+
+            if (LineList.reference.availableLines >= 7) {
+                upgradeOptions.Remove("New Line");
+            }
+
+            //Debug.Log("new line " + newlineCount);
         }
         if (selectedUpgrade.Equals("Interchange"))
         {
             interchangeCount++;
-            Debug.Log("inter " + interchangeCount);
+            //Debug.Log("inter " + interchangeCount);
         }
         if (selectedUpgrade.Equals("Tunnel"))
         {
             tunnelCount++;
-            Debug.Log("tunnel " + tunnelCount);
+            //Debug.Log("tunnel " + tunnelCount);
         }
        // Debug.Log("Applying upgrade: " + selectedUpgrade);
     }
@@ -180,6 +185,6 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     private void UpdateWeekUI()
     {
-        Debug.Log("Week: " + weekCount);
+        //Debug.Log("Week: " + weekCount);
     }
 }

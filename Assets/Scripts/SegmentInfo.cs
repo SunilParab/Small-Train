@@ -43,4 +43,15 @@ public class SegmentInfo : MonoBehaviour
         //add this line into station's list
         segmentList[segmentList.Count-1].endStation.GetComponent<PassengerSpawn>().connectedLines.Add(myLine);
     }
+
+    public void FlipVariables() {
+        float temp1 = firstAngle;
+        firstAngle = (endAngle + 180)%360;
+        endAngle = (temp1 + 180)%360;
+
+        int temp2 = startCount;
+        startCount = endCount;
+        endCount = temp2;
+    }
+
 }

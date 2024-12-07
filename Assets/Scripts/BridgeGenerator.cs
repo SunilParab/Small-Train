@@ -5,7 +5,7 @@ using UnityEngine;
 public class BridgeGenerator : MonoBehaviour
 {
 
-    public static float segLength = 0.5f;
+    public static float segLength = 0.25f;
     public GameObject bridgePrefab;
     public StationSpawnManager spawner;
 

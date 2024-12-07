@@ -87,7 +87,6 @@ public class BridgeGenerator : MonoBehaviour
             }
 
             if (IsCollidingWater(spawner.map.GetComponent<Collider2D>(), new Vector3(curx,cury,0))) {
-                Debug.Log("gsdgs");
                 if (!startFound) {
                     startFound = true;
                     startOnFirstHalf = true;

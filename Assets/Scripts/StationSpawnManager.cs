@@ -7,6 +7,7 @@ using UnityEngine;
 public class StationSpawnManager : MonoBehaviour
 {
 
+    //station gameobjects
     public GameObject square;
     public GameObject triangle;
     public GameObject circle;
@@ -18,17 +19,23 @@ public class StationSpawnManager : MonoBehaviour
     public GameObject eye;
     public GameObject pentagon;
 
+    //passenger/station shape spawn rarity? variables
+    public static int maxShapeNum = 3; //caps at 10
+    public static bool rareSpawn = false;
+    public static int stationCount; 
+    public static bool spawnNextPassengerShape;
+
     private List<GameObject> stations;
 
     [Header("Variables")]
     private int spawnTime;
     public int spawnSpeed;
-    public float rareProb = 0.9f;
+    public static float rareProb = 0.9f;
     public int xRange;
     public int yRange;
-    public float range;
+    public int yDownRange;
+    public int range;
     public int zoomCount = 0;
-    bool spawned = false;
     bool spawnedFirst;
     bool spawnedSecond;
     bool spawnedThird;
@@ -37,8 +44,7 @@ public class StationSpawnManager : MonoBehaviour
     GameObject station;
 
     //passenger spawn timer variables
-    public float passengerSpawnTime;
-    private float passengerTimer;   
+    public float passengerSpawnTime; 
 
     //map object
     public GameObject map;
@@ -51,18 +57,16 @@ public class StationSpawnManager : MonoBehaviour
         xPos = UnityEngine.Random.Range(-xRange, xRange);
         yPos = UnityEngine.Random.Range(-yRange, yRange);
 
+        //spawn every 5~20 seconds (random) approximately
         passengerSpawnTime = UnityEngine.Random.Range(5,21); 
 
-        //spawn every 5~20 seconds (random) approximately
-        passengerTimer = passengerSpawnTime; 
-
         //station distance range
-        range = 2f;
+        range = 2;
         xRange = 4;
         yRange = 2;
 
         //resize prefabs
-        float scale = 0.07f;
+        float scale = 0.05f;
         square.transform.localScale = new Vector3(scale, scale, scale);
         triangle.transform.localScale = new Vector3(scale, scale, scale);
         circle.transform.localScale = new Vector3(scale, scale, scale);
@@ -84,7 +88,6 @@ public class StationSpawnManager : MonoBehaviour
             spawnedFirst = SpawnStation(station, xPos, yPos);
             xPos = UnityEngine.Random.Range(-xRange, xRange);
             yPos = UnityEngine.Random.Range(-yRange, yRange + 1);
-        
         }
         while (!spawnedSecond)
         {   
@@ -109,6 +112,20 @@ public class StationSpawnManager : MonoBehaviour
 
     }
 
+    void Update(){
+
+        //rare stations spawn after ~ten spawns (including initial three)
+        if (stationCount >= 7) {
+            rareSpawn = true;
+        }
+
+        //caps at 10
+        if (maxShapeNum >= 10){
+            maxShapeNum = 10;
+        }
+
+    }
+
     void FixedUpdate()
     {
         spawnTime++;
@@ -118,18 +135,27 @@ public class StationSpawnManager : MonoBehaviour
         {
             //Debug.Log(rareProb);
             
-            if (RandomGaussian(0f, 1f) >= rareProb)
+            if (stationCount == 7){
+                stationNum = 3;
+                maxShapeNum ++;
+                spawnNextPassengerShape = true;
+            }
+            else if (RandomGaussian(0f, 1f) >= rareProb && rareSpawn)
             {
-                stationNum = UnityEngine.Random.Range(3, 10);
+                stationNum = UnityEngine.Random.Range(maxShapeNum, maxShapeNum); //3 ~ cap
                 //Make the probability of rare stations decrease
                 rareProb += 0.06f;
+
+                maxShapeNum ++;
+                spawnNextPassengerShape = true;
             }
             else
             {   
-                stationNum = UnityEngine.Random.Range(0, 3);
+                stationNum = UnityEngine.Random.Range(0, 3); //0 ~ 2
 
                 //Make the probability of rare stations increase
-                rareProb -= 0.02f;
+                rareProb -= 0.04f;
+                spawnNextPassengerShape = false;
             }
             station = square;
 
@@ -150,12 +176,12 @@ public class StationSpawnManager : MonoBehaviour
                     station.GetComponent<PassengerSpawn>().stationString = "circle";
                     break;
                 case 3: 
-                    station = pie;
-                    station.GetComponent<PassengerSpawn>().stationString = "pie";
-                    break;
-                case 4:
                     station = star;
                     station.GetComponent<PassengerSpawn>().stationString = "star";
+                    break;
+                case 4:
+                    station = plus;
+                    station.GetComponent<PassengerSpawn>().stationString = "plus";
                     break;
                 case 5:
                     station = rhombus;
@@ -166,8 +192,8 @@ public class StationSpawnManager : MonoBehaviour
                     station.GetComponent<PassengerSpawn>().stationString = "diamond";
                     break;
                 case 7:
-                    station = plus;
-                    station.GetComponent<PassengerSpawn>().stationString = "plus";
+                    station = pie;
+                    station.GetComponent<PassengerSpawn>().stationString = "pie";
                     break;
                 case 8:
                     station = eye;
@@ -185,27 +211,44 @@ public class StationSpawnManager : MonoBehaviour
             
             int tries = 0;
             if (!CameraZoom.stopZoom){
-                while (!spawned && tries < 10)
+                
+                bool spawned = false;
+
+                while (!spawned && tries < 100)
                 {   
                     
                     spawned = SpawnStation(station, xPos, yPos);
 
                     if (spawned){
+                        
+                        //increase station count
+                        stationCount ++;
+
                         //camera zoom
                         CameraZoom.haveToZoom = true;
                         zoomCount += 1;
 
-                        if (zoomCount == 10){
-
+                        if (zoomCount <= 12){
+                            
                             //increase spawn range
-                            xRange += 1;
-                            yRange += 1;
-                            zoomCount = 0;
-                        }
-                    }
+                            if (zoomCount == 3 | zoomCount == 6 | zoomCount == 9){
+    
+                                xRange += 1;
+                                yDownRange += 1;
 
+                            }
+
+                            else if (zoomCount == 12){
+                                
+                                xRange += 1;
+                                yDownRange += 1;
+                                zoomCount = 0;
+                            }
+                        }
+                        
+                    }
                     xPos = UnityEngine.Random.Range(-xRange, xRange);
-                    yPos = UnityEngine.Random.Range(-yRange, yRange);
+                    yPos = UnityEngine.Random.Range(-yRange - yDownRange, yRange);
                     tries++;
                 }
             }

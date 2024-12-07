@@ -23,10 +23,9 @@ public class PassengerSpawn : MonoBehaviour
     private float timer;   
 
     //segment reference stuff
-    SegmentInfo curSegment;
-    private LineInfo[] lineInfos;    
     public int myLine;  
 
+    //passenger gameobjects
     public GameObject circlePassenger;
     public GameObject squarePassenger;
     public GameObject trianglePassenger;
@@ -42,7 +41,7 @@ public class PassengerSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        passengerNum = UnityEngine.Random.Range(0,10);
+        passengerNum = UnityEngine.Random.Range(0, StationSpawnManager.maxShapeNum);
         passengerSpawnTime = UnityEngine.Random.Range(5,21); 
 
         //instantiate passenger shape
@@ -74,8 +73,17 @@ public class PassengerSpawn : MonoBehaviour
                     timer = passengerSpawnTime;
                     
                 }
-                
-                passengerNum = UnityEngine.Random.Range(0,10);
+
+                //randomize passenger shape based on probability
+                if (StationSpawnManager.RandomGaussian(0f, 1f) >= 0.8f && StationSpawnManager.spawnNextPassengerShape)
+                {
+                    passengerNum = UnityEngine.Random.Range(3, StationSpawnManager.maxShapeNum); //3 ~ cap
+                }   
+                else
+                {   
+                    passengerNum = UnityEngine.Random.Range(0, 3); //0 ~ 2
+                }
+
                 RandomizePassengerShape();
             }
         }
@@ -102,10 +110,10 @@ public class PassengerSpawn : MonoBehaviour
                 passengerString = "circle";
                 break;
             case 3: 
-                passengerString = "pie";
+                passengerString = "star";
                 break;
             case 4:
-                passengerString = "star";
+                passengerString = "plus";
                 break;
             case 5:
                 passengerString = "rhombus";
@@ -114,7 +122,7 @@ public class PassengerSpawn : MonoBehaviour
                 passengerString = "diamond";
                 break;
             case 7:
-                passengerString = "plus";
+                passengerString = "pie";
                 break;
             case 8:
                 passengerString = "eye";
@@ -139,11 +147,11 @@ public class PassengerSpawn : MonoBehaviour
             else if (passengersInStation[i].Equals("circle")){
                 passenger = circlePassenger;
             }
-            else if (passengersInStation[i].Equals("pie")){
-                passenger = piePassenger;
-            }
             else if (passengersInStation[i].Equals("star")){
                 passenger = starPassenger;
+            }
+            else if (passengersInStation[i].Equals("plus")){
+                passenger = plusPassenger;
             }
             else if (passengersInStation[i].Equals("rhombus")){
                 passenger = rhombusPassenger;
@@ -151,8 +159,8 @@ public class PassengerSpawn : MonoBehaviour
             else if (passengersInStation[i].Equals("diamond")){
                 passenger = diamondPassenger;
             }
-            else if (passengersInStation[i].Equals("plus")){
-                passenger = plusPassenger;
+            else if (passengersInStation[i].Equals("pie")){
+                passenger = piePassenger;
             }
             else if (passengersInStation[i].Equals("eye")){
                 passenger = eyePassenger;
@@ -165,14 +173,18 @@ public class PassengerSpawn : MonoBehaviour
         }
     }
 
+    //this somehow has to be constantly updated 
     public Vector2 PassengerPosition(int positionNum){
         
-        Vector2 position = new();
-        float xPos = transform.position.x + 0.2f;
-        float yPos = transform.position.y - 0.2f;
+        Vector2 position;
 
-        float xDistance = 0.35f;
-        float yDistance = 0.175f;
+        float baseDistance = 0.1f;
+
+        float xPos = transform.position.x + baseDistance;
+        float yPos = transform.position.y - baseDistance;
+
+        float xDistance = 0.25f;
+        float yDistance = xDistance / 2;
 
         //top
         if (positionNum == 0){

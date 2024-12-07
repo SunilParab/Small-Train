@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3128246743960134856}
   - component: {fileID: 8501033593396478358}
   - component: {fileID: 2566293066159333165}
-  - component: {fileID: 9211438772979553732}
+  - component: {fileID: -2824177400984528962}
   m_Layer: 0
   m_Name: TSegment
   m_TagString: Untagged
@@ -101,7 +101,7 @@ MonoBehaviour:
   trainLine: 0
   isStart: 0
   myStation: {fileID: 0}
---- !u!60 &9211438772979553732
+--- !u!60 &-2824177400984528962
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

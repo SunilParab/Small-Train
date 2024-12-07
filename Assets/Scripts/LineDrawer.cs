@@ -410,7 +410,6 @@ public class LineDrawer : MonoBehaviour
     }
 
     void LineMake(int lineInfoArrayIndex) {
-        Debug.Log("Input: "+lineInfoArrayIndex);
 
         //Clear out old segment
         Destroy(segment);
@@ -710,5 +709,10 @@ public class LineDrawer : MonoBehaviour
 
         return thisLine;
     }
+
+    void CheckSegmentRemove() {
+        Destroy(LineList.reference.lineList[0].LineSegments[0].gameObject);
+    }
+
 
 }

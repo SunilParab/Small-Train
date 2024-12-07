@@ -106,7 +106,13 @@ public class TrainManager : MonoBehaviour
             if (curHalf == 1) {
                 
                 var turningAround = false;
+
+
                 var curSegmentIndex = lineInfos[myLine].LineSegments.IndexOf(curSegment);
+
+                if (curSegmentIndex == -1) {
+
+                }
 
                 //Check if its at the end of the line
                 if (reversed) {

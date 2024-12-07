@@ -483,7 +483,8 @@ public class LineDrawer : MonoBehaviour
         endStation = null;
     }
 
-    void LineMake(int lineInfoArrayIndex) {
+    void LineMake(int lineInfoArrayIndex)
+    {
 
         //Clear out old segment
         Destroy(segment);
@@ -850,7 +851,8 @@ public class LineDrawer : MonoBehaviour
         return thisLine;
     }
 
-    void CheckSegmentRemove() {
+    void CheckSegmentRemove()
+    {
         Destroy(LineList.reference.lineList[0].LineSegments[0].gameObject);
     }
 

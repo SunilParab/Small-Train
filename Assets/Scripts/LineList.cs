@@ -7,7 +7,7 @@ public class LineList : MonoBehaviour
 {
     
     public LineInfo[] lineList = new LineInfo[7];
-
+   // public WeeklyUpgradeManager weeklyUpgradeManager;
     //Make enumerator (it might be better with ints)
 
     public static LineList reference;

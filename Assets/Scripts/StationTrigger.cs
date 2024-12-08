@@ -23,6 +23,7 @@ public class StationTrigger : MonoBehaviour
         if (LineDrawer.reference.making) {
             LineDrawer.reference.Snap(this.gameObject);
             snappedTo = true;
+                        Debug.Log(Time.time);
         } else if (Input.GetMouseButtonDown(0) ) {
             LineDrawer.reference.Activate(-1,true,gameObject); //-1 Means new line
         }

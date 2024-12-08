@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -491,6 +492,10 @@ public class LineDrawer : MonoBehaviour
         //Clear out old segment
         Destroy(segment);
 
+        if (CheckSegmentRemove()) {
+            return;
+        }
+
         var holder = Instantiate(lineHolder);
         var holderInfo = holder.GetComponent<SegmentInfo>();
 
@@ -963,9 +968,42 @@ public class LineDrawer : MonoBehaviour
         return thisLine;
     }
 
-    void CheckSegmentRemove()
+    bool CheckSegmentRemove()
     {
-        Destroy(LineList.reference.lineList[0].LineSegments[0].gameObject);
+
+        if (startStation == endStation) {
+            return true;
+        }
+
+        if (targetLine == -1) {
+            return false;
+        }
+
+        LineInfo curLine = LineList.reference.lineList[targetLine];
+
+        if (isStart) {
+            if (endStation == curLine.LineSegments[0].endStation) {
+                //Remove first segment
+                Destroy(curLine.LineSegments[0].gameObject);
+                curLine.LineSegments.RemoveAt(0);
+                //Move T
+                Destroy(curLine.startT);
+                curLine.MakeT(curLine.LineSegments[0],true,curLine.LineSegments[0].startStation);
+                return true;
+            }
+        } else {
+            if (endStation == curLine.LineSegments.Last().startStation) {
+                //Remove last segment
+                Destroy(curLine.LineSegments.Last().gameObject);
+                curLine.LineSegments.RemoveAt(curLine.LineSegments.Count-1);
+                //Move T
+                Destroy(curLine.endT);
+                curLine.MakeT(curLine.LineSegments.Last(),false,curLine.LineSegments.Last().endStation);
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

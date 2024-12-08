@@ -17,7 +17,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
     public Button upgradeButton2;
     public Button[] allUpgradeButtons;
 
-    private List<string> upgradeOptions = new List<string>{ "Train", "Carriage", "New Line", "Tunnel", "Interchange" };
+    private List<string> upgradeOptions = new List<string>{ "Train", "Carriage", "Line", "Tunnel", "Interchange" };
     public int trainCount = 3;
     public int carriageCount = 0;
     public int tunnelCount = 3;
@@ -154,12 +154,12 @@ public class WeeklyUpgradeManager : MonoBehaviour
             carriageCount++;
             //Debug.Log("carriage " + carriageCount);
         }
-        if (selectedUpgrade.Equals("New Line"))
+        if (selectedUpgrade.Equals("Line"))
         {
             LineList.reference.availableLines++;
 
             if (LineList.reference.availableLines >= 7) {
-                upgradeOptions.Remove("New Line");
+                upgradeOptions.Remove("Line");
             }
 
             //Debug.Log("new line " + newlineCount);

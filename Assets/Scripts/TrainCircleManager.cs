@@ -22,12 +22,14 @@ public class TrainCircleManager : MonoBehaviour
     public TextMeshProUGUI tunnelCountText;
     void Start()
     {
+        /*
        // Transform scaleredcircle = RedLineCircle.GetComponent<Transform>();
         trainCircle.anchoredPosition = new Vector2(0, -Screen.height * 0.75f);
         trainCircle.gameObject.SetActive(false);
         tunnelCircle.anchoredPosition = new Vector2(200, -Screen.height * 0.75f);
         tunnelCircle.gameObject.SetActive(false);
         bottomCircleButton.onClick.AddListener(OnBottomCircleClicked);
+        */
     }
 
     void Update()
@@ -42,7 +44,8 @@ public class TrainCircleManager : MonoBehaviour
     }
 
     void UpdateUI()
-    {
+    {   
+        /*
         if (LineList.reference.lineList[0].LineSegments.Count != 0 && !isScaling)
         {
             if (YellowLineCircle.transform.localScale != new Vector3(0.8f, 0.8f, 0.8f))
@@ -70,6 +73,7 @@ public class TrainCircleManager : MonoBehaviour
         //  {
         //     RedLineCircle.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
         // }
+        */
     }
     void OnBottomCircleClicked()
     {

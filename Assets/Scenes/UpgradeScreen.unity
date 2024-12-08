@@ -924,8 +924,8 @@ Transform:
   m_GameObject: {fileID: 655321121}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -548.26, y: -275.68, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalPosition: {x: -552.96, y: -281.24, z: 0}
+  m_LocalScale: {x: 0.6999999, y: 0.6999999, z: 0.6999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 895767541}
@@ -1160,8 +1160,8 @@ RectTransform:
   - {fileID: 2042524246}
   - {fileID: 431263749}
   - {fileID: 1142038284}
-  - {fileID: 655321123}
   - {fileID: 1430161406}
+  - {fileID: 655321123}
   - {fileID: 1153807760}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1503,8 +1503,8 @@ Transform:
   m_GameObject: {fileID: 1153807758}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -545.51, y: -275.68, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalPosition: {x: -550.2, y: -281.24, z: 0}
+  m_LocalScale: {x: 0.6999999, y: 0.6999999, z: 0.6999999}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 895767541}
@@ -1759,7 +1759,7 @@ Transform:
   m_GameObject: {fileID: 1430161404}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -546.86, y: -275.68, z: 0}
+  m_LocalPosition: {x: -551.6, y: -281.24, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2261,7 +2261,6 @@ MonoBehaviour:
   - {fileID: 2030681353}
   trainCount: 3
   carriageCount: 0
-  newlineCount: 3
   tunnelCount: 3
   interchangeCount: 0
 --- !u!4 &2002744852

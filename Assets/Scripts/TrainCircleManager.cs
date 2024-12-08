@@ -12,6 +12,10 @@ public class TrainCircleManager : MonoBehaviour
     public GameObject RedLineCircle;
     public GameObject YellowLineCircle;
     public GameObject BlueLineCircle;
+    public GameObject GreenLineCircle;
+    public GameObject PurpleLineCircle;
+    public GameObject OrangeLineCircle;
+    public GameObject BrownLineCircle;
     public WeeklyUpgradeManager weeklyUpgradeManager;
     private Vector3 bottomCircleTargetPosition = new Vector3(0, -175, 0);
     private Vector3 targetPosition;
@@ -22,14 +26,14 @@ public class TrainCircleManager : MonoBehaviour
     public TextMeshProUGUI tunnelCountText;
     void Start()
     {
-        /*
+        
        // Transform scaleredcircle = RedLineCircle.GetComponent<Transform>();
         trainCircle.anchoredPosition = new Vector2(0, -Screen.height * 0.75f);
         trainCircle.gameObject.SetActive(false);
         tunnelCircle.anchoredPosition = new Vector2(200, -Screen.height * 0.75f);
         tunnelCircle.gameObject.SetActive(false);
         bottomCircleButton.onClick.AddListener(OnBottomCircleClicked);
-        */
+        
     }
 
     void Update()
@@ -45,36 +49,68 @@ public class TrainCircleManager : MonoBehaviour
 
     void UpdateUI()
     {   
-        /*
+        
         if (LineList.reference.lineList[0].LineSegments.Count != 0 && !isScaling)
         {
-            if (YellowLineCircle.transform.localScale != new Vector3(0.8f, 0.8f, 0.8f))
+            if (YellowLineCircle.transform.localScale != new Vector3(2.5f, 2.5f, 2.5f))
             {
-                StartCoroutine(SmoothScale(YellowLineCircle, new Vector3(0.8f, 0.8f, 0.8f), 0.2f)); // Adjust duration as needed
+                StartCoroutine(SmoothScale(YellowLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
             }
         }
 
         if (LineList.reference.lineList[1].LineSegments.Count != 0 && !isScaling)
         {
-            if (RedLineCircle.transform.localScale != new Vector3(0.8f, 0.8f, 0.8f))
+            if (RedLineCircle.transform.localScale != new Vector3(2.5f, 2.5f, 2.5f))
             {
-                StartCoroutine(SmoothScale(RedLineCircle, new Vector3(0.8f, 0.8f, 0.8f), 0.2f)); // Adjust duration as needed
+                StartCoroutine(SmoothScale(RedLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
             }
         }
 
         if (LineList.reference.lineList[2].LineSegments.Count != 0 && !isScaling)
         {
-            if (BlueLineCircle.transform.localScale != new Vector3(0.8f, 0.8f, 0.8f))
+            if (BlueLineCircle.transform.localScale != new Vector3(2.5f, 2.5f, 2.5f))
             {
-                StartCoroutine(SmoothScale(BlueLineCircle, new Vector3(0.8f, 0.8f, 0.8f), 0.2f)); // Adjust duration as needed
+                StartCoroutine(SmoothScale(BlueLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
             }
         }
-        //  if (LineList.reference.lineList[1].LineSegments.Count != 0)
-        //  {
-        //     RedLineCircle.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-        // }
-        */
-    }
+
+        if (LineList.reference.lineList[3].LineSegments.Count != 0 && !isScaling)
+        {
+            if (GreenLineCircle.transform.localScale != new Vector3(2.5f, 2.5f, 2.5f))
+            {
+                StartCoroutine(SmoothScale(GreenLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
+            }
+        }
+
+        if (LineList.reference.lineList[4].LineSegments.Count != 0 && !isScaling)
+        {
+            if (PurpleLineCircle.transform.localScale != new Vector3(2.5f, 2.5f, 2.5f))
+            {
+                StartCoroutine(SmoothScale(PurpleLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
+            }
+        }
+
+        if (LineList.reference.lineList[5].LineSegments.Count != 0 && !isScaling)
+        {
+            if (OrangeLineCircle.transform.localScale != new Vector3(2.5f, 2.5f, 2.5f))
+            {
+                StartCoroutine(SmoothScale(OrangeLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
+            }
+        }
+
+        if (LineList.reference.lineList[6].LineSegments.Count != 0 && !isScaling)
+        {
+            if (BrownLineCircle.transform.localScale != new Vector3(2.5f, 2.5f, 2.5f))
+            {
+                StartCoroutine(SmoothScale(BrownLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
+            }
+        }
+            //  if (LineList.reference.lineList[1].LineSegments.Count != 0)
+            //  {
+            //     RedLineCircle.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            // }
+
+        }
     void OnBottomCircleClicked()
     {
 

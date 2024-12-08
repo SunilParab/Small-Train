@@ -43,7 +43,7 @@ public class PassengerSpawn : MonoBehaviour
     void Start()
     {
         passengerNum = UnityEngine.Random.Range(0, StationSpawnManager.maxShapeNum);
-        passengerSpawnTime = UnityEngine.Random.Range(5,21); 
+        passengerSpawnTime = UnityEngine.Random.Range(10,21); 
 
         //instantiate passenger shape
         RandomizePassengerShape();
@@ -72,7 +72,7 @@ public class PassengerSpawn : MonoBehaviour
                     SpawnPassengerIcons();
 
                     //reset timer
-                    passengerSpawnTime = UnityEngine.Random.Range(5,21); 
+                    passengerSpawnTime = UnityEngine.Random.Range(10,21); 
                     timer = passengerSpawnTime;
                     
                 }
@@ -232,8 +232,39 @@ public class PassengerSpawn : MonoBehaviour
         else if (positionNum == 9){
             position = new Vector2(xPos + xDistance * 4, yPos - yDistance * 4);
         }
-        else {
+        else if (positionNum == 10){
             position = new Vector2(xPos + xDistance * 3, yPos - yDistance * 4);
+        }
+        else if (positionNum == 11){
+            position = new Vector2(xPos + xDistance * 2, yPos - yDistance * 4);
+        }
+        else if (positionNum == 12){
+            position = new Vector2(xPos + xDistance * 1, yPos - yDistance * 4);
+        }
+
+        //lower middle
+        else if (positionNum == 13){
+            position = new Vector2(xPos + xDistance * 0, yPos - yDistance * 5);
+        }
+
+        //lower bottom
+        else if (positionNum == 14){
+            position = new Vector2(xPos + xDistance * 1, yPos - yDistance * 6);
+        }
+        else if (positionNum == 15){
+            position = new Vector2(xPos + xDistance * 2, yPos - yDistance * 6);
+        }
+        else if (positionNum == 16){
+            position = new Vector2(xPos + xDistance * 3, yPos - yDistance * 6);
+        }
+        else if (positionNum == 17){
+            position = new Vector2(xPos + xDistance * 4, yPos - yDistance * 6);
+        }
+        else if (positionNum == 18){
+            position = new Vector2(xPos + xDistance * 5, yPos - yDistance * 6);
+        }
+        else {
+            position = new Vector2(xPos + xDistance * 6, yPos - yDistance * 6);
         }
 
         return position;

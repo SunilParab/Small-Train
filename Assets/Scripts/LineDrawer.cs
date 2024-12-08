@@ -34,7 +34,7 @@ public class LineDrawer : MonoBehaviour
     int endCount;
 
     // Lets the Line Drawer know if its making a new Train Line
-    private int targetLine;
+    public int targetLine;
     private bool isStart;
 
     //Passes these to the segment info

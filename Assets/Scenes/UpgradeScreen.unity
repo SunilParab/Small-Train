@@ -1161,8 +1161,8 @@ RectTransform:
   - {fileID: 431263749}
   - {fileID: 1142038284}
   - {fileID: 655321123}
-  - {fileID: 1430161406}
   - {fileID: 1153807760}
+  - {fileID: 1430161406}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2261,7 +2261,6 @@ MonoBehaviour:
   - {fileID: 2030681353}
   trainCount: 3
   carriageCount: 0
-  newlineCount: 3
   tunnelCount: 3
   interchangeCount: 0
 --- !u!4 &2002744852

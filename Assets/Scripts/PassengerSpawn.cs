@@ -7,6 +7,7 @@ public class PassengerSpawn : MonoBehaviour
 {
     //give this (script) list to all the spawned stations
     public List<string> passengersInStation = new();
+    public List<GameObject> passengersInStationGO = new();
 
     //lines the station is connected to 
     public List<int> connectedLines = new();
@@ -53,8 +54,10 @@ public class PassengerSpawn : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
-        
+    {
+        UpdatePassengerIcons();
+
+
         if (Time.timeScale > 0)
         {
             timer -= Time.deltaTime;
@@ -169,7 +172,15 @@ public class PassengerSpawn : MonoBehaviour
                 passenger = pentagonPassenger;
             }
 
-            Instantiate(passenger, PassengerPosition(i), Quaternion.identity);
+            passengersInStationGO.Add(Instantiate(passenger, PassengerPosition(i), Quaternion.identity));
+        }
+    }
+
+    public void UpdatePassengerIcons()
+    {
+        for (int i = 0; i < passengersInStationGO.Count; i++)
+        {
+            passengersInStationGO[i].transform.position = PassengerPosition(i);
         }
     }
 

@@ -29,7 +29,7 @@ public class BridgeGenerator : MonoBehaviour
 
     //TODO edge case of water being 1 box big !!!!  set the end point to one segment-segment after once the start point is found
 
-    public void BridgeGen(SegmentInfo segment)
+    public bool BridgeGen(SegmentInfo segment)
     {
         bool startFound = false;
         Vector3 bridgeStart = new Vector3();
@@ -172,6 +172,9 @@ public class BridgeGenerator : MonoBehaviour
                 bridgeRenderer.positionCount = 2;
                 bridgeRenderer.SetPositions(linePoints);
             }
+            return true;
+        } else {
+            return false;
         }
 
     }

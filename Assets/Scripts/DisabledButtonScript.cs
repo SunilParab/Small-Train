@@ -24,44 +24,28 @@ public class DisabledButtonScript : MonoBehaviour
         if (LineList.reference.availableLines == 4 && name.Equals("GreenButton")){
 
             button.image.color = color;
-<<<<<<< HEAD
             button.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
-=======
-         //   button.transform.localScale = new Vector3(0.6f, 0.6f, 0);
->>>>>>> main
             canChangeLine = true;
         }
 
         else if (LineList.reference.availableLines == 5 && name.Equals("PurpleButton")){
 
             button.image.color = color;
-<<<<<<< HEAD
             button.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
-=======
-         //   button.transform.localScale = new Vector3(0.6f, 0.6f, 0);
->>>>>>> main
             canChangeLine = true;
         }
 
         else if (LineList.reference.availableLines == 6 && name.Equals("OrangeButton")){
 
             button.image.color = color;
-<<<<<<< HEAD
             button.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
-=======
-          //  button.transform.localScale = new Vector3(0.6f, 0.6f, 0);
->>>>>>> main
             canChangeLine = true;
         }
 
         else if (LineList.reference.availableLines == 7 && name.Equals("BrownButton")){
 
             button.image.color = color;
-<<<<<<< HEAD
             button.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
-=======
-           // button.transform.localScale = new Vector3(0.6f, 0.6f, 0);
->>>>>>> main
             canChangeLine = true;
         }
     }

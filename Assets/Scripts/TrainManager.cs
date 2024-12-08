@@ -208,7 +208,7 @@ public class TrainManager : MonoBehaviour
                         leavingStation = true;
                     }
                 }
-                pickUpPassengersTimer = 500;
+                pickUpPassengersTimer = 250;
             }
             pickUpPassengersTimer -= Time.deltaTime * 500;
         } else
@@ -237,7 +237,7 @@ public class TrainManager : MonoBehaviour
         //If the distance that I've traveled is greater than the length of the half segment...
         if (Mathf.Sqrt(Mathf.Pow(curTarget.y - curStart.y, 2) + Mathf.Pow(curTarget.x - curStart.x, 2)) < distance)
         {
-            Debug.Log("Recalibrating Variables");
+            //Debug.Log("Recalibrating Variables");
             distance -= Mathf.Sqrt(Mathf.Pow(curTarget.y - curStart.y, 2) + Mathf.Pow(curTarget.x - curStart.x, 2));
 
             if (curHalf == 1)

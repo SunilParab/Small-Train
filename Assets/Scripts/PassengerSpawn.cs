@@ -38,6 +38,10 @@ public class PassengerSpawn : MonoBehaviour
     public GameObject diamondPassenger;
     public GameObject eyePassenger;
     
+    //overcrowded variables
+    public float overCrowdTimer;
+    public int passengerLimit;
+    
 
     // Start is called before the first frame update
     void Start()

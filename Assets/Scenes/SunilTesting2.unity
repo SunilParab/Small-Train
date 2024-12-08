@@ -942,9 +942,9 @@ MonoBehaviour:
   eye: {fileID: 2674243341689348389, guid: b26a001e565728d4394d5f9c5f91d7c7, type: 3}
   pentagon: {fileID: 6274525582987846165, guid: 6bb0b51c1803ec64290006d216661878, type: 3}
   spawnSpeed: 150
-  rareProb: 0.9
   xRange: 0
   yRange: 0
+  yDownRange: 0
   range: 3
   zoomCount: 0
   passengerSpawnTime: 0
@@ -1870,6 +1870,7 @@ MonoBehaviour:
   endx: 0
   endy: 0
   making: 0
+  piecePrefab: {fileID: 5379467457267164815, guid: 25d3edcbe2416d440a9f91d93b31eba4, type: 3}
   lineHolder: {fileID: 4307126451031699490, guid: b10867a9425a45e46a71a107245ad2a6, type: 3}
   segLength: 0.5
   train: {fileID: 2735024215327003098, guid: e7b9f61f5b29ff943a303440ac2bac5c, type: 3}

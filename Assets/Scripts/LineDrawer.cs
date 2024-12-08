@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LineDrawer : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class LineDrawer : MonoBehaviour
     public float endy;
     public bool making;
     GameObject segment; //Current segment
+    public GameObject piecePrefab; //Current segment
     public GameObject lineHolder;
 
     float midx;
@@ -454,11 +456,11 @@ public class LineDrawer : MonoBehaviour
 
     public void Activate(int targetLine, bool isStart, GameObject startStation)
     {
-        /*Vector2 mousePos = Input.mousePosition;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
-        startx = Mathf.Round(mousePos.x);
-        starty = Mathf.Round(mousePos.y);*/
+        if (TrainReadyMake() == -1 && targetLine == -1) {
+            return;
+        }
+
         startx = startStation.transform.position.x;
         starty = startStation.transform.position.y;
 
@@ -483,7 +485,8 @@ public class LineDrawer : MonoBehaviour
         endStation = null;
     }
 
-    void LineMake(int lineInfoArrayIndex) {
+    void LineMake(int lineInfoArrayIndex)
+    {
 
         //Clear out old segment
         Destroy(segment);
@@ -648,8 +651,46 @@ public class LineDrawer : MonoBehaviour
 
 
         //Keep adding segments in the first direction until the angle from the newest segment to the endpoint equals the final angle
+
+        List<SegPieceHitbox> linePieces = new List<SegPieceHitbox>();
+
         float curx = startx;
         float cury = starty;
+
+        float offsetx = 0;
+        float offsety = 0;
+
+        switch (firstAngle)
+        {
+            case 0:
+                offsetx = segLength / 2;
+                break;
+            case 45:
+                offsetx = segLength / 2;
+                offsety = segLength / 2;
+                break;
+            case 90:
+                offsety = segLength / 2;
+                break;
+            case 135:
+                offsetx = -segLength / 2;
+                offsety = segLength / 2;
+                break;
+            case 180:
+                offsetx = -segLength / 2;
+                break;
+            case 225:
+                offsetx = -segLength / 2;
+                offsety = -segLength / 2;
+                break;
+            case 270:
+                offsety = -segLength / 2;
+                break;
+            case 315:
+                offsetx = segLength / 2;
+                offsety = -segLength / 2;
+                break;
+        }
 
 
         bool firstHalf = true;
@@ -657,6 +698,17 @@ public class LineDrawer : MonoBehaviour
 
         while (firstHalf && (curx != endx || cury != endy) && counter < 100)
         {
+            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx,cury+offsety,0), new Quaternion());
+
+            if (isStart && targetLine != -1) {
+                curSeg.GetComponent<SegPieceHitbox>().myHalf = 1;
+            } else {
+                curSeg.GetComponent<SegPieceHitbox>().myHalf = 0;
+            }
+
+            
+
+            linePieces.Add(curSeg.GetComponent<SegPieceHitbox>());
 
             switch (firstAngle)
             {
@@ -706,12 +758,55 @@ public class LineDrawer : MonoBehaviour
         midx = curx;
         midy = cury;
 
+        switch (endAngle)
+        {
+            case 0:
+                offsetx = segLength / 2;
+                break;
+            case 45:
+                offsetx = segLength / 2;
+                offsety = segLength / 2;
+                break;
+            case 90:
+                offsety = segLength / 2;
+                break;
+            case 135:
+                offsetx = -segLength / 2;
+                offsety = segLength / 2;
+                break;
+            case 180:
+                offsetx = -segLength / 2;
+                break;
+            case 225:
+                offsetx = -segLength / 2;
+                offsety = -segLength / 2;
+                break;
+            case 270:
+                offsety = -segLength / 2;
+                break;
+            case 315:
+                offsetx = segLength / 2;
+                offsety = -segLength / 2;
+                break;
+        }
+
+
         startCount = counter;
 
 
         counter = 0;
         while ((curx != endx || cury != endy) && counter < 100)
         {
+
+            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx,cury+offsety,0), new Quaternion());
+
+            if (isStart && targetLine != -1) {
+                curSeg.GetComponent<SegPieceHitbox>().myHalf = 0;
+            } else {
+                curSeg.GetComponent<SegPieceHitbox>().myHalf = 1;
+            }
+
+            linePieces.Add(curSeg.GetComponent<SegPieceHitbox>());
 
             switch (endAngle)
             {
@@ -785,6 +880,13 @@ public class LineDrawer : MonoBehaviour
         holderInfo.lineRenderer.startColor = lineColor;
         holderInfo.lineRenderer.endColor = lineColor;
 
+        //Add all the segment hitboxes to the line
+        for (int i = 0; i < linePieces.Count; i++) {
+            linePieces[i].transform.SetParent(holder.transform);
+            linePieces[i].segment = holderInfo;
+        }
+
+
         //Make the line segment renderer
         if (isStart && targetLine != -1)
         { //Flip list is made from a start T
@@ -813,9 +915,19 @@ public class LineDrawer : MonoBehaviour
             holderInfo.endStation = endStation;
         }
 
+        if (BridgeGenerator.reference.BridgeGen(holderInfo)) {
+            if (WeeklyUpgradeManager.reference.tunnelCount <= 0) {
+                Destroy(holderInfo.gameObject);
+                return;
+            } else {
+                WeeklyUpgradeManager.reference.tunnelCount--;
+            }
+
+        }
 
         LineList.reference.addSegment(holderInfo, targetLine, isStart);
-        BridgeGenerator.reference.BridgeGen(holderInfo);
+
+        
 
         //lineInfos is our array of lineInfos
         if (lineInfoArrayIndex != -1 && LineList.reference.lineList[lineInfoArrayIndex].LineSegments.Count <= 1)
@@ -825,6 +937,7 @@ public class LineDrawer : MonoBehaviour
             float yPos = lineInfos[lineInfoArrayIndex].LineSegments[0].lineRenderer.GetPosition(0).y;
             GameObject me = GameObject.Instantiate(train, new Vector2(xPos, yPos), Quaternion.identity);
             me.GetComponent<TrainManager>().myLine = lineInfoArrayIndex;
+            me.GetComponent<TrainManager>().RegularMake();
         }
 
     }
@@ -850,7 +963,8 @@ public class LineDrawer : MonoBehaviour
         return thisLine;
     }
 
-    void CheckSegmentRemove() {
+    void CheckSegmentRemove()
+    {
         Destroy(LineList.reference.lineList[0].LineSegments[0].gameObject);
     }
 

@@ -915,10 +915,19 @@ public class LineDrawer : MonoBehaviour
             holderInfo.endStation = endStation;
         }
 
+        if (BridgeGenerator.reference.BridgeGen(holderInfo)) {
+            if (WeeklyUpgradeManager.reference.tunnelCount <= 0) {
+                Destroy(holderInfo.gameObject);
+                return;
+            } else {
+                WeeklyUpgradeManager.reference.tunnelCount--;
+            }
+
+        }
 
         LineList.reference.addSegment(holderInfo, targetLine, isStart);
 
-        BridgeGenerator.reference.BridgeGen(holderInfo);
+        
 
         //lineInfos is our array of lineInfos
         if (lineInfoArrayIndex != -1 && LineList.reference.lineList[lineInfoArrayIndex].LineSegments.Count <= 1)

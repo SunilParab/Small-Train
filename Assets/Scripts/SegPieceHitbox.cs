@@ -15,7 +15,7 @@ public class SegPieceHitbox : MonoBehaviour
                 WeeklyUpgradeManager.reference.trainCount--;
 
                 //Make the train
-                GameObject me = GameObject.Instantiate(LineDrawer.reference.train, new Vector2(0, 0), Quaternion.identity);
+                GameObject me = GameObject.Instantiate(LineDrawer.reference.train, new Vector3(0, 0, 0.5f), Quaternion.identity);
                 me.GetComponent<TrainManager>().PlaceMake(segment,myHalf);
 
             }

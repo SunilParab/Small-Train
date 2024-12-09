@@ -14,7 +14,7 @@ public class TrainManager : MonoBehaviour
 {
 
     public LineList lineScript;
-
+    public WeeklyUpgradeManager weeklyUpgradeManager;
     //what line the train is in
     public int myLine;
 
@@ -44,7 +44,7 @@ public class TrainManager : MonoBehaviour
     public bool accelerating = false;
     float pickUpPassengersTimer = 1000;
     public bool leavingStation = false;
-
+    private float savedSpeed;
 
     //Iterating through all the segments in these arrays
     private LineInfo[] lineInfos;
@@ -69,6 +69,8 @@ public class TrainManager : MonoBehaviour
 
         lineScript = LineList.reference;
         lineInfos = lineScript.lineList;
+
+        weeklyUpgradeManager = WeeklyUpgradeManager.reference;
 
         x = transform.position.x;
         y = transform.position.y;
@@ -159,13 +161,31 @@ public class TrainManager : MonoBehaviour
         }
 
         //Set start position
-        transform.position = curStart;// + directionVector * distance
+      //  if (weeklyupgrademanager.isGamePaused == false )
+       // {
+       //     transform.position = curStart; 
+       // }
+       transform.position = curStart;// + directionVector * distance
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (weeklyUpgradeManager.isGamePaused == true)
+        {
+            if (speed != 0)
+            {
+                savedSpeed = speed;
+                speed = 0;
+            }
+        } else
+        {
+            if (speed == 0)
+            {
+                speed = savedSpeed;
+            }
+        }
 
         distance += speed * Time.deltaTime;
 

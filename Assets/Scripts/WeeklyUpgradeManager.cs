@@ -15,6 +15,8 @@ public class WeeklyUpgradeManager : MonoBehaviour
     public Button locomotiveButton;
     public Button upgradeButton1;
     public Button upgradeButton2;
+    public Button pausebutton;
+    public Button resumebutton;
     public Button[] allUpgradeButtons;
 
     private List<string> upgradeOptions = new List<string>{ "Train", "Carriage", "Line", "Tunnel", "Interchange" };
@@ -22,6 +24,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
     public int carriageCount = 0;
     public int tunnelCount = 3;
     public int interchangeCount = 0;
+    public bool isGamePaused = false;
 
     public static WeeklyUpgradeManager reference;
 
@@ -33,6 +36,8 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     private void Start()
     {
+        resumebutton.onClick.AddListener(OnResumeButtonClicked);
+        pausebutton.onClick.AddListener(OnPauseButtonClicked);
         timer = weekDuration;
         upgradeScreen.SetActive(false);
         upgradeButton1.gameObject.SetActive(false);
@@ -48,10 +53,17 @@ public class WeeklyUpgradeManager : MonoBehaviour
             upgradeButton.gameObject.SetActive(false);
         }
     }
-
+    void OnResumeButtonClicked()
+    {
+        isGamePaused = false;
+    }
+    private void OnPauseButtonClicked()
+    {
+        isGamePaused = true;
+    }
     private void Update()
     {
-        if (Time.timeScale > 0)
+        if (Time.timeScale > 0 && isGamePaused == false) //&& isGamePaused == false
         {
             timer -= Time.deltaTime;
           //  Debug.Log("Time until next upgrade: " + Mathf.Ceil(timer) + " seconds");

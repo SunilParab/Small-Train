@@ -44,7 +44,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     private void Start()
     {
-        speedupbutton.onClick.AddListener(OnSpeedupButtonClicked);
+        //speedupbutton.onClick.AddListener(OnSpeedupButtonClicked);
         resumebutton.onClick.AddListener(OnResumeButtonClicked);
         pausebutton.onClick.AddListener(OnPauseButtonClicked);
         timer = weekDuration;

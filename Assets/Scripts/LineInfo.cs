@@ -24,13 +24,13 @@ public class LineInfo : ScriptableObject
 
         //Lines need to be stored as an object that contains the list and the T references
         Destroy(startT);
-        startT = MakeT(LineSegments[0],true,LineSegments[0].startStation);
+        MakeT(LineSegments[0],true,LineSegments[0].startStation);
         Destroy(endT);
-        endT = MakeT(LineSegments.Last(),false,LineSegments.Last().endStation);
+        MakeT(LineSegments.Last(),false,LineSegments.Last().endStation);
         //Go through the target line and generate T's
     }
 
-    GameObject MakeT(SegmentInfo targetPiece, bool isStart, GameObject givenStation) {
+    public void MakeT(SegmentInfo targetPiece, bool isStart, GameObject givenStation) {
 
         Vector3 targetPosition;
         if (isStart) {
@@ -55,7 +55,11 @@ public class LineInfo : ScriptableObject
 
         
 
-        return curT;
+        if (isStart) {
+            startT = curT;
+        } else {
+            endT = curT;
+        }
 
     }
 

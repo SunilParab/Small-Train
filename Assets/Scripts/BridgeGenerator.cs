@@ -53,7 +53,7 @@ public class BridgeGenerator : MonoBehaviour
         bool firstHalf = true;
         int counter = 0;
 
-        while (firstHalf && (curx != endx || cury != endy) && counter < 100) {
+        while (firstHalf && (Mathf.Abs(curx - endx) >= segLength || Mathf.Abs(cury - endy) >= segLength) && counter < 100) {
 
             switch (firstAngle) {
                 case 0:
@@ -98,7 +98,7 @@ public class BridgeGenerator : MonoBehaviour
                 }
             }
 
-            if (curx == midx && cury == midy) {
+            if (Mathf.Abs(curx - midx) < segLength && Mathf.Abs(cury - midy) < segLength) {
                 firstHalf = false;
             }
 
@@ -107,7 +107,7 @@ public class BridgeGenerator : MonoBehaviour
 
 
         counter = 0;
-        while ((curx != endx || cury != endy) && counter < 100) {
+        while ((Mathf.Abs(curx - endx) >= segLength || Mathf.Abs(cury - endy) >= segLength) && counter < 100) {
 
             switch (endAngle) {
                 case 0:

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -40,6 +41,8 @@ public class LineDrawer : MonoBehaviour
     //Passes these to the segment info
     public GameObject startStation;
     public GameObject endStation;
+
+    public float offSetUnit = 0.5f/6;
 
     public static LineDrawer reference;
 
@@ -491,6 +494,10 @@ public class LineDrawer : MonoBehaviour
         //Clear out old segment
         Destroy(segment);
 
+        if (CheckSegmentRemove()) {
+            return;
+        }
+
         var holder = Instantiate(lineHolder);
         var holderInfo = holder.GetComponent<SegmentInfo>();
 
@@ -887,14 +894,46 @@ public class LineDrawer : MonoBehaviour
         }
 
 
+        //Case statement for offset
+        float lineOffset = 0;
+
+        
+
+        switch (lineInfoArrayIndex)
+        {
+            case 5:
+                lineOffset = offSetUnit * -3;
+                break;
+            case 3:
+                lineOffset = offSetUnit * -2;
+                break;
+            case 1:
+                lineOffset = offSetUnit * -1;
+                break;
+            case 0:
+                lineOffset = 0;
+                break;
+            case 2:
+                lineOffset = offSetUnit * 1;
+                break;
+            case 4:
+                lineOffset = offSetUnit * 2;
+                break;
+            case 6:
+                lineOffset = offSetUnit * 3;
+                break;
+        }
+
+
+
         //Make the line segment renderer
         if (isStart && targetLine != -1)
         { //Flip list is made from a start T
 
             Vector3[] linePoints = new Vector3[3];
-            linePoints[2] = new Vector3(startx, starty, 0);
-            linePoints[1] = new Vector3(midx, midy, 0);
-            linePoints[0] = new Vector3(endx, endy, 0);
+            linePoints[2] = new Vector3(startx +lineOffset, starty +lineOffset, 0);
+            linePoints[1] = new Vector3(midx +lineOffset, midy +lineOffset, 0);
+            linePoints[0] = new Vector3(endx +lineOffset, endy +lineOffset, 0);
             holderInfo.lineRenderer.SetPositions(linePoints);
 
             holderInfo.startStation = endStation;
@@ -906,9 +945,9 @@ public class LineDrawer : MonoBehaviour
         else
         {
             Vector3[] linePoints = new Vector3[3];
-            linePoints[0] = new Vector3(startx, starty, 0);
-            linePoints[1] = new Vector3(midx, midy, 0);
-            linePoints[2] = new Vector3(endx, endy, 0);
+            linePoints[0] = new Vector3(startx +lineOffset, starty +lineOffset, 0);
+            linePoints[1] = new Vector3(midx +lineOffset, midy +lineOffset, 0);
+            linePoints[2] = new Vector3(endx +lineOffset, endy +lineOffset, 0);
             holderInfo.lineRenderer.SetPositions(linePoints);
 
             holderInfo.startStation = startStation;
@@ -963,9 +1002,42 @@ public class LineDrawer : MonoBehaviour
         return thisLine;
     }
 
-    void CheckSegmentRemove()
+    bool CheckSegmentRemove()
     {
-        Destroy(LineList.reference.lineList[0].LineSegments[0].gameObject);
+
+        if (startStation == endStation) {
+            return true;
+        }
+
+        if (targetLine == -1) {
+            return false;
+        }
+
+        LineInfo curLine = LineList.reference.lineList[targetLine];
+
+        if (isStart) {
+            if (endStation == curLine.LineSegments[0].endStation) {
+                //Remove first segment
+                Destroy(curLine.LineSegments[0].gameObject);
+                curLine.LineSegments.RemoveAt(0);
+                //Move T
+                Destroy(curLine.startT);
+                curLine.MakeT(curLine.LineSegments[0],true,curLine.LineSegments[0].startStation);
+                return true;
+            }
+        } else {
+            if (endStation == curLine.LineSegments.Last().startStation) {
+                //Remove last segment
+                Destroy(curLine.LineSegments.Last().gameObject);
+                curLine.LineSegments.RemoveAt(curLine.LineSegments.Count-1);
+                //Move T
+                Destroy(curLine.endT);
+                curLine.MakeT(curLine.LineSegments.Last(),false,curLine.LineSegments.Last().endStation);
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

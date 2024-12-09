@@ -16,10 +16,21 @@ public class StationTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
+        foreach(RaycastHit hit in hits)
+        {
+            if (hit.collider.gameObject == this)
+            {
+                
+                //station detects mouse
+                MouseDetect();
+
+                break;
+            }
+        }
     }
 
-    void OnMouseOver() {
+    void MouseDetect() {
         if (LineDrawer.reference.making) {
             LineDrawer.reference.Snap(this.gameObject);
             snappedTo = true;

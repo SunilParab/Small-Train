@@ -121,7 +121,7 @@ public class TrainCircleManager : MonoBehaviour
             carriageCircle.gameObject.SetActive(true);
             interchangeCircle.gameObject.SetActive(false);
 
-            print("carriage");
+            //print("carriage");
 
             buttonPos3 = -590; //train middle
             buttonPos2 = -470; //carriage most right
@@ -139,7 +139,7 @@ public class TrainCircleManager : MonoBehaviour
             carriageCircle.gameObject.SetActive(false);
             interchangeCircle.gameObject.SetActive(true);
 
-            print("interchange");
+            //print("interchange");
 
             buttonPos3 = -590; //train middle
             buttonPos1 = -470; //interchange most right

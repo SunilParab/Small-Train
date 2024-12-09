@@ -494,14 +494,14 @@ public class LineDrawer : MonoBehaviour
     void LineMake(int lineInfoArrayIndex)
     {
         
-        SoundManager.reference.connectAudioSources[lineInfoArrayIndex].Play();
-        
         //Clear out old segment
         Destroy(segment);
 
         if (CheckSegmentRemove()) {
             return;
         }
+        
+        SoundManager.reference.connectAudioSources[lineInfoArrayIndex].Play();
 
         var holder = Instantiate(lineHolder);
         var holderInfo = holder.GetComponent<SegmentInfo>();
@@ -979,7 +979,7 @@ public class LineDrawer : MonoBehaviour
             LineInfo[] lineInfos = lineScript.lineList;
             float xPos = lineInfos[lineInfoArrayIndex].LineSegments[0].lineRenderer.GetPosition(0).x;
             float yPos = lineInfos[lineInfoArrayIndex].LineSegments[0].lineRenderer.GetPosition(0).y;
-            GameObject me = GameObject.Instantiate(train, new Vector2(xPos, yPos), Quaternion.identity);
+            GameObject me = GameObject.Instantiate(train, new Vector3(xPos, yPos, 0.5f), Quaternion.identity);
             me.GetComponent<TrainManager>().myLine = lineInfoArrayIndex;
             me.GetComponent<TrainManager>().RegularMake();
         }

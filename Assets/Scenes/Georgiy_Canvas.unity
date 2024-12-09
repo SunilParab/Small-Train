@@ -4515,7 +4515,7 @@ MonoBehaviour:
   lineHolder: {fileID: 4307126451031699490, guid: b10867a9425a45e46a71a107245ad2a6, type: 3}
   segLength: 0.5
   train: {fileID: 2735024215327003098, guid: e7b9f61f5b29ff943a303440ac2bac5c, type: 3}
-  lineScript: {fileID: 0}
+  lineScript: {fileID: 1812473466}
   targetLine: 0
   startStation: {fileID: 0}
   endStation: {fileID: 0}

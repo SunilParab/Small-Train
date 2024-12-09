@@ -13,7 +13,6 @@ public class SoundManager : MonoBehaviour
 
     public static SoundManager reference;
     public AudioSource lineDragSound;
-    public AudioSource stationconnectSound;
 
     private void Awake()
     {

@@ -42,6 +42,8 @@ public class LineDrawer : MonoBehaviour
     public GameObject startStation;
     public GameObject endStation;
 
+    public float offSetUnit = 0.5f/6;
+
     public static LineDrawer reference;
 
     private void Awake()
@@ -892,14 +894,46 @@ public class LineDrawer : MonoBehaviour
         }
 
 
+        //Case statement for offset
+        float lineOffset = 0;
+
+        
+
+        switch (lineInfoArrayIndex)
+        {
+            case 5:
+                lineOffset = offSetUnit * -3;
+                break;
+            case 3:
+                lineOffset = offSetUnit * -2;
+                break;
+            case 1:
+                lineOffset = offSetUnit * -1;
+                break;
+            case 0:
+                lineOffset = 0;
+                break;
+            case 2:
+                lineOffset = offSetUnit * 1;
+                break;
+            case 4:
+                lineOffset = offSetUnit * 2;
+                break;
+            case 6:
+                lineOffset = offSetUnit * 3;
+                break;
+        }
+
+
+
         //Make the line segment renderer
         if (isStart && targetLine != -1)
         { //Flip list is made from a start T
 
             Vector3[] linePoints = new Vector3[3];
-            linePoints[2] = new Vector3(startx, starty, 0);
-            linePoints[1] = new Vector3(midx, midy, 0);
-            linePoints[0] = new Vector3(endx, endy, 0);
+            linePoints[2] = new Vector3(startx +lineOffset, starty +lineOffset, 0);
+            linePoints[1] = new Vector3(midx +lineOffset, midy +lineOffset, 0);
+            linePoints[0] = new Vector3(endx +lineOffset, endy +lineOffset, 0);
             holderInfo.lineRenderer.SetPositions(linePoints);
 
             holderInfo.startStation = endStation;
@@ -911,9 +945,9 @@ public class LineDrawer : MonoBehaviour
         else
         {
             Vector3[] linePoints = new Vector3[3];
-            linePoints[0] = new Vector3(startx, starty, 0);
-            linePoints[1] = new Vector3(midx, midy, 0);
-            linePoints[2] = new Vector3(endx, endy, 0);
+            linePoints[0] = new Vector3(startx +lineOffset, starty +lineOffset, 0);
+            linePoints[1] = new Vector3(midx +lineOffset, midy +lineOffset, 0);
+            linePoints[2] = new Vector3(endx +lineOffset, endy +lineOffset, 0);
             holderInfo.lineRenderer.SetPositions(linePoints);
 
             holderInfo.startStation = startStation;

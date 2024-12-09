@@ -45,7 +45,7 @@ public class LineDrawer : MonoBehaviour
     public float offSetUnit = 0.5f/6;
 
     public static LineDrawer reference;
-    public AudioSource stationconnectSound;
+
     private void Awake()
     {
         reference = this;
@@ -65,6 +65,7 @@ public class LineDrawer : MonoBehaviour
 
             if (Input.GetMouseButtonUp(0))
             {
+                SoundManager.reference.lineDragSound.Stop();
                 making = false;
                 if (!snapped)
                 { //Clear out old segment
@@ -460,6 +461,8 @@ public class LineDrawer : MonoBehaviour
     public void Activate(int targetLine, bool isStart, GameObject startStation)
     {
 
+        SoundManager.reference.lineDragSound.Play();
+
         if (TrainReadyMake() == -1 && targetLine == -1) {
             return;
         }
@@ -490,14 +493,15 @@ public class LineDrawer : MonoBehaviour
 
     void LineMake(int lineInfoArrayIndex)
     {
-        stationconnectSound.Play(0);
-        //AudioSource.Play();
+        
         //Clear out old segment
         Destroy(segment);
 
         if (CheckSegmentRemove()) {
             return;
         }
+        
+        SoundManager.reference.connectAudioSources[lineInfoArrayIndex].Play();
 
         var holder = Instantiate(lineHolder);
         var holderInfo = holder.GetComponent<SegmentInfo>();

@@ -261,7 +261,8 @@ public class TrainManager : MonoBehaviour
 
         float distanceToNextStation = Vector3.Distance(this.transform.position, stationPos);
 
-        Debug.Log("Station we're going to: " + myStation + "\tDistance: " + distanceToNextStation + "\tSpeed: " + speed);
+        //Debug.Log("Station we're going to: " + myStation + "\tDistance: " + distanceToNextStation + "\tSpeed: " + speed);
+
         if (distanceToNextStation <= 1 && !leavingStation)
         {
             decelerating = true;

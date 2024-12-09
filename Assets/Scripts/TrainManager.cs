@@ -222,8 +222,6 @@ public class TrainManager : MonoBehaviour
 
         RecalibrateVariables();
 
-
-
         //Detect distance to next station with offset
 
         var nextStation = LineList.reference.lineList[myLine].StationsInLine[myStation];
@@ -259,8 +257,6 @@ public class TrainManager : MonoBehaviour
         stationPos.y += lineOffset;
 
         float distanceToNextStation = Vector3.Distance(this.transform.position, stationPos);
-
-
 
         Debug.Log("Station we're going to: " + myStation + "\tDistance: " + distanceToNextStation + "\tSpeed: " + speed);
         if (distanceToNextStation <= 1 && !leavingStation)

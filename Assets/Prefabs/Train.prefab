@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineScript: {fileID: 0}
+  weeklyUpgradeManager: {fileID: 0}
   myLine: 0
   myStation: 0
   insideTrain: []
@@ -107,3 +108,4 @@ MonoBehaviour:
   decelerating: 0
   accelerating: 0
   leavingStation: 0
+  pickupRange: 0.005

@@ -45,7 +45,12 @@ public class TrainManager : MonoBehaviour
     public bool accelerating = false;
     float pickUpPassengersTimer = 1000;
     public bool leavingStation = false;
+
+
+    public float pickupRange = 0.005f;
+
     private float savedSpeed;
+
 
     //Iterating through all the segments in these arrays
     private LineInfo[] lineInfos;
@@ -201,9 +206,46 @@ public class TrainManager : MonoBehaviour
 
         RecalibrateVariables();
 
-        //Detect distance to next station
-        var nextStation = LineList.reference.lineList[myLine].StationsInLine[myStation]; //TODO: Fix nextStation not being set properly
-        float distanceToNextStation = Vector3.Distance(this.transform.position, nextStation.transform.position);
+
+
+        //Detect distance to next station with offset
+
+        var nextStation = LineList.reference.lineList[myLine].StationsInLine[myStation];
+        Vector3 stationPos = nextStation.transform.position;
+
+        float lineOffset = 0;
+        switch (myLine)
+        {
+            case 5:
+                lineOffset = LineDrawer.reference.offSetUnit * -3;
+                break;
+            case 3:
+                lineOffset = LineDrawer.reference.offSetUnit * -2;
+                break;
+            case 1:
+                lineOffset = LineDrawer.reference.offSetUnit * -1;
+                break;
+            case 0:
+                lineOffset = 0;
+                break;
+            case 2:
+                lineOffset = LineDrawer.reference.offSetUnit * 1;
+                break;
+            case 4:
+                lineOffset = LineDrawer.reference.offSetUnit * 2;
+                break;
+            case 6:
+                lineOffset = LineDrawer.reference.offSetUnit * 3;
+                break;
+        }
+
+        stationPos.x += lineOffset;
+        stationPos.y += lineOffset;
+
+        float distanceToNextStation = Vector3.Distance(this.transform.position, stationPos);
+
+
+
         //Debug.Log("Station we're going to: " + myStation + "\tDistance: " + distanceToNextStation + "\tSpeed: " + speed);
         if (distanceToNextStation <= 1 && !leavingStation)
         {
@@ -225,7 +267,7 @@ public class TrainManager : MonoBehaviour
         }
 
         //Picking up passengers
-        if (distanceToNextStation <= 0.05f && !accelerating)
+        if (distanceToNextStation <= pickupRange && !accelerating)
         {
             speed = 0;
             if (pickUpPassengersTimer <= 0)
@@ -313,7 +355,7 @@ public class TrainManager : MonoBehaviour
                         //choose station
                         curSegment = lineInfos[myLine].LineSegments[curSegmentIndex - 1];
                         myStation = LineList.reference.lineList[myLine].StationsInLine.IndexOf(curSegment.GetComponent<SegmentInfo>().startStation);
-                        Debug.Log(curSegmentIndex-1);
+                        //Debug.Log(curSegmentIndex-1);
 
                     }
                     else
@@ -321,7 +363,7 @@ public class TrainManager : MonoBehaviour
                         //choose station
                         curSegment = lineInfos[myLine].LineSegments[curSegmentIndex + 1];
                         myStation = LineList.reference.lineList[myLine].StationsInLine.IndexOf(curSegment.GetComponent<SegmentInfo>().endStation);
-                        Debug.Log(curSegmentIndex+1);
+                        //Debug.Log(curSegmentIndex+1);
 
                     }
                 } 

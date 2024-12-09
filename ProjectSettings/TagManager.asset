@@ -6,6 +6,16 @@ TagManager:
   tags:
   - Water
   - TimerCanvas
+  - square
+  - circle
+  - diamond
+  - eye
+  - pentagon
+  - pie
+  - plus
+  - rhombus
+  - star
+  - triangle
   layers:
   - Default
   - TransparentFX

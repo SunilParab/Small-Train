@@ -45,6 +45,9 @@ public class TrainManager : MonoBehaviour
     float pickUpPassengersTimer = 1000;
     public bool leavingStation = false;
 
+    //If this was the free train from a line
+    bool isFree;
+
 
     public float pickupRange = 0.005f;
 
@@ -69,6 +72,9 @@ public class TrainManager : MonoBehaviour
     // I replaced start with this, it just instantiate the variables
     public void RegularMake()
     {
+
+        isFree = true;
+
         //At the very start, the stationIndex that is next will always be 1
         myStation = 1;
 
@@ -117,6 +123,8 @@ public class TrainManager : MonoBehaviour
     // Make function for placing train on specific segement
     public void PlaceMake(SegmentInfo segment, int targetHalf)
     {
+
+        isFree = false;
 
         myLine = segment.myLine;
 
@@ -177,6 +185,14 @@ public class TrainManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (curSegment == null) {
+            if (!isFree) {
+                WeeklyUpgradeManager.reference.trainCount++;
+            }
+            Destroy(this.gameObject);
+        }
+
         if (weeklyUpgradeManager.isGamePaused == true)
         {
             if (speed != 0)

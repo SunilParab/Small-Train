@@ -40,6 +40,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Map
+    uniqueID: 4247186641
+    locked: 0
+  - name: Lines
+    uniqueID: 831082533
+    locked: 0
+  - name: Bridges
+    uniqueID: 2723072141
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

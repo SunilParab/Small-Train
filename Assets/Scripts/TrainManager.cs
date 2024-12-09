@@ -590,24 +590,27 @@ public class TrainManager : MonoBehaviour
                     break;
 
                 case 6:
+                    insideTrainGO[i].transform.localPosition = new Vector3(6.4f, -1.6f, 0);
                     break;
 
                 case 7:
+                    insideTrainGO[i].transform.localPosition = new Vector3(6.4f, 1.6f, 0);
                     break;
 
                 case 8:
+                    insideTrainGO[i].transform.localPosition = new Vector3(9.6f, -1.6f, 0);
                     break;
 
                 case 9:
+                    insideTrainGO[i].transform.localPosition = new Vector3(9.6f, 1.6f, 0);
                     break;
 
                 case 10:
+                    insideTrainGO[i].transform.localPosition = new Vector3(12.8f, -1.6f, 0);
                     break;
 
                 case 11:
-                    break;
-
-                case 12:
+                    insideTrainGO[i].transform.localPosition = new Vector3(12.8f, 1.6f, 0);
                     break;
 
             }

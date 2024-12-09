@@ -174,6 +174,8 @@ public class TrainCircleManager : MonoBehaviour
             {
                 StartCoroutine(SmoothScale(YellowLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
             }
+        } else if (LineList.reference.lineList[0].LineSegments.Count == 0 && !isScaling && YellowLineCircle.transform.localScale != new Vector3(1, 1, 1)) {
+            StartCoroutine(SmoothScale(YellowLineCircle, new Vector3(1, 1, 1), 0.2f)); // Adjust duration as needed
         }
 
         if (LineList.reference.lineList[1].LineSegments.Count != 0 && !isScaling)
@@ -182,6 +184,8 @@ public class TrainCircleManager : MonoBehaviour
             {
                 StartCoroutine(SmoothScale(RedLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
             }
+        } else if (LineList.reference.lineList[1].LineSegments.Count == 0 && !isScaling && RedLineCircle.transform.localScale != new Vector3(1, 1, 1)) {
+            StartCoroutine(SmoothScale(RedLineCircle, new Vector3(1, 1, 1), 0.2f)); // Adjust duration as needed
         }
 
         if (LineList.reference.lineList[2].LineSegments.Count != 0 && !isScaling)
@@ -190,6 +194,8 @@ public class TrainCircleManager : MonoBehaviour
             {
                 StartCoroutine(SmoothScale(BlueLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
             }
+        } else if (LineList.reference.lineList[2].LineSegments.Count == 0 && !isScaling && BlueLineCircle.transform.localScale != new Vector3(1, 1, 1)) {
+            StartCoroutine(SmoothScale(BlueLineCircle, new Vector3(1, 1, 1), 0.2f)); // Adjust duration as needed
         }
 
         if (LineList.reference.lineList[3].LineSegments.Count != 0 && !isScaling)
@@ -198,6 +204,8 @@ public class TrainCircleManager : MonoBehaviour
             {
                 StartCoroutine(SmoothScale(GreenLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
             }
+        } else if (LineList.reference.lineList[3].LineSegments.Count == 0 && !isScaling && GreenLineCircle.transform.localScale != new Vector3(1, 1, 1)) {
+            StartCoroutine(SmoothScale(GreenLineCircle, new Vector3(1, 1, 1), 0.2f)); // Adjust duration as needed
         }
 
         if (LineList.reference.lineList[4].LineSegments.Count != 0 && !isScaling)
@@ -206,6 +214,8 @@ public class TrainCircleManager : MonoBehaviour
             {
                 StartCoroutine(SmoothScale(PurpleLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
             }
+        } else if (LineList.reference.lineList[4].LineSegments.Count == 0 && !isScaling && PurpleLineCircle.transform.localScale != new Vector3(1, 1, 1)) {
+            StartCoroutine(SmoothScale(PurpleLineCircle, new Vector3(1, 1, 1), 0.2f)); // Adjust duration as needed
         }
 
         if (LineList.reference.lineList[5].LineSegments.Count != 0 && !isScaling)
@@ -214,6 +224,8 @@ public class TrainCircleManager : MonoBehaviour
             {
                 StartCoroutine(SmoothScale(OrangeLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
             }
+        } else if (LineList.reference.lineList[5].LineSegments.Count == 0 && !isScaling && OrangeLineCircle.transform.localScale != new Vector3(1, 1, 1)) {
+            StartCoroutine(SmoothScale(OrangeLineCircle, new Vector3(1, 1, 1), 0.2f)); // Adjust duration as needed
         }
 
         if (LineList.reference.lineList[6].LineSegments.Count != 0 && !isScaling)
@@ -222,6 +234,8 @@ public class TrainCircleManager : MonoBehaviour
             {
                 StartCoroutine(SmoothScale(BrownLineCircle, new Vector3(2.5f, 2.5f, 2.5f), 0.2f)); // Adjust duration as needed
             }
+        } else if (LineList.reference.lineList[6].LineSegments.Count == 0 && !isScaling && BrownLineCircle.transform.localScale != new Vector3(1, 1, 1)) {
+            StartCoroutine(SmoothScale(BrownLineCircle, new Vector3(1, 1, 1), 0.2f)); // Adjust duration as needed
         }
             //  if (LineList.reference.lineList[1].LineSegments.Count != 0)
             //  {

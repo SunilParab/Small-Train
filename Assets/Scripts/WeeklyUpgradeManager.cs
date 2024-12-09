@@ -29,6 +29,13 @@ public class WeeklyUpgradeManager : MonoBehaviour
     public bool speedupActive = false;
     public static WeeklyUpgradeManager reference;
 
+    //icon sprite
+    public Sprite trainIcon;
+    public Sprite carriageIcon;
+    public Sprite tunnelIcon;
+    public Sprite interchangeIcon;
+    public Sprite lineIcon;
+
     private void Awake()
     {
         reference = this;
@@ -105,6 +112,8 @@ public class WeeklyUpgradeManager : MonoBehaviour
         weekText.text = "Week " + weekCount;
         upgradeButton1.gameObject.SetActive(false);
         upgradeButton2.gameObject.SetActive(false);
+
+        locomotiveButton.image.sprite = trainIcon;
         locomotiveButton.gameObject.SetActive(true);
     }
 
@@ -143,6 +152,47 @@ public class WeeklyUpgradeManager : MonoBehaviour
         string[] selectedUpgrades = GetRandomUpgrades();
         upgradeButton1.GetComponentInChildren<TextMeshProUGUI>().text = selectedUpgrades[0];
         upgradeButton2.GetComponentInChildren<TextMeshProUGUI>().text = selectedUpgrades[1];
+        
+        Sprite chooseSprite1;
+        Sprite chooseSprite2;
+
+        //sprite 1
+        if (upgradeButton1.GetComponentInChildren<TextMeshProUGUI>().text.Equals("Train")){
+            chooseSprite1 = trainIcon;
+        }
+        else if (upgradeButton1.GetComponentInChildren<TextMeshProUGUI>().text.Equals("Carriage")){
+            chooseSprite1 = carriageIcon;
+        }
+        else if (upgradeButton1.GetComponentInChildren<TextMeshProUGUI>().text.Equals("Line")){
+            chooseSprite1 = lineIcon;
+        }
+        else if (upgradeButton1.GetComponentInChildren<TextMeshProUGUI>().text.Equals("Tunnel")){
+            chooseSprite1 = tunnelIcon;
+        }
+        else {
+            chooseSprite1 = interchangeIcon;
+        }
+
+        //sprite 2
+        if (upgradeButton2.GetComponentInChildren<TextMeshProUGUI>().text.Equals("Train")){
+            chooseSprite2 = trainIcon;
+        }
+        else if (upgradeButton2.GetComponentInChildren<TextMeshProUGUI>().text.Equals("Carriage")){
+            chooseSprite2 = carriageIcon;
+        }
+        else if (upgradeButton2.GetComponentInChildren<TextMeshProUGUI>().text.Equals("Line")){
+            chooseSprite2 = lineIcon;
+        }
+        else if (upgradeButton2.GetComponentInChildren<TextMeshProUGUI>().text.Equals("Tunnel")){
+            chooseSprite2 = tunnelIcon;
+        }
+        else {
+            chooseSprite2 = interchangeIcon;
+        }
+
+
+        upgradeButton1.image.sprite = chooseSprite1;
+        upgradeButton2.image.sprite = chooseSprite2;
 
         upgradeButton1.gameObject.SetActive(true);
         upgradeButton2.gameObject.SetActive(true);

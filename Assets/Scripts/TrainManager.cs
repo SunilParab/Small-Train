@@ -246,11 +246,16 @@ public class TrainManager : MonoBehaviour
 
 
 
-        //Debug.Log("Station we're going to: " + myStation + "\tDistance: " + distanceToNextStation + "\tSpeed: " + speed);
+        Debug.Log("Station we're going to: " + myStation + "\tDistance: " + distanceToNextStation + "\tSpeed: " + speed);
         if (distanceToNextStation <= 1 && !leavingStation)
         {
             decelerating = true;
             accelerating = false;
+        }
+        else if (distanceToNextStation > 1 && !leavingStation)
+        {
+            decelerating = false;
+            accelerating = true;
         }
         else if (leavingStation)
         {

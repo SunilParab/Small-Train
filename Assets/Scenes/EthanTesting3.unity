@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weekCount: 0
-  weekDuration: 5
+  weekDuration: 500
   upgradeScreen: {fileID: 855820082}
   weekText: {fileID: 1706291427}
   locomotiveButton: {fileID: 1066680882}
@@ -1071,6 +1071,11 @@ MonoBehaviour:
   interchangeCount: 0
   isGamePaused: 0
   speedupActive: 0
+  trainIcon: {fileID: 0}
+  carriageIcon: {fileID: 0}
+  tunnelIcon: {fileID: 0}
+  interchangeIcon: {fileID: 0}
+  lineIcon: {fileID: 0}
 --- !u!4 &242742518
 Transform:
   m_ObjectHideFlags: 0
@@ -1086,6 +1091,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &276801746
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1519137912205307699, guid: 2652abe7167940f4087b243787af771f, type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874423411201270772, guid: 2652abe7167940f4087b243787af771f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874423411201270772, guid: 2652abe7167940f4087b243787af771f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874423411201270772, guid: 2652abe7167940f4087b243787af771f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874423411201270772, guid: 2652abe7167940f4087b243787af771f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874423411201270772, guid: 2652abe7167940f4087b243787af771f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874423411201270772, guid: 2652abe7167940f4087b243787af771f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874423411201270772, guid: 2652abe7167940f4087b243787af771f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874423411201270772, guid: 2652abe7167940f4087b243787af771f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874423411201270772, guid: 2652abe7167940f4087b243787af771f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6874423411201270772, guid: 2652abe7167940f4087b243787af771f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2652abe7167940f4087b243787af771f, type: 3}
 --- !u!1 &433915616
 GameObject:
   m_ObjectHideFlags: 0
@@ -4648,6 +4710,7 @@ MonoBehaviour:
   targetLine: 0
   startStation: {fileID: 0}
   endStation: {fileID: 0}
+  offSetUnit: 0.083333336
 --- !u!4 &1812473468
 Transform:
   m_ObjectHideFlags: 0
@@ -4884,3 +4947,4 @@ SceneRoots:
   - {fileID: 1807466188}
   - {fileID: 433915620}
   - {fileID: 1318532753}
+  - {fileID: 276801746}

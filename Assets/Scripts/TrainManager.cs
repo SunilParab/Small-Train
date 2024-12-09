@@ -401,7 +401,7 @@ public class TrainManager : MonoBehaviour
                         insideTrain.Add(PassengerListInStationInLine(myStation, myLine)[k]);
                         PassengerListInStationInLine(myStation, myLine).Remove(PassengerListInStationInLine(myStation, myLine)[k]);
                         Destroy(PassengerListInStationInLineGO(myStation, myLine)[k]);
-                        PassengerListInStationInLineGO(myStation, myLine).Remove(PassengerListInStationInLineGO(myStation, myLine)[k]);
+                        PassengerListInStationInLineGO(myStation, myLine).RemoveAt(k);
                         return true;
                     }
                 }

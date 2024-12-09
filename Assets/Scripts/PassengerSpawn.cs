@@ -48,6 +48,9 @@ public class PassengerSpawn : MonoBehaviour
     public Image timerImage;
     public bool hasTimer = false;
     public Image temporaryImage;
+
+    //interchange
+    public bool hasInterchange = false;
     
 
     // Start is called before the first frame update
@@ -149,7 +152,11 @@ public class PassengerSpawn : MonoBehaviour
             }
         }
         
-
+        //interchange
+        if (hasInterchange){
+            transform.localScale = new Vector3(0.08f,0.08f,0.08f);
+            passengerLimit = 18;
+        }
     }
 
     public void AddPassenger(string newPassenger){

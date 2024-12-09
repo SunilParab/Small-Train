@@ -17,6 +17,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
     public Button upgradeButton2;
     public Button pausebutton;
     public Button resumebutton;
+    public Button speedupbutton;
     public Button[] allUpgradeButtons;
 
     private List<string> upgradeOptions = new List<string>{ "Train", "Carriage", "Line", "Tunnel", "Interchange" };
@@ -25,7 +26,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
     public int tunnelCount = 3;
     public int interchangeCount = 0;
     public bool isGamePaused = false;
-
+    public bool speedupActive = false;
     public static WeeklyUpgradeManager reference;
 
     private void Awake()
@@ -36,6 +37,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     private void Start()
     {
+        //speedupbutton.onClick.AddListener(OnSpeedupButtonClicked);
         resumebutton.onClick.AddListener(OnResumeButtonClicked);
         pausebutton.onClick.AddListener(OnPauseButtonClicked);
         timer = weekDuration;
@@ -51,6 +53,19 @@ public class WeeklyUpgradeManager : MonoBehaviour
         foreach (Button upgradeButton in allUpgradeButtons)
         {
             upgradeButton.gameObject.SetActive(false);
+        }
+    }
+    void OnSpeedupButtonClicked()
+    {
+        Debug.Log("pressed");
+        if (speedupActive == false)
+        {
+            Time.timeScale = 2.0f;
+            speedupActive = true;
+        } else
+        {
+                Time.timeScale = 1.0f;
+                speedupActive = false;
         }
     }
     void OnResumeButtonClicked()
@@ -152,6 +167,13 @@ public class WeeklyUpgradeManager : MonoBehaviour
         //Debug.Log("Player selected: " + selectedButton.GetComponentInChildren<TextMeshProUGUI>().text);
         ApplyUpgrade(selectedButton.GetComponentInChildren<TextMeshProUGUI>().text);
         CloseUpgradeScreen();
+        if (speedupActive == true)
+        {
+            Time.timeScale = 2.0f;
+        } //else 
+      //  {
+         //   Time.timeScale = 1.0f;
+       // }
     }
     private void ApplyUpgrade(string selectedUpgrade)
     {
@@ -164,6 +186,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
         if (selectedUpgrade.Equals("Carriage"))
         {
             carriageCount++;
+            TrainCircleManager.valueCalculated = true;
             //Debug.Log("carriage " + carriageCount);
         }
         if (selectedUpgrade.Equals("Line"))
@@ -179,6 +202,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
         if (selectedUpgrade.Equals("Interchange"))
         {
             interchangeCount++;
+            TrainCircleManager.valueCalculated = true;
             //Debug.Log("inter " + interchangeCount);
         }
         if (selectedUpgrade.Equals("Tunnel"))

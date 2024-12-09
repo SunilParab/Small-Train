@@ -26,6 +26,25 @@ public class StationTrigger : MonoBehaviour
         } else if (Input.GetMouseButtonDown(0) ) {
             LineDrawer.reference.Activate(-1,true,gameObject); //-1 Means new line
         }
+
+        //mouse over station
+        if (InterchangePlacer.reference.isMaking) {
+            if (Input.GetMouseButtonDown(0) ) {
+
+                if (GetComponent<PassengerSpawn>().hasInterchange) {
+                    return;
+                }
+
+                InterchangePlacer.reference.stopMaking();
+
+                WeeklyUpgradeManager.reference.interchangeCount--;
+
+                //Make the Interchange
+                GetComponent<PassengerSpawn>().hasInterchange = true;
+            }
+        }
+        
+        
     }
 
     void OnMouseExit() {

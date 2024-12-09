@@ -13,7 +13,7 @@ using static System.Collections.Specialized.BitVector32;
 
 public class TrainManager : MonoBehaviour
 {
-
+    //f
     public LineList lineScript;
     public WeeklyUpgradeManager weeklyUpgradeManager;
     //what line the train is in

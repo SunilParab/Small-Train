@@ -30,14 +30,17 @@ public class StationTrigger : MonoBehaviour
         //mouse over station
         if (InterchangePlacer.reference.isMaking) {
             if (Input.GetMouseButtonDown(0) ) {
+
+                if (GetComponent<PassengerSpawn>().hasInterchange) {
+                    return;
+                }
+
                 InterchangePlacer.reference.stopMaking();
 
                 WeeklyUpgradeManager.reference.interchangeCount--;
 
                 //Make the Interchange
-                //GameObject me = GameObject.Instantiate(LineDrawer.reference.train, new Vector2(0, 0), Quaternion.identity);
-                //me.GetComponent<TrainManager>().PlaceMake(segment,myHalf);
-
+                GetComponent<PassengerSpawn>().hasInterchange = true;
             }
         }
         

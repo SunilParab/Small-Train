@@ -84,6 +84,9 @@ public class TrainManager : MonoBehaviour
     public GameObject diamondPassenger;
     public GameObject eyePassenger;
 
+    //carriage variable
+    public bool hasCarriage = false;
+
 
     // I replaced start with this, it just instantiate the variables
     public void RegularMake()
@@ -322,6 +325,11 @@ public class TrainManager : MonoBehaviour
         //Move the train in the direction by _distance_ amount
         var directionVector = Vector3.Normalize(curTarget - curStart);
         transform.position = curStart + directionVector * distance;
+
+        //carriage stuff
+        if (hasCarriage){
+            insideTrainMax = 12;
+        }
 
     }
 
@@ -643,6 +651,26 @@ public class TrainManager : MonoBehaviour
                 return null;
         }
 
+    }
+
+    void OnMouseOver(){
+
+        //mouse over train
+        if (InterchangePlacer.reference.isMaking) {
+            if (Input.GetMouseButtonDown(0) ) {
+
+                if (hasCarriage) {
+                    return;
+                }
+
+                InterchangePlacer.reference.stopMaking();
+
+                WeeklyUpgradeManager.reference.interchangeCount--;
+
+                //Make the Interchange
+                hasCarriage = true;
+            }
+        }
     }
 
 }

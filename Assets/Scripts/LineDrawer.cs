@@ -45,7 +45,7 @@ public class LineDrawer : MonoBehaviour
     public float offSetUnit = 0.5f/6;
 
     public static LineDrawer reference;
-
+    public AudioSource stationconnectSound;
     private void Awake()
     {
         reference = this;
@@ -490,7 +490,8 @@ public class LineDrawer : MonoBehaviour
 
     void LineMake(int lineInfoArrayIndex)
     {
-
+        stationconnectSound.Play(0);
+        //AudioSource.Play();
         //Clear out old segment
         Destroy(segment);
 

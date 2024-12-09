@@ -1022,7 +1022,11 @@ public class LineDrawer : MonoBehaviour
                 curLine.LineSegments.RemoveAt(0);
                 //Move T
                 Destroy(curLine.startT);
-                curLine.MakeT(curLine.LineSegments[0],true,curLine.LineSegments[0].startStation);
+                if (curLine.LineSegments.Count > 0) {
+                    curLine.MakeT(curLine.LineSegments[0],true,curLine.LineSegments[0].startStation);
+                } else {
+                    Destroy(curLine.endT);
+                }
                 return true;
             }
         } else {
@@ -1032,7 +1036,11 @@ public class LineDrawer : MonoBehaviour
                 curLine.LineSegments.RemoveAt(curLine.LineSegments.Count-1);
                 //Move T
                 Destroy(curLine.endT);
-                curLine.MakeT(curLine.LineSegments.Last(),false,curLine.LineSegments.Last().endStation);
+                if (curLine.LineSegments.Count > 0) {
+                    curLine.MakeT(curLine.LineSegments.Last(),false,curLine.LineSegments.Last().endStation);
+                } else {
+                    Destroy(curLine.startT);
+                }
                 return true;
             }
         }

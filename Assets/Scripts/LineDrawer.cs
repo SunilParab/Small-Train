@@ -1065,7 +1065,9 @@ public class LineDrawer : MonoBehaviour
             possibleTarget = TrainReadyMake();
         }
 
-        if (!SoundManager.reference.connectAudioSources[possibleTarget].isPlaying) {
+        if (!SoundManager.reference.connectAudioSources[possibleTarget].isPlaying || 
+        SoundManager.reference.connectAudioSources[possibleTarget].time >= 0f) {
+            
             SoundManager.reference.connectAudioSources[possibleTarget].Play();
         }
     }

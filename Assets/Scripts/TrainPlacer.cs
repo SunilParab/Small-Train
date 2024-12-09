@@ -34,18 +34,6 @@ public class TrainPlacer : MonoBehaviour
             spawnedObject.transform.position = cursorPosition;
 
         }
-        
-
-        //raycast shenanigans
-        RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
-        foreach(RaycastHit hit in hits)
-        {
-            if (hit.collider.gameObject.name == "Cube A")
-            {
-                //do something here
-                break;
-            }
-        }
     }
 
     void SpawnObject()

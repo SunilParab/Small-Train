@@ -705,7 +705,7 @@ public class LineDrawer : MonoBehaviour
 
         while (firstHalf && (curx != endx || cury != endy) && counter < 100)
         {
-            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx,cury+offsety,0), new Quaternion());
+            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx,cury+offsety,1), new Quaternion());
 
             if (isStart && targetLine != -1) {
                 curSeg.GetComponent<SegPieceHitbox>().myHalf = 1;
@@ -805,7 +805,7 @@ public class LineDrawer : MonoBehaviour
         while ((curx != endx || cury != endy) && counter < 100)
         {
 
-            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx,cury+offsety,0), new Quaternion());
+            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx,cury+offsety,1), new Quaternion());
 
             if (isStart && targetLine != -1) {
                 curSeg.GetComponent<SegPieceHitbox>().myHalf = 0;

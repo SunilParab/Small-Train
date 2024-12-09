@@ -18,7 +18,7 @@ public class TrainCircleManager : MonoBehaviour
     public GameObject BrownLineCircle;
    // public GameObject LineButtons;
     public WeeklyUpgradeManager weeklyUpgradeManager;
-    private Vector3 bottomCircleTargetPosition = new Vector3(0, -750, 0);
+    private Vector3 bottomCircleTargetPosition = new Vector3(0, -500, 0);
     private Vector3 targetPosition;
     private Vector3 targetTunnelPosition;
     private Vector3 targetLineButtonsPosition;
@@ -31,11 +31,11 @@ public class TrainCircleManager : MonoBehaviour
     {
 
         // Transform scaleredcircle = RedLineCircle.GetComponent<Transform>();
-        LineButtons.anchoredPosition = new Vector2(0, -Screen.height * 0.75f);
+        LineButtons.anchoredPosition = new Vector2(0, -600);//-Screen.height * 0.75f);
         LineButtons.gameObject.SetActive(false);
-        trainCircle.anchoredPosition = new Vector2(-900, -Screen.height * 0.75f);
+        trainCircle.anchoredPosition = new Vector2(-470, -600);//-Screen.height * 0.75f);
         trainCircle.gameObject.SetActive(false);
-        tunnelCircle.anchoredPosition = new Vector2(900, -Screen.height * 0.75f);
+        tunnelCircle.anchoredPosition = new Vector2(470, -600);//-Screen.height * 0.75f);
         tunnelCircle.gameObject.SetActive(false);
         bottomCircleButton.onClick.AddListener(OnBottomCircleClicked);
         
@@ -124,18 +124,18 @@ public class TrainCircleManager : MonoBehaviour
             LineButtons.gameObject.SetActive(true);
             tunnelCircle.gameObject.SetActive(true);
             trainCircle.gameObject.SetActive(true);
-            targetPosition = new Vector3(-900, -900, 0);
-            targetTunnelPosition = new Vector3(900, -900, 0);
-            targetLineButtonsPosition = new Vector3(0, -900, 0);
-            bottomCircleTargetPosition = new Vector3(0, -750, 0);
+            targetPosition = new Vector3(-470, -450, 0);
+            targetTunnelPosition = new Vector3(470, -450, 0);
+            targetLineButtonsPosition = new Vector3(0, -450, 0);
+            bottomCircleTargetPosition = new Vector3(-50, -350, 0);
             StartCoroutine(MoveTrainCircle());
             InventoryOpen = true;
         } else
         {
-            targetTunnelPosition = new Vector3(900, -1200, 0);
-            targetPosition = new Vector3(-900, -1200, 0);
-            targetLineButtonsPosition = new Vector3(0, -1200, 0);
-            bottomCircleTargetPosition = new Vector3(0, -980, 0);
+            targetTunnelPosition = new Vector3(470, -600, 0);
+            targetPosition = new Vector3(-470, -600, 0);
+            targetLineButtonsPosition = new Vector3(0, -600, 0);
+            bottomCircleTargetPosition = new Vector3(-50, -500, 0);
             StartCoroutine(MoveTrainCircleDown());
             InventoryOpen = false;
         }
@@ -172,13 +172,13 @@ public class TrainCircleManager : MonoBehaviour
     {
         float duration = 0.5f;
         Vector3 startTrainPosition = trainCircle.transform.localPosition;
-        Vector3 targetTrainPosition = new Vector3(-900, -900, 0);
+        Vector3 targetTrainPosition = new Vector3(-470, -450, 0);
         Vector3 startLineButtonsPosition = LineButtons.transform.localPosition;
-        Vector3 targetLineButtonsPosition = new Vector3(0, -900, 0);
+        Vector3 targetLineButtonsPosition = new Vector3(0, -450, 0);
         Vector3 startBottomPosition = bottomCircle.transform.localPosition;
         Vector3 targetBottomPosition = bottomCircleTargetPosition;
         Vector3 startTunnelPosition = tunnelCircle.transform.localPosition;
-        Vector3 targetTunnelPosition = new Vector3(900, -900, 0);
+        Vector3 targetTunnelPosition = new Vector3(470, -450, 0);
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
@@ -201,11 +201,11 @@ public class TrainCircleManager : MonoBehaviour
     {
         float duration = 0.5f;
         Vector3 startTrainPosition = trainCircle.transform.localPosition;
-        Vector3 targetTrainPosition = new Vector3(-900, -1200, 0);
+        Vector3 targetTrainPosition = new Vector3(-470, -600, 0);
         Vector3 startTunnelPosition = tunnelCircle.transform.localPosition;
-        Vector3 targetTunnelPosition = new Vector3(900, -1200, 0);
+        Vector3 targetTunnelPosition = new Vector3(470, -600, 0);
         Vector3 startLineButtonsPosition = LineButtons.transform.localPosition;
-        Vector3 targetLineButtonsPosition = new Vector3(0, -1200, 0);
+        Vector3 targetLineButtonsPosition = new Vector3(0, -600, 0);
         Vector3 startBottomPosition = bottomCircle.transform.localPosition;
         Vector3 targetBottomPosition = bottomCircleTargetPosition;
         float elapsedTime = 0f;

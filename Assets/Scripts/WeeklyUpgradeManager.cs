@@ -15,14 +15,18 @@ public class WeeklyUpgradeManager : MonoBehaviour
     public Button locomotiveButton;
     public Button upgradeButton1;
     public Button upgradeButton2;
+    public Button pausebutton;
+    public Button resumebutton;
+    public Button speedupbutton;
     public Button[] allUpgradeButtons;
 
-    private List<string> upgradeOptions = new List<string>{ "Train", "Carriage", "New Line", "Tunnel", "Interchange" };
+    private List<string> upgradeOptions = new List<string>{ "Train", "Carriage", "Line", "Tunnel", "Interchange" };
     public int trainCount = 3;
     public int carriageCount = 0;
     public int tunnelCount = 3;
     public int interchangeCount = 0;
-
+    public bool isGamePaused = false;
+    public bool speedupActive = false;
     public static WeeklyUpgradeManager reference;
 
     private void Awake()
@@ -33,6 +37,9 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     private void Start()
     {
+        //speedupbutton.onClick.AddListener(OnSpeedupButtonClicked);
+        resumebutton.onClick.AddListener(OnResumeButtonClicked);
+        pausebutton.onClick.AddListener(OnPauseButtonClicked);
         timer = weekDuration;
         upgradeScreen.SetActive(false);
         upgradeButton1.gameObject.SetActive(false);
@@ -48,10 +55,30 @@ public class WeeklyUpgradeManager : MonoBehaviour
             upgradeButton.gameObject.SetActive(false);
         }
     }
-
+    void OnSpeedupButtonClicked()
+    {
+        Debug.Log("pressed");
+        if (speedupActive == false)
+        {
+            Time.timeScale = 2.0f;
+            speedupActive = true;
+        } else
+        {
+                Time.timeScale = 1.0f;
+                speedupActive = false;
+        }
+    }
+    void OnResumeButtonClicked()
+    {
+        isGamePaused = false;
+    }
+    private void OnPauseButtonClicked()
+    {
+        isGamePaused = true;
+    }
     private void Update()
     {
-        if (Time.timeScale > 0)
+        if (Time.timeScale > 0 && isGamePaused == false) //&& isGamePaused == false
         {
             timer -= Time.deltaTime;
           //  Debug.Log("Time until next upgrade: " + Mathf.Ceil(timer) + " seconds");
@@ -140,6 +167,13 @@ public class WeeklyUpgradeManager : MonoBehaviour
         //Debug.Log("Player selected: " + selectedButton.GetComponentInChildren<TextMeshProUGUI>().text);
         ApplyUpgrade(selectedButton.GetComponentInChildren<TextMeshProUGUI>().text);
         CloseUpgradeScreen();
+        if (speedupActive == true)
+        {
+            Time.timeScale = 2.0f;
+        } //else 
+      //  {
+         //   Time.timeScale = 1.0f;
+       // }
     }
     private void ApplyUpgrade(string selectedUpgrade)
     {
@@ -154,12 +188,12 @@ public class WeeklyUpgradeManager : MonoBehaviour
             carriageCount++;
             //Debug.Log("carriage " + carriageCount);
         }
-        if (selectedUpgrade.Equals("New Line"))
+        if (selectedUpgrade.Equals("Line"))
         {
             LineList.reference.availableLines++;
 
             if (LineList.reference.availableLines >= 7) {
-                upgradeOptions.Remove("New Line");
+                upgradeOptions.Remove("Line");
             }
 
             //Debug.Log("new line " + newlineCount);

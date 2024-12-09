@@ -292,6 +292,9 @@ MonoBehaviour:
   locomotiveButton: {fileID: 1066680882}
   upgradeButton1: {fileID: 1671120230}
   upgradeButton2: {fileID: 1077262039}
+  pausebutton: {fileID: 0}
+  resumebutton: {fileID: 0}
+  speedupbutton: {fileID: 0}
   allUpgradeButtons:
   - {fileID: 1671120230}
   - {fileID: 1077262039}
@@ -299,6 +302,8 @@ MonoBehaviour:
   carriageCount: 0
   tunnelCount: 3
   interchangeCount: 0
+  isGamePaused: 0
+  speedupActive: 0
 --- !u!4 &242742518
 Transform:
   m_ObjectHideFlags: 0
@@ -2846,8 +2851,13 @@ MonoBehaviour:
   RedLineCircle: {fileID: 1158563336}
   YellowLineCircle: {fileID: 1283395673}
   BlueLineCircle: {fileID: 1287358999}
+  GreenLineCircle: {fileID: 0}
+  PurpleLineCircle: {fileID: 0}
+  OrangeLineCircle: {fileID: 0}
+  BrownLineCircle: {fileID: 0}
   weeklyUpgradeManager: {fileID: 242742517}
   tunnelCircle: {fileID: 757017514}
+  LineButtons: {fileID: 0}
   tunnelCountText: {fileID: 1038411058}
 --- !u!4 &1807466188
 Transform:
@@ -2929,8 +2939,10 @@ MonoBehaviour:
   segLength: 0.5
   train: {fileID: 2735024215327003098, guid: e7b9f61f5b29ff943a303440ac2bac5c, type: 3}
   lineScript: {fileID: 0}
+  targetLine: 0
   startStation: {fileID: 0}
   endStation: {fileID: 0}
+  offSetUnit: 0.08333334
 --- !u!4 &1812473468
 Transform:
   m_ObjectHideFlags: 0

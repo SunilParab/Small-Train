@@ -304,6 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   passengersInStation: []
+  passengersInStationGO: []
   connectedLines: 
   stationString: 
   passengerSpawnTime: 0
@@ -318,3 +319,7 @@ MonoBehaviour:
   piePassenger: {fileID: 2282137085969397466, guid: b58c8b5bde245e74689be0feba638fd4, type: 3}
   diamondPassenger: {fileID: 6000844119935074042, guid: 93c455a8cce7bfa4ab7ad4a50048224f, type: 3}
   eyePassenger: {fileID: 1426260935997696814, guid: 9101f352675a32b4cbd62827bfea5106, type: 3}
+  overCrowdTimer: 0
+  passengerLimit: 0
+  timerImage: {fileID: 3461371637466013220, guid: a6dec1ac741caf544b21b0d78b1fe2d8, type: 3}
+  timerCanvas: {fileID: 0}

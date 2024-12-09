@@ -1,7 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PassengerSpawn : MonoBehaviour
 {
@@ -38,12 +42,20 @@ public class PassengerSpawn : MonoBehaviour
     public GameObject diamondPassenger;
     public GameObject eyePassenger;
     
+    //overcrowded variables
+    public float overCrowdTimer;
+    public int passengerLimit;
+    public Image timerImage;
+    public bool hasTimer = false;
+    public Image temporaryImage;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         passengerNum = UnityEngine.Random.Range(0, StationSpawnManager.maxShapeNum);
-        passengerSpawnTime = UnityEngine.Random.Range(5,21); 
+        passengerSpawnTime = UnityEngine.Random.Range(10,21); 
+        passengerLimit = 6;
 
         //instantiate passenger shape
         RandomizePassengerShape();
@@ -57,7 +69,7 @@ public class PassengerSpawn : MonoBehaviour
     {
         UpdatePassengerIcons();
 
-
+        //spawn timer
         if (Time.timeScale > 0)
         {
             timer -= Time.deltaTime;
@@ -72,7 +84,7 @@ public class PassengerSpawn : MonoBehaviour
                     SpawnPassengerIcons();
 
                     //reset timer
-                    passengerSpawnTime = UnityEngine.Random.Range(5,21); 
+                    passengerSpawnTime = UnityEngine.Random.Range(10,21); 
                     timer = passengerSpawnTime;
                     
                 }
@@ -90,12 +102,57 @@ public class PassengerSpawn : MonoBehaviour
                 RandomizePassengerShape();
             }
         }
+        
+        //overcrowded timer
+        if (Time.timeScale > 0)
+        {
+            
+            if (overCrowdTimer <= 0){
+                overCrowdTimer = 0;
+                /*
+                if (hasTimer){
+                    Destroy(temporaryImage);
+                    hasTimer = false;
+                }
+                */
+            }
+
+            if (passengersInStation.Count > passengerLimit){
+                
+                //if there is quite a lot of passengers timer will go up
+                overCrowdTimer += Time.deltaTime;
+
+                if (!hasTimer){
+                    //create timer
+                    temporaryImage = Instantiate(timerImage, new Vector2(transform.position.x,transform.position.y), new Quaternion(0, 0, 180, 0),
+                        GameObject.FindGameObjectWithTag("TimerCanvas").transform);
+
+                    temporaryImage.GetComponent<TimerSpawn>().station = gameObject;
+                    temporaryImage.GetComponent<TimerSpawn>().increasing = true;
+                    hasTimer = true;
+                }
+
+            }
+            else {
+
+                //if theres enough space timer will go down
+                overCrowdTimer -= Time.deltaTime;
+                if (hasTimer){
+                    temporaryImage.GetComponent<TimerSpawn>().increasing = false;
+                }
+            }
+
+            if (overCrowdTimer >= 45)
+            {
+                print("GAME OVER");
+                //GAME OVER
+            }
+        }
+        
 
     }
 
     public void AddPassenger(string newPassenger){
-
-        //check if train is full...
 
         //add passenger
         passengersInStation.Add(newPassenger);
@@ -139,6 +196,10 @@ public class PassengerSpawn : MonoBehaviour
     public void SpawnPassengerIcons(){
 
         GameObject passenger;
+        for (int i = 0; i < passengersInStationGO.Count; i ++){
+            Destroy(passengersInStationGO[i]);
+        }
+        passengersInStationGO.Clear();
 
         for (int i = 0; i < passengersInStation.Count; i ++){
             if (passengersInStation[i].Equals("square")){
@@ -172,7 +233,9 @@ public class PassengerSpawn : MonoBehaviour
                 passenger = pentagonPassenger;
             }
 
+            //Instantiate(passenger, PassengerPosition(i), Quaternion.identity);
             passengersInStationGO.Add(Instantiate(passenger, PassengerPosition(i), Quaternion.identity));
+            
         }
     }
 
@@ -232,8 +295,39 @@ public class PassengerSpawn : MonoBehaviour
         else if (positionNum == 9){
             position = new Vector2(xPos + xDistance * 4, yPos - yDistance * 4);
         }
-        else {
+        else if (positionNum == 10){
             position = new Vector2(xPos + xDistance * 3, yPos - yDistance * 4);
+        }
+        else if (positionNum == 11){
+            position = new Vector2(xPos + xDistance * 2, yPos - yDistance * 4);
+        }
+        else if (positionNum == 12){
+            position = new Vector2(xPos + xDistance * 1, yPos - yDistance * 4);
+        }
+
+        //lower middle
+        else if (positionNum == 13){
+            position = new Vector2(xPos + xDistance * 0, yPos - yDistance * 5);
+        }
+
+        //lower bottom
+        else if (positionNum == 14){
+            position = new Vector2(xPos + xDistance * 1, yPos - yDistance * 6);
+        }
+        else if (positionNum == 15){
+            position = new Vector2(xPos + xDistance * 2, yPos - yDistance * 6);
+        }
+        else if (positionNum == 16){
+            position = new Vector2(xPos + xDistance * 3, yPos - yDistance * 6);
+        }
+        else if (positionNum == 17){
+            position = new Vector2(xPos + xDistance * 4, yPos - yDistance * 6);
+        }
+        else if (positionNum == 18){
+            position = new Vector2(xPos + xDistance * 5, yPos - yDistance * 6);
+        }
+        else {
+            position = new Vector2(xPos + xDistance * 6, yPos - yDistance * 6);
         }
 
         return position;

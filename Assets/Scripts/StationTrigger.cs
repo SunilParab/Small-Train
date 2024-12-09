@@ -16,8 +16,15 @@ public class StationTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
-        foreach(RaycastHit hit in hits)
+
+        //raycast that we're not doing
+        /*
+        Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        cursorPosition.z = 1;
+
+        RaycastHit[] hits = Physics.RaycastAll(Camera.main.ScreenPointToRay(cursorPosition));
+
+        foreach (RaycastHit hit in hits)
         {
             if (hit.collider.gameObject == this)
             {
@@ -28,9 +35,11 @@ public class StationTrigger : MonoBehaviour
                 break;
             }
         }
+        */
+        
     }
 
-    void MouseDetect() {
+    void OnMouseOver() {
         if (LineDrawer.reference.making) {
             LineDrawer.reference.Snap(this.gameObject);
             snappedTo = true;

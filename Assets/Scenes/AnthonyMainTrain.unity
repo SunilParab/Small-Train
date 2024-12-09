@@ -2356,6 +2356,7 @@ GameObject:
   - component: {fileID: 901743648}
   - component: {fileID: 901743647}
   - component: {fileID: 901743646}
+  - component: {fileID: 901743649}
   m_Layer: 5
   m_Name: CarriageButton
   m_TagString: Untagged
@@ -2465,6 +2466,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901743644}
   m_CullTransparentMesh: 1
+--- !u!114 &901743649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901743644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389c0a647c2c81649804901e2063deea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPrefab: {fileID: 90074279266195032, guid: 6d4506deec5614d4cb2db59635acb4a9, type: 3}
+  isMaking: 0
 --- !u!1 &1038411056
 GameObject:
   m_ObjectHideFlags: 0

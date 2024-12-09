@@ -2,12 +2,20 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class TrainCircleManager : MonoBehaviour
 {
     public Button bottomCircleButton;
     public RectTransform trainCircle;
+    public RectTransform carriageCircle;
+    public RectTransform interchangeCircle;
+    public float buttonPos1;
+    public float buttonPos2;
+    public float buttonPos3;
     public TextMeshProUGUI trainCountText;
+    public TextMeshProUGUI carriageCountText;
+    public TextMeshProUGUI interchangeCountText;
     public GameObject bottomCircle;
     public GameObject RedLineCircle;
     public GameObject YellowLineCircle;
@@ -27,14 +35,29 @@ public class TrainCircleManager : MonoBehaviour
     public RectTransform tunnelCircle;
     public RectTransform LineButtons;
     public TextMeshProUGUI tunnelCountText;
+
+    //fuck you
+    public static bool valueCalculated = false;
+    public static bool valueFull = false;
+
     void Start()
-    {
+    {   
+        
+        buttonPos1 = -470; //most right
+        buttonPos2 = -590; //middle
+        buttonPos3 = -710; //most left
 
         // Transform scaleredcircle = RedLineCircle.GetComponent<Transform>();
         LineButtons.anchoredPosition = new Vector2(0, -600);//-Screen.height * 0.75f);
         LineButtons.gameObject.SetActive(false);
-        trainCircle.anchoredPosition = new Vector2(-470, -600);//-Screen.height * 0.75f);
+        
+        trainCircle.anchoredPosition = new Vector2(buttonPos3, -600);//-Screen.height * 0.75f);
         trainCircle.gameObject.SetActive(false);
+        carriageCircle.anchoredPosition = new Vector2(buttonPos2, -600);//-Screen.height * 0.75f);
+        carriageCircle.gameObject.SetActive(false);
+        interchangeCircle.anchoredPosition = new Vector2(buttonPos1, -600);//-Screen.height * 0.75f);
+        interchangeCircle.gameObject.SetActive(false);
+
         tunnelCircle.anchoredPosition = new Vector2(470, -600);//-Screen.height * 0.75f);
         tunnelCircle.gameObject.SetActive(false);
         bottomCircleButton.onClick.AddListener(OnBottomCircleClicked);
@@ -42,14 +65,104 @@ public class TrainCircleManager : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
+        if (!valueCalculated){
+            OnlyTrain();
+        }
+
+        if (valueCalculated && !valueFull){
+            
+            //OnlyTrain() will never be ran
+            //if either carr or interc increases, train is b2 and the chosen one is b1
+            CarriageAdded();
+            InterchangeAdded();
+
+        }
+
+        if (weeklyUpgradeManager.carriageCount > 0 && weeklyUpgradeManager.interchangeCount > 0){
+
+            //CarriageAdded() and InterchangeAdded() never ran
+            valueFull = true;
+            HaveEverything();
+        }
+
+
         UpdateUI();
     //    RedLineCircle.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
         if (weeklyUpgradeManager != null)
         {
             UpdateTrainCount(weeklyUpgradeManager.trainCount);
+            UpdateCarriageCount(weeklyUpgradeManager.carriageCount);
+            UpdateInterchangeCount(weeklyUpgradeManager.interchangeCount);
             UpdateTunnelCount(weeklyUpgradeManager.tunnelCount);
         }
+    }
+
+    void OnlyTrain(){
+        //if there are 0 carr and interc at the start, there is only train button at buttonPos1
+
+        trainCircle.gameObject.SetActive(true);
+        carriageCircle.gameObject.SetActive(false);
+        interchangeCircle.gameObject.SetActive(false);
+        
+        buttonPos3 = -470; //most right
+
+        trainCircle.transform.localPosition = new Vector3(buttonPos3, trainCircle.transform.localPosition.y);
+        carriageCircle.transform.localPosition = new Vector3(buttonPos2, carriageCircle.transform.localPosition.y);
+        interchangeCircle.transform.localPosition = new Vector3(buttonPos1, interchangeCircle.transform.localPosition.y);
+ 
+    }
+
+    void CarriageAdded(){
+        //if either carr or interc increases, train is b2 and the chosen one is b1
+        if (weeklyUpgradeManager.carriageCount > 0 && weeklyUpgradeManager.interchangeCount <= 0){
+            
+            trainCircle.gameObject.SetActive(true);
+            carriageCircle.gameObject.SetActive(true);
+            interchangeCircle.gameObject.SetActive(false);
+
+            //print("carriage");
+
+            buttonPos3 = -590; //train middle
+            buttonPos2 = -470; //carriage most right
+        }
+
+        trainCircle.transform.localPosition = new Vector3(buttonPos3, trainCircle.transform.localPosition.y);
+        carriageCircle.transform.localPosition = new Vector3(buttonPos2, carriageCircle.transform.localPosition.y);
+        interchangeCircle.transform.localPosition = new Vector3(buttonPos1, interchangeCircle.transform.localPosition.y);
+    }
+
+    void InterchangeAdded(){
+        if (weeklyUpgradeManager.interchangeCount > 0 && weeklyUpgradeManager.carriageCount <= 0){
+
+            trainCircle.gameObject.SetActive(true);
+            carriageCircle.gameObject.SetActive(false);
+            interchangeCircle.gameObject.SetActive(true);
+
+            //print("interchange");
+
+            buttonPos3 = -590; //train middle
+            buttonPos1 = -470; //interchange most right
+        }
+
+        trainCircle.transform.localPosition = new Vector3(buttonPos3, trainCircle.transform.localPosition.y);
+        carriageCircle.transform.localPosition = new Vector3(buttonPos2, carriageCircle.transform.localPosition.y);
+        interchangeCircle.transform.localPosition = new Vector3(buttonPos1, interchangeCircle.transform.localPosition.y);
+    }
+
+    void HaveEverything(){
+
+        trainCircle.gameObject.SetActive(true);
+        carriageCircle.gameObject.SetActive(true);
+        interchangeCircle.gameObject.SetActive(true);
+
+        buttonPos1 = -470; //most right
+        buttonPos2 = -590; //middle
+        buttonPos3 = -710; //most left
+
+        trainCircle.transform.localPosition = new Vector3(buttonPos3, trainCircle.transform.localPosition.y);
+        carriageCircle.transform.localPosition = new Vector3(buttonPos2, carriageCircle.transform.localPosition.y);
+        interchangeCircle.transform.localPosition = new Vector3(buttonPos1, interchangeCircle.transform.localPosition.y);
     }
 
     void UpdateUI()
@@ -123,7 +236,11 @@ public class TrainCircleManager : MonoBehaviour
     {
             LineButtons.gameObject.SetActive(true);
             tunnelCircle.gameObject.SetActive(true);
+
             trainCircle.gameObject.SetActive(true);
+            carriageCircle.gameObject.SetActive(true);
+            interchangeCircle.gameObject.SetActive(true);
+
             targetPosition = new Vector3(-470, -450, 0);
             targetTunnelPosition = new Vector3(470, -450, 0);
             targetLineButtonsPosition = new Vector3(0, -450, 0);
@@ -150,6 +267,16 @@ public class TrainCircleManager : MonoBehaviour
         trainCountText.text = count.ToString();
     }
 
+    void UpdateCarriageCount(int count)
+    {
+        carriageCountText.text = count.ToString();
+    }
+
+    void UpdateInterchangeCount(int count)
+    {
+        interchangeCountText.text = count.ToString();
+    }
+
     private IEnumerator SmoothScale(GameObject target, Vector3 targetScale, float duration)
     {
         isScaling = true;
@@ -171,8 +298,14 @@ public class TrainCircleManager : MonoBehaviour
     public IEnumerator MoveTrainCircle()
     {
         float duration = 0.5f;
+
         Vector3 startTrainPosition = trainCircle.transform.localPosition;
-        Vector3 targetTrainPosition = new Vector3(-470, -450, 0);
+        Vector3 targetTrainPosition = new Vector3(buttonPos3, -450, 0);
+        Vector3 startCarriagePosition = carriageCircle.transform.localPosition;
+        Vector3 targetCarriagePosition = new Vector3(buttonPos2, -450, 0);
+        Vector3 startInterchangePosition = interchangeCircle.transform.localPosition;
+        Vector3 targetInterchangePosition = new Vector3(buttonPos1, -450, 0);
+
         Vector3 startLineButtonsPosition = LineButtons.transform.localPosition;
         Vector3 targetLineButtonsPosition = new Vector3(0, -450, 0);
         Vector3 startBottomPosition = bottomCircle.transform.localPosition;
@@ -185,14 +318,22 @@ public class TrainCircleManager : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
+
             trainCircle.transform.localPosition = Vector3.Lerp(startTrainPosition, targetTrainPosition, t);
+            carriageCircle.transform.localPosition = Vector3.Lerp(startCarriagePosition, targetCarriagePosition, t);
+            interchangeCircle.transform.localPosition = Vector3.Lerp(startInterchangePosition, targetInterchangePosition, t);
+
             LineButtons.transform.localPosition = Vector3.Lerp(startLineButtonsPosition, targetLineButtonsPosition, t);
             tunnelCircle.transform.localPosition = Vector3.Lerp(startTunnelPosition, targetTunnelPosition, t);
             bottomCircle.transform.localPosition = Vector3.Lerp(startBottomPosition, targetBottomPosition, t);
             yield return null;
         }
         LineButtons.transform.localPosition = targetLineButtonsPosition;
+
         trainCircle.transform.localPosition = targetTrainPosition;
+        carriageCircle.transform.localPosition = targetCarriagePosition;
+        interchangeCircle.transform.localPosition = targetInterchangePosition;
+
         tunnelCircle.transform.localPosition = targetTunnelPosition;
         bottomCircle.transform.localPosition = targetBottomPosition;
     }
@@ -200,8 +341,14 @@ public class TrainCircleManager : MonoBehaviour
     public IEnumerator MoveTrainCircleDown()
     {
         float duration = 0.5f;
+
         Vector3 startTrainPosition = trainCircle.transform.localPosition;
-        Vector3 targetTrainPosition = new Vector3(-470, -600, 0);
+        Vector3 targetTrainPosition = new Vector3(buttonPos3, -600, 0);
+        Vector3 startCarriagePosition = carriageCircle.transform.localPosition;
+        Vector3 targetCarriagePosition = new Vector3(buttonPos2, -600, 0);
+        Vector3 startInterchangePosition = interchangeCircle.transform.localPosition;
+        Vector3 targetInterchangePosition = new Vector3(buttonPos1, -600, 0);
+
         Vector3 startTunnelPosition = tunnelCircle.transform.localPosition;
         Vector3 targetTunnelPosition = new Vector3(470, -600, 0);
         Vector3 startLineButtonsPosition = LineButtons.transform.localPosition;
@@ -214,17 +361,29 @@ public class TrainCircleManager : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
+
             trainCircle.transform.localPosition = Vector3.Lerp(startTrainPosition, targetTrainPosition, t);
+            carriageCircle.transform.localPosition = Vector3.Lerp(startCarriagePosition, targetCarriagePosition, t);
+            interchangeCircle.transform.localPosition = Vector3.Lerp(startInterchangePosition, targetInterchangePosition, t);
+
             LineButtons.transform.localPosition = Vector3.Lerp(startLineButtonsPosition, targetLineButtonsPosition, t);
             tunnelCircle.transform.localPosition = Vector3.Lerp(startTunnelPosition, targetTunnelPosition, t);
             bottomCircle.transform.localPosition = Vector3.Lerp(startBottomPosition, targetBottomPosition, t);
             yield return null;
         }
+
         trainCircle.transform.localPosition = targetTrainPosition;
+        carriageCircle.transform.localPosition = targetCarriagePosition;
+        interchangeCircle.transform.localPosition = targetInterchangePosition;
+
         LineButtons.transform.localPosition = targetLineButtonsPosition;
         tunnelCircle.transform.localPosition = targetTunnelPosition;
         bottomCircle.transform.localPosition = targetBottomPosition;
+
         trainCircle.gameObject.SetActive(false);
+        carriageCircle.gameObject.SetActive(false);
+        interchangeCircle.gameObject.SetActive(false);
+
         tunnelCircle.gameObject.SetActive(false);
         LineButtons.gameObject.SetActive(false);
     }

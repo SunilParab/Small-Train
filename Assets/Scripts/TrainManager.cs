@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 using Unity.VisualScripting.Dependencies.Sqlite;
@@ -61,6 +62,21 @@ public class TrainManager : MonoBehaviour
     private float endXPos;
     private float endYPos;
 
+    //Prefabs and list of passengers that will show up on the train
+    private List<GameObject> insideTrainGO = new();
+    [Header("Passenger Prefabs")]
+    public GameObject circlePassenger;
+    public GameObject squarePassenger;
+    public GameObject trianglePassenger;
+    public GameObject starPassenger;
+    public GameObject pentagonPassenger;
+    public GameObject rhombusPassenger;
+    public GameObject plusPassenger;
+    public GameObject piePassenger;
+    public GameObject diamondPassenger;
+    public GameObject eyePassenger;
+
+
     // I replaced start with this, it just instantiate the variables
     public void RegularMake()
     {
@@ -109,26 +125,24 @@ public class TrainManager : MonoBehaviour
         }
     }
 
-    // Make function for placing train on specific segement
+    // Make function for placing train on specific segment
     public void PlaceMake(SegmentInfo segment, int targetHalf)
     {
+        //At the very start, the stationIndex that is next will always be 1
+        myStation = 1;
 
         myLine = segment.myLine;
 
         lineScript = LineList.reference;
         lineInfos = lineScript.lineList;
 
+        weeklyUpgradeManager = WeeklyUpgradeManager.reference;
+
         x = transform.position.x;
         y = transform.position.y;
 
         //set start and cur target
-        curSegment = segment;
-
-
-        curStart = curSegment.lineRenderer.GetPosition(0+targetHalf);
-        curTarget = curSegment.lineRenderer.GetPosition(1+targetHalf);
-        curHalf = targetHalf;
-
+        curSegment = lineInfos[myLine].LineSegments[0];
 
         curStart = curSegment.lineRenderer.GetPosition(0+curHalf);
         curTarget = curSegment.lineRenderer.GetPosition(1+curHalf);
@@ -159,14 +173,6 @@ public class TrainManager : MonoBehaviour
                 break;
 
         }
-
-        //Set start position
-      //  if (weeklyupgrademanager.isGamePaused == false )
-       // {
-       //     transform.position = curStart; 
-       // }
-       transform.position = curStart;// + directionVector * distance
-
     }
 
     // Update is called once per frame
@@ -186,6 +192,10 @@ public class TrainManager : MonoBehaviour
                 speed = savedSpeed;
             }
         }
+
+        //Displaying passengers on this train
+        DisplayPassengers();
+
 
         distance += speed * Time.deltaTime;
 
@@ -215,7 +225,7 @@ public class TrainManager : MonoBehaviour
         }
 
         //Picking up passengers
-        if (distanceToNextStation <= 0.005f && !accelerating)
+        if (distanceToNextStation <= 0.05f && !accelerating)
         {
             speed = 0;
             if (pickUpPassengersTimer <= 0)
@@ -236,7 +246,11 @@ public class TrainManager : MonoBehaviour
             pickUpPassengersTimer = 500;
 
             //Accelerating
-            if (accelerating) speed = Math.Min((1 + (Time.deltaTime * 0.8f)) * speed + 0.001f, 1);
+            if (accelerating)
+            {
+                if (speed == 0) speed = 0.2f;
+                speed = Math.Min((1 + (Time.deltaTime * 0.8f)) * speed, 1);
+            }
             if (speed == 1) accelerating = false;
         }
 
@@ -362,6 +376,11 @@ public class TrainManager : MonoBehaviour
             if (insideTrain[i].Equals(stationString))
             {
                 insideTrain.Remove(insideTrain[i]);
+
+                GameObject passengerToDestroy = insideTrainGO[i]; // Get an passenger from the list
+                Destroy(passengerToDestroy); // Destroy the GameObject
+                insideTrainGO.Remove(passengerToDestroy); // Manually remove from the list
+
                 return true;
             }
         }
@@ -417,8 +436,9 @@ public class TrainManager : MonoBehaviour
                         //"\tTotal number of stations in this line: " + LineList.reference.lineList[station.GetComponent<PassengerSpawn>().connectedLines[i]].StationsInLine.Count);
                     if (PassengerListInStationInLine(myStation, myLine)[k].Equals(stationString) && insideTrain.Count < insideTrainMax){
                         //Let's pick up this passenger!
-                        //Debug.Log("Picked up passenger " + passengersInNextStationString[k]);
                         insideTrain.Add(PassengerListInStationInLine(myStation, myLine)[k]);
+                        insideTrainGO.Add(Instantiate(TrainStringToTrainObject(PassengerListInStationInLine(myStation, myLine)[k]), this.transform));
+
                         PassengerListInStationInLine(myStation, myLine).Remove(PassengerListInStationInLine(myStation, myLine)[k]);
                         Destroy(PassengerListInStationInLineGO(myStation, myLine)[k]);
                         PassengerListInStationInLineGO(myStation, myLine).RemoveAt(k);
@@ -448,11 +468,6 @@ public class TrainManager : MonoBehaviour
         */
     }
 
-    bool CheckLineEnd() {
-        return false;
-    }
-
-
     //return list of passengers in specific station in specific line
     public List<string> PassengerListInStationInLine(int chooseStation, int chooseLine){
         
@@ -472,5 +487,103 @@ public class TrainManager : MonoBehaviour
         return list;
     }
 
+    public void DisplayPassengers()
+    {
+
+        for (int i = 0; i < insideTrainGO.Count; i++)
+        {
+            insideTrainGO[i].transform.localRotation = Quaternion.identity;
+            insideTrainGO[i].transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+
+            switch (i)
+            {
+                case 0:
+                    insideTrainGO[i].transform.localPosition = new Vector3(-3.2f, -1.6f, 0);
+                    break;
+
+                case 1:
+                    insideTrainGO[i].transform.localPosition = new Vector3(-3.2f, 1.6f, 0);
+                    break;
+
+                case 2:
+                    insideTrainGO[i].transform.localPosition = new Vector3(0, -1.6f, 0);
+                    break;
+
+                case 3:
+                    insideTrainGO[i].transform.localPosition = new Vector3(0, 1.6f, 0);
+                    break;
+
+                case 4:
+                    insideTrainGO[i].transform.localPosition = new Vector3(3.2f, -1.6f, 0);
+                    break;
+
+                case 5:
+                    insideTrainGO[i].transform.localPosition = new Vector3(3.2f, 1.6f, 0);
+                    break;
+
+                case 6:
+                    break;
+
+                case 7:
+                    break;
+
+                case 8:
+                    break;
+
+                case 9:
+                    break;
+
+                case 10:
+                    break;
+
+                case 11:
+                    break;
+
+                case 12:
+                    break;
+
+            }
+        }
+    }
+
+    public GameObject TrainStringToTrainObject(string name)
+    {
+        switch (name)
+        {
+            case "square":
+                return squarePassenger;
+
+            case "triangle":
+                return trianglePassenger;
+
+            case "circle":
+                return circlePassenger;
+
+            case "star":
+                return starPassenger;
+
+            case "plus":
+                return plusPassenger;
+
+            case "rhombus":
+                return rhombusPassenger;
+
+            case "diamond":
+                return diamondPassenger;
+
+            case "pie":
+                return piePassenger;
+
+            case "eye":
+                return eyePassenger;
+
+            case "pentagon":
+                return pentagonPassenger;
+
+            default:
+                return null;
+        }
+
+    }
 
 }

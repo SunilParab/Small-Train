@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 621667609739493835}
   m_Layer: 0
   m_Name: StarPassenger
-  m_TagString: Untagged
+  m_TagString: star
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -1904602370990180370}
   m_Layer: 0
   m_Name: DiamondPassenger
-  m_TagString: Untagged
+  m_TagString: diamond
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

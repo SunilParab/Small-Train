@@ -482,7 +482,11 @@ public class LineDrawer : MonoBehaviour
         snapped = true;
         endx = target.transform.position.x;
         endy = target.transform.position.y;
+        var oldTarget = endStation;
         endStation = target;
+        if (oldTarget != target) {
+            PlayConnectSound();
+        }
     }
 
     public void UnSnap()
@@ -501,7 +505,6 @@ public class LineDrawer : MonoBehaviour
             return;
         }
         
-        SoundManager.reference.connectAudioSources[lineInfoArrayIndex].Play();
 
         var holder = Instantiate(lineHolder);
         var holderInfo = holder.GetComponent<SegmentInfo>();
@@ -1053,5 +1056,18 @@ public class LineDrawer : MonoBehaviour
         return false;
     }
 
+
+    public void PlayConnectSound() {
+
+        var possibleTarget = targetLine; //The line number for the color it will be
+        if (possibleTarget == -1)
+        {
+            possibleTarget = TrainReadyMake();
+        }
+
+        if (!SoundManager.reference.connectAudioSources[possibleTarget].isPlaying) {
+            SoundManager.reference.connectAudioSources[possibleTarget].Play();
+        }
+    }
 
 }

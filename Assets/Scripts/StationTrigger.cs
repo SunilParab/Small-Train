@@ -26,6 +26,22 @@ public class StationTrigger : MonoBehaviour
         } else if (Input.GetMouseButtonDown(0) ) {
             LineDrawer.reference.Activate(-1,true,gameObject); //-1 Means new line
         }
+
+        //mouse over station
+        if (InterchangePlacer.reference.isMaking) {
+            if (Input.GetMouseButtonDown(0) ) {
+                InterchangePlacer.reference.stopMaking();
+
+                WeeklyUpgradeManager.reference.interchangeCount--;
+
+                //Make the Interchange
+                //GameObject me = GameObject.Instantiate(LineDrawer.reference.train, new Vector2(0, 0), Quaternion.identity);
+                //me.GetComponent<TrainManager>().PlaceMake(segment,myHalf);
+
+            }
+        }
+        
+        
     }
 
     void OnMouseExit() {

@@ -164,6 +164,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
         if (selectedUpgrade.Equals("Carriage"))
         {
             carriageCount++;
+            TrainCircleManager.valueCalculated = true;
             //Debug.Log("carriage " + carriageCount);
         }
         if (selectedUpgrade.Equals("Line"))
@@ -179,6 +180,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
         if (selectedUpgrade.Equals("Interchange"))
         {
             interchangeCount++;
+            TrainCircleManager.valueCalculated = true;
             //Debug.Log("inter " + interchangeCount);
         }
         if (selectedUpgrade.Equals("Tunnel"))

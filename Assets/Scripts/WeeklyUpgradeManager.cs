@@ -44,7 +44,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     private void Start()
     {
-        //speedupbutton.onClick.AddListener(OnSpeedupButtonClicked);
+        speedupbutton.onClick.AddListener(OnSpeedupButtonClicked);
         resumebutton.onClick.AddListener(OnResumeButtonClicked);
         pausebutton.onClick.AddListener(OnPauseButtonClicked);
         timer = weekDuration;
@@ -67,7 +67,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
         Debug.Log("pressed");
         if (speedupActive == false)
         {
-            Time.timeScale = 2.0f;
+            Time.timeScale = 5.0f;
             speedupActive = true;
         } else
         {
@@ -219,7 +219,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
         CloseUpgradeScreen();
         if (speedupActive == true)
         {
-            Time.timeScale = 2.0f;
+            Time.timeScale = 5.0f;
         } //else 
       //  {
          //   Time.timeScale = 1.0f;

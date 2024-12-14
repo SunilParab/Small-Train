@@ -84,6 +84,9 @@ public class TrainManager : MonoBehaviour
     public GameObject diamondPassenger;
     public GameObject eyePassenger;
 
+    //carriage variable
+    public bool hasCarriage = false;
+
 
     // I replaced start with this, it just instantiate the variables
     public void RegularMake()
@@ -258,7 +261,8 @@ public class TrainManager : MonoBehaviour
 
         float distanceToNextStation = Vector3.Distance(this.transform.position, stationPos);
 
-        Debug.Log("Station we're going to: " + myStation + "\tDistance: " + distanceToNextStation + "\tSpeed: " + speed);
+        //Debug.Log("Station we're going to: " + myStation + "\tDistance: " + distanceToNextStation + "\tSpeed: " + speed);
+
         if (distanceToNextStation <= 1 && !leavingStation)
         {
             decelerating = true;
@@ -322,6 +326,11 @@ public class TrainManager : MonoBehaviour
         //Move the train in the direction by _distance_ amount
         var directionVector = Vector3.Normalize(curTarget - curStart);
         transform.position = curStart + directionVector * distance;
+
+        //carriage stuff
+        if (hasCarriage){
+            insideTrainMax = 12;
+        }
 
     }
 
@@ -581,24 +590,27 @@ public class TrainManager : MonoBehaviour
                     break;
 
                 case 6:
+                    insideTrainGO[i].transform.localPosition = new Vector3(6.4f, -1.6f, 0);
                     break;
 
                 case 7:
+                    insideTrainGO[i].transform.localPosition = new Vector3(6.4f, 1.6f, 0);
                     break;
 
                 case 8:
+                    insideTrainGO[i].transform.localPosition = new Vector3(9.6f, -1.6f, 0);
                     break;
 
                 case 9:
+                    insideTrainGO[i].transform.localPosition = new Vector3(9.6f, 1.6f, 0);
                     break;
 
                 case 10:
+                    insideTrainGO[i].transform.localPosition = new Vector3(12.8f, -1.6f, 0);
                     break;
 
                 case 11:
-                    break;
-
-                case 12:
+                    insideTrainGO[i].transform.localPosition = new Vector3(12.8f, 1.6f, 0);
                     break;
 
             }
@@ -643,6 +655,26 @@ public class TrainManager : MonoBehaviour
                 return null;
         }
 
+    }
+
+    void OnMouseOver(){
+
+        //mouse over train
+        if (InterchangePlacer.reference.isMaking) {
+            if (Input.GetMouseButtonDown(0) ) {
+
+                if (hasCarriage) {
+                    return;
+                }
+
+                InterchangePlacer.reference.stopMaking();
+
+                WeeklyUpgradeManager.reference.interchangeCount--;
+
+                //Make the Interchange
+                hasCarriage = true;
+            }
+        }
     }
 
 }

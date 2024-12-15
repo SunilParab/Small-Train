@@ -8,7 +8,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
 {
     public int weekCount = 0;         // Tracks the number of weeks
     public float weekDuration = 120f; // Duration of a "week" in seconds (2 minutes)
-    private float timer;
+    public float timer;
 
     public GameObject upgradeScreen;
     public TextMeshProUGUI weekText;

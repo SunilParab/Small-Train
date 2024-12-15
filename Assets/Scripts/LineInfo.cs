@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ public class LineInfo : ScriptableObject
 
     public GameObject startT;
     public GameObject endT;
+    public Boolean isLooped;
 
 
     public void addSegment(SegmentInfo segment, bool isStart) { //Change the int to enumerator with the line names
@@ -27,6 +29,9 @@ public class LineInfo : ScriptableObject
         MakeT(LineSegments[0],true,LineSegments[0].startStation);
         Destroy(endT);
         MakeT(LineSegments.Last(),false,LineSegments.Last().endStation);
+        if (isLooped) {
+            startT.SetActive(false);
+        }
         //Go through the target line and generate T's
     }
 

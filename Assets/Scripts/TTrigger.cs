@@ -25,7 +25,11 @@ public class TTrigger : MonoBehaviour
 
     void OnMouseOver() {
         if (!LineDrawer.reference.making && Input.GetMouseButtonDown(0)) {
-            LineDrawer.reference.Activate(trainLine,isStart,myStation);
+            if (LineList.reference.lineList[trainLine].isLooped) {
+                LineDrawer.reference.Activate(trainLine,isStart,LineList.reference.lineList[trainLine].StationsInLine[LineList.reference.lineList[trainLine].StationsInLine.Count-2]);
+            } else {
+                LineDrawer.reference.Activate(trainLine,isStart,myStation);
+            }
         }
     }
 

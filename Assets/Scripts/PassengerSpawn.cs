@@ -339,4 +339,9 @@ public class PassengerSpawn : MonoBehaviour
 
         return position;
     }
+
+    public static void gameEnd() {
+        
+    }
+
 }

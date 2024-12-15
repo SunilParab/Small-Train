@@ -61,8 +61,8 @@ public class TrainManager : MonoBehaviour
 
     //Remove all of these useless variables at some point
     private int[] segmentNum; //Stores an array that is the number of line segments long, and each value is the number of track pieces
-    private int ourPiece = 0; //What track piece are we on in this line segment
-    private int ourSegment = 0; //What line segment are we on in this train line
+    //private int ourPiece = 0; //What track piece are we on in this line segment
+    //private int ourSegment = 0; //What line segment are we on in this train line
 
     //Position of a track piece and the next track piece
     private float startXPos;
@@ -198,6 +198,7 @@ public class TrainManager : MonoBehaviour
                 WeeklyUpgradeManager.reference.trainCount++;
             }
             Destroy(this.gameObject);
+            return;
         }
 
         if (weeklyUpgradeManager.isGamePaused == true)
@@ -224,6 +225,14 @@ public class TrainManager : MonoBehaviour
         RecalibrateVariables();
 
         //Detect distance to next station with offset
+
+        if (LineList.reference.lineList[myLine].StationsInLine.Count() <= myStation) {
+            if (!isFree) {
+                WeeklyUpgradeManager.reference.trainCount++;
+            }
+            Destroy(this.gameObject);
+            return;
+        }
 
         var nextStation = LineList.reference.lineList[myLine].StationsInLine[myStation];
         Vector3 stationPos = nextStation.transform.position;
@@ -354,11 +363,14 @@ public class TrainManager : MonoBehaviour
                 }
 
                 //Check if its at the end of the line
+                //do wierd shit for loops
                 if (reversed)
                 {
                     if (curSegmentIndex == 0)
                     {
-                        reversed = false;
+                        if (!LineList.reference.lineList[myLine].isLooped) {
+                            reversed = false;
+                        }
                         turningAround = true;
                     }
                 }
@@ -366,7 +378,9 @@ public class TrainManager : MonoBehaviour
                 {
                     if (lineInfos[myLine].LineSegments.Count - 1 == curSegmentIndex)
                     {
-                        reversed = true;
+                        if (!LineList.reference.lineList[myLine].isLooped) {
+                            reversed = true;
+                        }
                         turningAround = true;
                     }
                 }
@@ -395,19 +409,37 @@ public class TrainManager : MonoBehaviour
                 {
                     if (reversed)
                     {
-                        //choose station
-                        //curSegment = lineInfos[myLine].LineSegments[curSegmentIndex - 1];
-                        myStation = LineList.reference.lineList[myLine].StationsInLine.IndexOf(curSegment.GetComponent<SegmentInfo>().startStation);
-                        //Debug.Log(curSegmentIndex-1);
+                        if (!LineList.reference.lineList[myLine].isLooped) {
+
+                            //choose station
+                            //curSegment = lineInfos[myLine].LineSegments[curSegmentIndex - 1];
+                            myStation = LineList.reference.lineList[myLine].StationsInLine.IndexOf(curSegment.GetComponent<SegmentInfo>().startStation);
+                            //Debug.Log(curSegmentIndex-1);
+
+                        } else {
+                            //print("lllllllllll");
+                            //if looped then
+                            curSegment = lineInfos[myLine].LineSegments[lineInfos[myLine].LineSegments.Count-1];
+                            myStation = LineList.reference.lineList[myLine].StationsInLine.IndexOf(LineList.reference.lineList[myLine].LineSegments.Last().startStation); 
+                        }
 
                     }
                     else
                     {
-                        //choose station
-                        //curSegment = lineInfos[myLine].LineSegments[curSegmentIndex + 1];
-                        myStation = LineList.reference.lineList[myLine].StationsInLine.IndexOf(curSegment.GetComponent<SegmentInfo>().endStation);
-                        //Debug.Log(curSegmentIndex+1);
 
+                        if (!LineList.reference.lineList[myLine].isLooped) {
+
+                            //choose station
+                            //curSegment = lineInfos[myLine].LineSegments[curSegmentIndex + 1];
+                            myStation = LineList.reference.lineList[myLine].StationsInLine.IndexOf(curSegment.GetComponent<SegmentInfo>().endStation);
+                            //Debug.Log(curSegmentIndex+1);
+
+                        } else {
+                            //print("sagfas");
+                            //if looped then
+                            curSegment = lineInfos[myLine].LineSegments[0];
+                            myStation = LineList.reference.lineList[myLine].StationsInLine.IndexOf(LineList.reference.lineList[myLine].LineSegments[0].endStation); 
+                        }
                     }
                 }
 

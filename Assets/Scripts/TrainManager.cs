@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 using Unity.VisualScripting.Dependencies.Sqlite;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static System.Collections.Specialized.BitVector32;
@@ -87,6 +88,10 @@ public class TrainManager : MonoBehaviour
     //carriage variable
     public bool hasCarriage = false;
 
+    //Rotation
+    private Vector3 currPoint;
+    private Vector3 prevPoint;
+
 
     // I replaced start with this, it just instantiate the variables
     public void RegularMake()
@@ -136,6 +141,10 @@ public class TrainManager : MonoBehaviour
                 SR.color = new Color32(141, 100, 51,255); //Brown
                 break;
         }
+
+        //Setting initial rotation
+        currPoint = this.transform.position;
+        prevPoint = this.transform.position;
     }
 
     // Make function for placing train on specific segment
@@ -217,6 +226,9 @@ public class TrainManager : MonoBehaviour
 
         //Displaying passengers on this train
         DisplayPassengers();
+
+        //Rotating the train based on its last position
+        //RotateTrain();
 
 
         distance += speed * Time.deltaTime;
@@ -551,6 +563,11 @@ public class TrainManager : MonoBehaviour
         .GetComponent<PassengerSpawn>().passengersInStationGO;
 
         return list;
+    }
+
+    public void RotateTrain()
+    {
+        transform.LookAt(curTarget);
     }
 
     public void DisplayPassengers()

@@ -62,6 +62,12 @@ public class LineDrawer : MonoBehaviour
 
         if (making)
         {
+            if (WeeklyUpgradeManager.reference.upgardeScreenShown) {
+                SoundManager.reference.lineDragSound.Stop();
+                making = false;
+                Destroy(segment); //Clear out old segment
+                return;
+            }
 
             if (Input.GetMouseButtonUp(0))
             {
@@ -439,16 +445,16 @@ public class LineDrawer : MonoBehaviour
                     lineColor = Color.blue;
                     break;
                 case 3:
-                    lineColor = Color.cyan;
+                    lineColor = new Color32(31, 172, 24,255); //Green
                     break;
                 case 4:
-                    lineColor = Color.green;
+                    lineColor = new Color32(151, 92, 172,255); //Purple
                     break;
                 case 5:
-                    lineColor = Color.magenta;
+                    lineColor = new Color32(255, 114, 51,255); //Orange
                     break;
                 case 6:
-                    lineColor = Color.white;
+                    lineColor = new Color32(141, 100, 51,255); //Brown
                     break;
             }
             segInfo.lineRenderer.startColor = lineColor;
@@ -460,6 +466,10 @@ public class LineDrawer : MonoBehaviour
 
     public void Activate(int targetLine, bool isStart, GameObject startStation)
     {
+        //Don't do anything if upgrade screen shown
+        if (WeeklyUpgradeManager.reference.upgardeScreenShown) {
+            return;
+        }
 
         SoundManager.reference.lineDragSound.Play();
 
@@ -664,6 +674,36 @@ public class LineDrawer : MonoBehaviour
         }
 
 
+        //Case statement for offset
+        float lineOffset = 0;
+
+        
+
+        switch (lineInfoArrayIndex)
+        {
+            case 5:
+                lineOffset = offSetUnit * -3;
+                break;
+            case 3:
+                lineOffset = offSetUnit * -2;
+                break;
+            case 1:
+                lineOffset = offSetUnit * -1;
+                break;
+            case 0:
+                lineOffset = 0;
+                break;
+            case 2:
+                lineOffset = offSetUnit * 1;
+                break;
+            case 4:
+                lineOffset = offSetUnit * 2;
+                break;
+            case 6:
+                lineOffset = offSetUnit * 3;
+                break;
+        }
+
 
         //Keep adding segments in the first direction until the angle from the newest segment to the endpoint equals the final angle
 
@@ -713,7 +753,7 @@ public class LineDrawer : MonoBehaviour
 
         while (firstHalf && (curx != endx || cury != endy) && counter < 100)
         {
-            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx,cury+offsety,1), new Quaternion());
+            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx+lineOffset,cury+offsety+lineOffset,1), new Quaternion());
 
             if (isStart && targetLine != -1) {
                 curSeg.GetComponent<SegPieceHitbox>().myHalf = 1;
@@ -773,6 +813,34 @@ public class LineDrawer : MonoBehaviour
         midx = curx;
         midy = cury;
 
+        //Fix weird offset for hitboxes
+
+        if (firstAngle!=endAngle) {
+            switch (firstAngle)
+            {
+                case 45:
+                    offsetx -= segLength / 2;
+                    offsety -= segLength / 2;
+                    break;
+
+                case 135:
+                    offsetx -= -segLength / 2;
+                    offsety -= segLength / 2;
+                    break;
+
+                case 225:
+                    offsetx -= -segLength / 2;
+                    offsety -= -segLength / 2;
+                    break;
+
+                case 315:
+                    offsetx -= segLength / 2;
+                    offsety -= -segLength / 2;
+                    break;
+            }
+        }
+
+
         switch (endAngle)
         {
             case 0:
@@ -813,7 +881,7 @@ public class LineDrawer : MonoBehaviour
         while ((curx != endx || cury != endy) && counter < 100)
         {
 
-            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx,cury+offsety,1), new Quaternion());
+            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx+lineOffset,cury+offsety+lineOffset,1), new Quaternion());
 
             if (isStart && targetLine != -1) {
                 curSeg.GetComponent<SegPieceHitbox>().myHalf = 0;
@@ -880,16 +948,16 @@ public class LineDrawer : MonoBehaviour
                 lineColor = Color.blue;
                 break;
             case 3:
-                lineColor = Color.cyan;
+                lineColor = new Color32(31, 172, 24,255); //Green
                 break;
             case 4:
-                lineColor = Color.green;
+                lineColor = new Color32(151, 92, 172,255); //Purple
                 break;
             case 5:
-                lineColor = Color.magenta;
+                lineColor = new Color32(255, 114, 51,255); //Orange
                 break;
             case 6:
-                lineColor = Color.white;
+                lineColor = new Color32(141, 100, 51,255); //Brown
                 break;
         }
         holderInfo.lineRenderer.startColor = lineColor;
@@ -902,35 +970,7 @@ public class LineDrawer : MonoBehaviour
         }
 
 
-        //Case statement for offset
-        float lineOffset = 0;
-
         
-
-        switch (lineInfoArrayIndex)
-        {
-            case 5:
-                lineOffset = offSetUnit * -3;
-                break;
-            case 3:
-                lineOffset = offSetUnit * -2;
-                break;
-            case 1:
-                lineOffset = offSetUnit * -1;
-                break;
-            case 0:
-                lineOffset = 0;
-                break;
-            case 2:
-                lineOffset = offSetUnit * 1;
-                break;
-            case 4:
-                lineOffset = offSetUnit * 2;
-                break;
-            case 6:
-                lineOffset = offSetUnit * 3;
-                break;
-        }
 
 
 

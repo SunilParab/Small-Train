@@ -26,6 +26,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
     public int tunnelCount = 3;
     public int interchangeCount = 0;
     public bool isGamePaused = false;
+    public bool upgardeScreenShown = false;
     public bool speedupActive = false;
     public static WeeklyUpgradeManager reference;
 
@@ -107,6 +108,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     public void ShowUpgradeScreen()
     {
+        upgardeScreenShown = true;
         upgradeScreen.SetActive(true);
         Time.timeScale = 0f;
         weekText.text = "Week " + weekCount;
@@ -265,6 +267,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     private void CloseUpgradeScreen()
     {
+        upgardeScreenShown = false;
         upgradeScreen.SetActive(false);
         Time.timeScale = 1f;
     }

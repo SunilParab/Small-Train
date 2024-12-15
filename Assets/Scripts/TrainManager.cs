@@ -124,18 +124,17 @@ public class TrainManager : MonoBehaviour
                 SR.color = Color.blue;
                 break;
             case 3:
-                SR.color = Color.cyan;
+                SR.color = new Color32(31, 172, 24,255); //Green
                 break;
             case 4:
-                SR.color = Color.green;
+                SR.color = new Color32(151, 92, 172,255); //Purple
                 break;
             case 5:
-                SR.color = Color.magenta;
+                SR.color = new Color32(255, 114, 51,255); //Orange
                 break;
             case 6:
-                SR.color = Color.white;
+                SR.color = new Color32(141, 100, 51,255); //Brown
                 break;
-
         }
     }
 
@@ -176,18 +175,17 @@ public class TrainManager : MonoBehaviour
                 SR.color = Color.blue;
                 break;
             case 3:
-                SR.color = Color.cyan;
+                SR.color = new Color32(31, 172, 24,255); //Green
                 break;
             case 4:
-                SR.color = Color.green;
+                SR.color = new Color32(151, 92, 172,255); //Purple
                 break;
             case 5:
-                SR.color = Color.magenta;
+                SR.color = new Color32(255, 114, 51,255); //Orange
                 break;
             case 6:
-                SR.color = Color.white;
+                SR.color = new Color32(141, 100, 51,255); //Brown
                 break;
-
         }
     }
 

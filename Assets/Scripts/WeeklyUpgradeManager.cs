@@ -26,6 +26,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
     public int tunnelCount = 3;
     public int interchangeCount = 0;
     public bool isGamePaused = false;
+    public bool upgardeScreenShown = false;
     public bool speedupActive = false;
     public static WeeklyUpgradeManager reference;
 
@@ -44,7 +45,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     private void Start()
     {
-        //speedupbutton.onClick.AddListener(OnSpeedupButtonClicked);
+        speedupbutton.onClick.AddListener(OnSpeedupButtonClicked);
         resumebutton.onClick.AddListener(OnResumeButtonClicked);
         pausebutton.onClick.AddListener(OnPauseButtonClicked);
         timer = weekDuration;
@@ -67,7 +68,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
         Debug.Log("pressed");
         if (speedupActive == false)
         {
-            Time.timeScale = 2.0f;
+            Time.timeScale = 5.0f;
             speedupActive = true;
         } else
         {
@@ -107,6 +108,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     public void ShowUpgradeScreen()
     {
+        upgardeScreenShown = true;
         upgradeScreen.SetActive(true);
         Time.timeScale = 0f;
         weekText.text = "Week " + weekCount;
@@ -219,7 +221,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
         CloseUpgradeScreen();
         if (speedupActive == true)
         {
-            Time.timeScale = 2.0f;
+            Time.timeScale = 5.0f;
         } //else 
       //  {
          //   Time.timeScale = 1.0f;
@@ -265,6 +267,7 @@ public class WeeklyUpgradeManager : MonoBehaviour
 
     private void CloseUpgradeScreen()
     {
+        upgardeScreenShown = false;
         upgradeScreen.SetActive(false);
         Time.timeScale = 1f;
     }

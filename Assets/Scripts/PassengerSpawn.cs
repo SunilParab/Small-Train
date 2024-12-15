@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PassengerSpawn : MonoBehaviour
 {
@@ -60,6 +61,7 @@ public class PassengerSpawn : MonoBehaviour
         passengerSpawnTime = UnityEngine.Random.Range(10,21); 
         passengerLimit = 6;
 
+        passengerString = "square";
         //instantiate passenger shape
         RandomizePassengerShape();
 
@@ -147,7 +149,7 @@ public class PassengerSpawn : MonoBehaviour
 
             if (overCrowdTimer >= 45)
             {
-                print("GAME OVER");
+                gameEnd();
                 //GAME OVER
             }
         }
@@ -341,7 +343,7 @@ public class PassengerSpawn : MonoBehaviour
     }
 
     public static void gameEnd() {
-        
+        SceneManager.LoadSceneAsync("EndScreen");
     }
 
 }

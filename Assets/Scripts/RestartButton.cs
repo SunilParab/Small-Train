@@ -24,7 +24,6 @@ public class RestartButton : MonoBehaviour
 
 
     void SwapRoom() {
-        print("hsd");
         SceneManager.LoadSceneAsync(goTo);
     }
 

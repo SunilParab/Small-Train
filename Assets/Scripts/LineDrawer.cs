@@ -65,9 +65,7 @@ public class LineDrawer : MonoBehaviour
             if (WeeklyUpgradeManager.reference.upgardeScreenShown) {
                 SoundManager.reference.lineDragSound.Stop();
                 making = false;
-                if (!snapped) { //Clear out old segment
-                    Destroy(segment);
-                }
+                Destroy(segment); //Clear out old segment
                 return;
             }
 
@@ -447,16 +445,16 @@ public class LineDrawer : MonoBehaviour
                     lineColor = Color.blue;
                     break;
                 case 3:
-                    lineColor = Color.cyan;
+                    lineColor = new Color32(31, 172, 24,255); //Green
                     break;
                 case 4:
-                    lineColor = Color.green;
+                    lineColor = new Color32(151, 92, 172,255); //Purple
                     break;
                 case 5:
-                    lineColor = Color.magenta;
+                    lineColor = new Color32(255, 114, 51,255); //Orange
                     break;
                 case 6:
-                    lineColor = Color.white;
+                    lineColor = new Color32(141, 100, 51,255); //Brown
                     break;
             }
             segInfo.lineRenderer.startColor = lineColor;
@@ -892,16 +890,16 @@ public class LineDrawer : MonoBehaviour
                 lineColor = Color.blue;
                 break;
             case 3:
-                lineColor = Color.cyan;
+                lineColor = new Color32(31, 172, 24,255); //Green
                 break;
             case 4:
-                lineColor = Color.green;
+                lineColor = new Color32(151, 92, 172,255); //Purple
                 break;
             case 5:
-                lineColor = Color.magenta;
+                lineColor = new Color32(255, 114, 51,255); //Orange
                 break;
             case 6:
-                lineColor = Color.white;
+                lineColor = new Color32(141, 100, 51,255); //Brown
                 break;
         }
         holderInfo.lineRenderer.startColor = lineColor;

@@ -674,6 +674,36 @@ public class LineDrawer : MonoBehaviour
         }
 
 
+        //Case statement for offset
+        float lineOffset = 0;
+
+        
+
+        switch (lineInfoArrayIndex)
+        {
+            case 5:
+                lineOffset = offSetUnit * -3;
+                break;
+            case 3:
+                lineOffset = offSetUnit * -2;
+                break;
+            case 1:
+                lineOffset = offSetUnit * -1;
+                break;
+            case 0:
+                lineOffset = 0;
+                break;
+            case 2:
+                lineOffset = offSetUnit * 1;
+                break;
+            case 4:
+                lineOffset = offSetUnit * 2;
+                break;
+            case 6:
+                lineOffset = offSetUnit * 3;
+                break;
+        }
+
 
         //Keep adding segments in the first direction until the angle from the newest segment to the endpoint equals the final angle
 
@@ -723,7 +753,7 @@ public class LineDrawer : MonoBehaviour
 
         while (firstHalf && (curx != endx || cury != endy) && counter < 100)
         {
-            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx,cury+offsety,1), new Quaternion());
+            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx+lineOffset,cury+offsety+lineOffset,1), new Quaternion());
 
             if (isStart && targetLine != -1) {
                 curSeg.GetComponent<SegPieceHitbox>().myHalf = 1;
@@ -783,6 +813,34 @@ public class LineDrawer : MonoBehaviour
         midx = curx;
         midy = cury;
 
+        //Fix weird offset for hitboxes
+
+        if (firstAngle!=endAngle) {
+            switch (firstAngle)
+            {
+                case 45:
+                    offsetx -= segLength / 2;
+                    offsety -= segLength / 2;
+                    break;
+
+                case 135:
+                    offsetx -= -segLength / 2;
+                    offsety -= segLength / 2;
+                    break;
+
+                case 225:
+                    offsetx -= -segLength / 2;
+                    offsety -= -segLength / 2;
+                    break;
+
+                case 315:
+                    offsetx -= segLength / 2;
+                    offsety -= -segLength / 2;
+                    break;
+            }
+        }
+
+
         switch (endAngle)
         {
             case 0:
@@ -823,7 +881,7 @@ public class LineDrawer : MonoBehaviour
         while ((curx != endx || cury != endy) && counter < 100)
         {
 
-            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx,cury+offsety,1), new Quaternion());
+            var curSeg = Instantiate(piecePrefab,new Vector3(curx+offsetx+lineOffset,cury+offsety+lineOffset,1), new Quaternion());
 
             if (isStart && targetLine != -1) {
                 curSeg.GetComponent<SegPieceHitbox>().myHalf = 0;
@@ -912,35 +970,7 @@ public class LineDrawer : MonoBehaviour
         }
 
 
-        //Case statement for offset
-        float lineOffset = 0;
-
         
-
-        switch (lineInfoArrayIndex)
-        {
-            case 5:
-                lineOffset = offSetUnit * -3;
-                break;
-            case 3:
-                lineOffset = offSetUnit * -2;
-                break;
-            case 1:
-                lineOffset = offSetUnit * -1;
-                break;
-            case 0:
-                lineOffset = 0;
-                break;
-            case 2:
-                lineOffset = offSetUnit * 1;
-                break;
-            case 4:
-                lineOffset = offSetUnit * 2;
-                break;
-            case 6:
-                lineOffset = offSetUnit * 3;
-                break;
-        }
 
 
 

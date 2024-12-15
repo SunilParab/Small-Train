@@ -932,7 +932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weekCount: 0
-  weekDuration: 120
+  weekDuration: 5
   upgradeScreen: {fileID: 855820082}
   weekText: {fileID: 1706291427}
   locomotiveButton: {fileID: 1066680882}
@@ -949,6 +949,7 @@ MonoBehaviour:
   tunnelCount: 3
   interchangeCount: 0
   isGamePaused: 0
+  upgardeScreenShown: 0
   speedupActive: 0
   trainIcon: {fileID: 21300000, guid: a9af8aa2ee44d1f4393d2bef68610997, type: 3}
   carriageIcon: {fileID: 21300000, guid: 4cbfdcc661ec7ae4985a3875f395c208, type: 3}

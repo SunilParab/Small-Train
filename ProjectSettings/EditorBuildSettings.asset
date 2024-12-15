@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AnthonyMainTrain.unity
     guid: dc0fed0e28307d645b90b0c411361cbc
+  - enabled: 1
+    path: Assets/Scenes/EndScreen.unity
+    guid: 56224eea58a95484fa84e17cffebb680
   m_configObjects: {}

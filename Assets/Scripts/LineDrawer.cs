@@ -62,6 +62,14 @@ public class LineDrawer : MonoBehaviour
 
         if (making)
         {
+            if (WeeklyUpgradeManager.reference.upgardeScreenShown) {
+                SoundManager.reference.lineDragSound.Stop();
+                making = false;
+                if (!snapped) { //Clear out old segment
+                    Destroy(segment);
+                }
+                return;
+            }
 
             if (Input.GetMouseButtonUp(0))
             {
@@ -460,6 +468,10 @@ public class LineDrawer : MonoBehaviour
 
     public void Activate(int targetLine, bool isStart, GameObject startStation)
     {
+        //Don't do anything if upgrade screen shown
+        if (WeeklyUpgradeManager.reference.upgardeScreenShown) {
+            return;
+        }
 
         SoundManager.reference.lineDragSound.Play();
 

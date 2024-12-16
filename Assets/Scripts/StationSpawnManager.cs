@@ -42,6 +42,7 @@ public class StationSpawnManager : MonoBehaviour
     int xPos;
     int yPos;
     GameObject station;
+    public WeeklyUpgradeManager weeklyUpgradeManager;
 
     //passenger spawn timer variables
     public float passengerSpawnTime; 
@@ -56,7 +57,7 @@ public class StationSpawnManager : MonoBehaviour
         spawnTime = 0;
         xPos = UnityEngine.Random.Range(-xRange, xRange);
         yPos = UnityEngine.Random.Range(-yRange, yRange);
-
+        weeklyUpgradeManager = WeeklyUpgradeManager.reference;
         //spawn every 5~20 seconds (random) approximately
         passengerSpawnTime = UnityEngine.Random.Range(5,21); 
 
@@ -215,9 +216,16 @@ public class StationSpawnManager : MonoBehaviour
                 bool spawned = false;
 
                 while (!spawned && tries < 100)
-                {   
-                    
-                    spawned = SpawnStation(station, xPos, yPos);
+                {
+                    if (weeklyUpgradeManager.isGamePaused == false)
+                    {
+                        spawned = SpawnStation(station, xPos, yPos);
+                    }
+                    else
+                    {
+                       // Debug.Log("Paused");
+                    }
+                   // spawned = SpawnStation(station, xPos, yPos);
 
                     if (spawned){
                         

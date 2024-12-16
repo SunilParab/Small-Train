@@ -28,8 +28,8 @@ public class PassengerSpawn : MonoBehaviour
     private float timer;   
 
     //segment reference stuff
-    public int myLine;  
-
+    public int myLine;
+    public WeeklyUpgradeManager weeklyUpgradeManager;
     //passenger gameobjects
     public GameObject circlePassenger;
     public GameObject squarePassenger;
@@ -56,6 +56,7 @@ public class PassengerSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        weeklyUpgradeManager = WeeklyUpgradeManager.reference;
         passengerNum = UnityEngine.Random.Range(0, StationSpawnManager.maxShapeNum);
         passengerSpawnTime = UnityEngine.Random.Range(10,21); 
         passengerLimit = 6;
@@ -76,34 +77,40 @@ public class PassengerSpawn : MonoBehaviour
         //spawn timer
         if (Time.timeScale > 0)
         {
-            timer -= Time.deltaTime;
-
-            if (timer <= 0)
+            if (weeklyUpgradeManager.isGamePaused == false)
             {
-                //add passenger
-                //they cannot be the same shape as the station
-                if (!passengerString.Equals(stationString)){
-                    //add passenger
-                    AddPassenger(passengerString);
-                    SpawnPassengerIcons();
+                timer -= Time.deltaTime;
 
-                    //reset timer
-                    passengerSpawnTime = UnityEngine.Random.Range(10,21); 
-                    timer = passengerSpawnTime;
-                    
-                }
-
-                //randomize passenger shape based on probability
-                if (StationSpawnManager.RandomGaussian(0f, 1f) >= 0.8f && StationSpawnManager.spawnNextPassengerShape)
+                if (timer <= 0)
                 {
-                    passengerNum = UnityEngine.Random.Range(3, StationSpawnManager.maxShapeNum); //3 ~ cap
-                }   
-                else
-                {   
-                    passengerNum = UnityEngine.Random.Range(0, 3); //0 ~ 2
-                }
+                    //add passenger
+                    //they cannot be the same shape as the station
+                    if (!passengerString.Equals(stationString))
+                    {
+                        //add passenger
+                        if (weeklyUpgradeManager.isGamePaused == false)
+                        {
+                            AddPassenger(passengerString);
+                            SpawnPassengerIcons();
+                            //reset timer
+                            passengerSpawnTime = UnityEngine.Random.Range(10, 21);
+                            timer = passengerSpawnTime;
+                        }
 
-                RandomizePassengerShape();
+                    }
+
+                    //randomize passenger shape based on probability
+                    if (StationSpawnManager.RandomGaussian(0f, 1f) >= 0.8f && StationSpawnManager.spawnNextPassengerShape)
+                    {
+                        passengerNum = UnityEngine.Random.Range(3, StationSpawnManager.maxShapeNum); //3 ~ cap
+                    }
+                    else
+                    {
+                        passengerNum = UnityEngine.Random.Range(0, 3); //0 ~ 2
+                    }
+
+                    RandomizePassengerShape();
+                }
             }
         }
         
@@ -122,9 +129,16 @@ public class PassengerSpawn : MonoBehaviour
             }
 
             if (passengersInStation.Count > passengerLimit){
-                
+
                 //if there is quite a lot of passengers timer will go up
-                overCrowdTimer += Time.deltaTime;
+                if (weeklyUpgradeManager.isGamePaused == false)
+                {
+                    overCrowdTimer += Time.deltaTime;
+                }
+                else
+                {
+                    // Debug.Log("Paused");
+                }
 
                 if (!hasTimer){
                     //create timer
@@ -242,7 +256,7 @@ public class PassengerSpawn : MonoBehaviour
             }
 
             //Instantiate(passenger, PassengerPosition(i), Quaternion.identity);
-            passengersInStationGO.Add(Instantiate(passenger, PassengerPosition(i), Quaternion.identity));
+                passengersInStationGO.Add(Instantiate(passenger, PassengerPosition(i), Quaternion.identity));
             
         }
     }

@@ -55,7 +55,6 @@ public class TrainManager : MonoBehaviour
 
     private float savedSpeed;
 
-
     //Iterating through all the segments in these arrays
     private LineInfo[] lineInfos;
 
@@ -194,7 +193,6 @@ public class TrainManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (curSegment == null) {
             if (!isFree) {
                 WeeklyUpgradeManager.reference.trainCount++;
@@ -205,145 +203,137 @@ public class TrainManager : MonoBehaviour
 
         if (weeklyUpgradeManager.isGamePaused == true)
         {
-            if (speed != 0)
-            {
-                savedSpeed = speed;
-                speed = 0;
-            }
-        } else
-        {
-            if (speed == 0)
-            {
-                speed = savedSpeed;
-            }
-        }
-
-        //Displaying passengers on this train
-        DisplayPassengers();
-
-        //Rotating the train based on its last position
-        RotateTrain();
-
-
-        distance += speed * Time.deltaTime;
-
-        RecalibrateVariables();
-
-        //Detect distance to next station with offset
-
-        if (LineList.reference.lineList[myLine].StationsInLine.Count() <= myStation) {
-            if (!isFree) {
-                WeeklyUpgradeManager.reference.trainCount++;
-            }
-            Destroy(this.gameObject);
             return;
         }
 
-        var nextStation = LineList.reference.lineList[myLine].StationsInLine[myStation];
-        Vector3 stationPos = nextStation.transform.position;
+            //Displaying passengers on this train
+            DisplayPassengers();
 
-        float lineOffset = 0;
-        switch (myLine)
-        {
-            case 5:
-                lineOffset = LineDrawer.reference.offSetUnit * -3;
-                break;
-            case 3:
-                lineOffset = LineDrawer.reference.offSetUnit * -2;
-                break;
-            case 1:
-                lineOffset = LineDrawer.reference.offSetUnit * -1;
-                break;
-            case 0:
-                lineOffset = 0;
-                break;
-            case 2:
-                lineOffset = LineDrawer.reference.offSetUnit * 1;
-                break;
-            case 4:
-                lineOffset = LineDrawer.reference.offSetUnit * 2;
-                break;
-            case 6:
-                lineOffset = LineDrawer.reference.offSetUnit * 3;
-                break;
-        }
+            //Rotating the train based on its last position
+            RotateTrain();
 
-        stationPos.x += lineOffset;
-        stationPos.y += lineOffset;
 
-        float distanceToNextStation = Vector3.Distance(this.transform.position, stationPos);
+            distance += speed * Time.deltaTime;
 
-        //Debug.Log("Station we're going to: " + myStation + "\tDistance: " + distanceToNextStation + "\tSpeed: " + speed);
+            RecalibrateVariables();
 
-        if (distanceToNextStation <= 1 && !leavingStation)
-        {
-            decelerating = true;
-            accelerating = false;
-        }
-        else if (distanceToNextStation > 1 && !leavingStation)
-        {
-            decelerating = false;
-            accelerating = true;
-        }
-        else if (leavingStation)
-        {
-            if (distanceToNextStation > 1)
-            {
-                leavingStation = false;
+            //Detect distance to next station with offset
+
+            if (LineList.reference.lineList[myLine].StationsInLine.Count() <= myStation) {
+                if (!isFree) {
+                    WeeklyUpgradeManager.reference.trainCount++;
+                }
+                Destroy(this.gameObject);
+                return;
             }
-        }
 
-        //Decelerating
-        if (decelerating)
+            var nextStation = LineList.reference.lineList[myLine].StationsInLine[myStation];
+            Vector3 stationPos = nextStation.transform.position;
+
+            float lineOffset = 0;
+            switch (myLine)
+            {
+                case 5:
+                    lineOffset = LineDrawer.reference.offSetUnit * -3;
+                    break;
+                case 3:
+                    lineOffset = LineDrawer.reference.offSetUnit * -2;
+                    break;
+                case 1:
+                    lineOffset = LineDrawer.reference.offSetUnit * -1;
+                    break;
+                case 0:
+                    lineOffset = 0;
+                    break;
+                case 2:
+                    lineOffset = LineDrawer.reference.offSetUnit * 1;
+                    break;
+                case 4:
+                    lineOffset = LineDrawer.reference.offSetUnit * 2;
+                    break;
+                case 6:
+                    lineOffset = LineDrawer.reference.offSetUnit * 3;
+                    break;
+            }
+
+            stationPos.x += lineOffset;
+            stationPos.y += lineOffset;
+
+            float distanceToNextStation = Vector3.Distance(this.transform.position, stationPos);
+
+            //Debug.Log("Station we're going to: " + myStation + "\tDistance: " + distanceToNextStation + "\tSpeed: " + speed);
+
+            if (distanceToNextStation <= 1 && !leavingStation)
+            {
+                decelerating = true;
+                accelerating = false;
+            }
+            else if (distanceToNextStation > 1 && !leavingStation)
+            {
+                decelerating = false;
+                accelerating = true;
+            }
+            else if (leavingStation)
+            {
+                if (distanceToNextStation > 1)
+                {
+                    leavingStation = false;
+                }
+            }
+
+            //Decelerating
+            if (decelerating)
+            {
+                speed = (1 - (Time.deltaTime * 0.8f)) * speed;
+            }
+        if (speed < 0.2f)
         {
-            speed = (1 - (Time.deltaTime * 0.8f)) * speed;
+            speed = 0.2f;
         }
-
         //Picking up passengers
         if (distanceToNextStation <= pickupRange && !accelerating)
-        {
-            speed = 0;
-            if (pickUpPassengersTimer <= 0)
             {
-                //Debug.Log("Picking up a passenger");
-                if (!DropOffPassengers())
+                speed = 0;
+                if (pickUpPassengersTimer <= 0)
                 {
-                    if (!PickupPassengers())
+                    //Debug.Log("Picking up a passenger");
+                    if (!DropOffPassengers())
                     {
-                        leavingStation = true;
+                        if (!PickupPassengers())
+                        {
+                            leavingStation = true;
+                        }
                     }
+                    pickUpPassengersTimer = 250;
                 }
-                pickUpPassengersTimer = 250;
-            }
-            pickUpPassengersTimer -= Time.deltaTime * 500;
-        } else
-        {
-            pickUpPassengersTimer = 500;
-
-            //Accelerating
-            if (accelerating)
+                pickUpPassengersTimer -= Time.deltaTime * 500;
+            } else
             {
-                if (speed == 0) speed = 0.2f;
-                speed = Math.Min((1 + (Time.deltaTime * 0.8f)) * speed, 1);
+                pickUpPassengersTimer = 500;
+
+                //Accelerating
+                if (accelerating)
+                {
+                    if (speed == 0) speed = 0.2f;
+                    speed = Math.Min((1 + (Time.deltaTime * 0.8f)) * speed, 1);
+                }
+                if (speed == 1) accelerating = false;
             }
-            if (speed == 1) accelerating = false;
-        }
 
-        if (leavingStation)
-        {
-            decelerating = false;
-            accelerating = true;
-        }
+            if (leavingStation)
+            {
+                decelerating = false;
+                accelerating = true;
+            }
 
-        //Move the train in the direction by _distance_ amount
-        var directionVector = Vector3.Normalize(curTarget - curStart);
-        transform.position = curStart + directionVector * distance;
+            //Move the train in the direction by _distance_ amount
+            var directionVector = Vector3.Normalize(curTarget - curStart);
+            transform.position = curStart + directionVector * distance;
 
-        //carriage stuff
-        if (hasCarriage){
-            insideTrainMax = 12;
-        }
-
+            //carriage stuff
+            if (hasCarriage) {
+                insideTrainMax = 12;
+            }
     }
 
     void RecalibrateVariables()

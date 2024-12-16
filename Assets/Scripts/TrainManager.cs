@@ -88,10 +88,6 @@ public class TrainManager : MonoBehaviour
     //carriage variable
     public bool hasCarriage = false;
 
-    //Rotation
-    private Vector3 currPoint;
-    private Vector3 prevPoint;
-
 
     // I replaced start with this, it just instantiate the variables
     public void RegularMake()
@@ -142,9 +138,6 @@ public class TrainManager : MonoBehaviour
                 break;
         }
 
-        //Setting initial rotation
-        currPoint = this.transform.position;
-        prevPoint = this.transform.position;
     }
 
     // Make function for placing train on specific segment
@@ -228,7 +221,7 @@ public class TrainManager : MonoBehaviour
         DisplayPassengers();
 
         //Rotating the train based on its last position
-        //RotateTrain();
+        RotateTrain();
 
 
         distance += speed * Time.deltaTime;
@@ -567,7 +560,9 @@ public class TrainManager : MonoBehaviour
 
     public void RotateTrain()
     {
-        transform.LookAt(curTarget);
+        float angle = Mathf.Atan((curTarget.y - curStart.y) / (curTarget.x - curStart.x)) * Mathf.Rad2Deg;
+        Debug.Log(angle);
+        this.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     public void DisplayPassengers()

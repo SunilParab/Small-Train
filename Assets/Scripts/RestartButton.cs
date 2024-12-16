@@ -18,13 +18,13 @@ public class RestartButton : MonoBehaviour
         Button button = GetComponent<Button>();
         if (button != null)
         {
-            button.onClick.AddListener(SwapRoom);
+            button.onClick.AddListener(CloseGame);
         }
     }
 
 
-    void SwapRoom() {
-        SceneManager.LoadSceneAsync(goTo);
+    void CloseGame() {
+        Application.Quit();
     }
 
 }

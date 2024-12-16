@@ -593,7 +593,7 @@ public class TrainManager : MonoBehaviour
     public void RotateTrain()
     {
         float angle = Mathf.Atan((curTarget.y - curStart.y) / (curTarget.x - curStart.x)) * Mathf.Rad2Deg;
-        Debug.Log(angle);
+        //Debug.Log(angle);
         this.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 

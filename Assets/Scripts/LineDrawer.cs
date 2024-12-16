@@ -1114,7 +1114,12 @@ public class LineDrawer : MonoBehaviour
         if (isStart) {
             if (endStation == curLine.LineSegments[0].endStation) {
                 //Remove first station
-                curLine.StationsInLine.Remove(curLine.LineSegments[0].startStation);
+                
+                for (int i = curLine.StationsInLine.Count-1; i >= 0; i--) {
+                    if (curLine.StationsInLine[i] == curLine.LineSegments[0].startStation) {
+                        curLine.StationsInLine.RemoveAt(i);
+                    }
+                }
 
                 //Remove first segment
                 Destroy(curLine.LineSegments[0].gameObject);
@@ -1131,7 +1136,12 @@ public class LineDrawer : MonoBehaviour
         } else {
             if (endStation == curLine.LineSegments.Last().startStation) {
                 //Remove last station
-                curLine.StationsInLine.Remove(curLine.LineSegments.Last().endStation);
+
+                for (int i = curLine.StationsInLine.Count-1; i >= 0; i--) {
+                    if (curLine.StationsInLine[i] == curLine.LineSegments.Last().endStation) {
+                        curLine.StationsInLine.RemoveAt(i);
+                    }
+                }
 
                 //Remove last segment
                 Destroy(curLine.LineSegments.Last().gameObject);

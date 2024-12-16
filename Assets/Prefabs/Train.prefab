@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5821250436575597145}
   - component: {fileID: 6398125436482247573}
   - component: {fileID: -6610209683281750385}
+  - component: {fileID: 3899311385486990167}
   m_Layer: 0
   m_Name: Train
   m_TagString: Untagged
@@ -119,3 +120,49 @@ MonoBehaviour:
   piePassenger: {fileID: 2282137085969397466, guid: b58c8b5bde245e74689be0feba638fd4, type: 3}
   diamondPassenger: {fileID: 6000844119935074042, guid: 93c455a8cce7bfa4ab7ad4a50048224f, type: 3}
   eyePassenger: {fileID: 1426260935997696814, guid: 9101f352675a32b4cbd62827bfea5106, type: 3}
+  hasCarriage: 0
+--- !u!61 &3899311385486990167
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2735024215327003098}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 9.79, y: 6.58}
+    newSize: {x: 9.79, y: 6.58}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 9.79, y: 6.58}
+  m_EdgeRadius: 0

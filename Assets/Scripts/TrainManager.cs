@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -692,16 +691,16 @@ public class TrainManager : MonoBehaviour
     void OnMouseOver(){
 
         //mouse over train
-        if (InterchangePlacer.reference.isMaking) {
+        if (CarriagePlacer.reference.isMaking) {
             if (Input.GetMouseButtonDown(0) ) {
 
                 if (hasCarriage) {
                     return;
                 }
 
-                InterchangePlacer.reference.stopMaking();
+                CarriagePlacer.reference.stopMaking();
 
-                WeeklyUpgradeManager.reference.interchangeCount--;
+                WeeklyUpgradeManager.reference.carriageCount--;
 
                 //Make the Interchange
                 hasCarriage = true;

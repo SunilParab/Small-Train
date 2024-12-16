@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using Unity.VisualScripting;
@@ -511,7 +512,7 @@ public class LineDrawer : MonoBehaviour
         //Clear out old segment
         Destroy(segment);
 
-        if (CheckSegmentRemove()) {
+        if (CheckSegmentRemove(lineInfoArrayIndex)) {
             return;
         }
         
@@ -970,37 +971,83 @@ public class LineDrawer : MonoBehaviour
         }
 
 
+        //Check for looping
+        if (LineList.reference.lineList[lineInfoArrayIndex].LineSegments.Count() != 0 && (endStation == LineList.reference.lineList[lineInfoArrayIndex].LineSegments.Last().endStation ||
+            endStation == LineList.reference.lineList[lineInfoArrayIndex].LineSegments[0].startStation)) {
+            LineList.reference.lineList[lineInfoArrayIndex].isLooped = true;
+
+            //Always add loop to the end
+            if (isStart && targetLine != -1)
+            { //Flip list is made from a start T
+
+                Vector3[] linePoints = new Vector3[3];
+                linePoints[2] = new Vector3(startx +lineOffset, starty +lineOffset, 0);
+                linePoints[1] = new Vector3(midx +lineOffset, midy +lineOffset, 0);
+                linePoints[0] = new Vector3(endx +lineOffset, endy +lineOffset, 0);
+                holderInfo.lineRenderer.SetPositions(linePoints);
+
+                holderInfo.startStation = endStation;
+                holderInfo.endStation = startStation;
+
+                holderInfo.FlipVariables(); //Flips the start/end angle and the start/end count
+
+            }
+            else
+            {
+                Vector3[] linePoints = new Vector3[3];
+                linePoints[0] = new Vector3(startx +lineOffset, starty +lineOffset, 0);
+                linePoints[1] = new Vector3(midx +lineOffset, midy +lineOffset, 0);
+                linePoints[2] = new Vector3(endx +lineOffset, endy +lineOffset, 0);
+                holderInfo.lineRenderer.SetPositions(linePoints);
+
+                holderInfo.startStation = startStation;
+                holderInfo.endStation = endStation;
+            }
+
+        } else { //No loop, regular behavior
+
+            //Destroy loop if there is one
+            if (LineList.reference.lineList[lineInfoArrayIndex].isLooped) {
+                Destroy(LineList.reference.lineList[lineInfoArrayIndex].LineSegments.Last().gameObject);
+                LineList.reference.lineList[lineInfoArrayIndex].StationsInLine.Remove(LineList.reference.lineList[lineInfoArrayIndex].LineSegments.Last().endStation);
+                LineList.reference.lineList[lineInfoArrayIndex].LineSegments.RemoveAt(LineList.reference.lineList[lineInfoArrayIndex].LineSegments.Count-1);
+            }
+
+            LineList.reference.lineList[lineInfoArrayIndex].isLooped = false;
+
+            //Make the line segment renderer
+            if (isStart && targetLine != -1)
+            { //Flip list is made from a start T
+
+                Vector3[] linePoints = new Vector3[3];
+                linePoints[2] = new Vector3(startx +lineOffset, starty +lineOffset, 0);
+                linePoints[1] = new Vector3(midx +lineOffset, midy +lineOffset, 0);
+                linePoints[0] = new Vector3(endx +lineOffset, endy +lineOffset, 0);
+                holderInfo.lineRenderer.SetPositions(linePoints);
+
+                holderInfo.startStation = endStation;
+                holderInfo.endStation = startStation;
+
+                holderInfo.FlipVariables(); //Flips the start/end angle and the start/end count
+
+            }
+            else
+            {
+                Vector3[] linePoints = new Vector3[3];
+                linePoints[0] = new Vector3(startx +lineOffset, starty +lineOffset, 0);
+                linePoints[1] = new Vector3(midx +lineOffset, midy +lineOffset, 0);
+                linePoints[2] = new Vector3(endx +lineOffset, endy +lineOffset, 0);
+                holderInfo.lineRenderer.SetPositions(linePoints);
+
+                holderInfo.startStation = startStation;
+                holderInfo.endStation = endStation;
+            }
+
+
+        }
+
+
         
-
-
-
-        //Make the line segment renderer
-        if (isStart && targetLine != -1)
-        { //Flip list is made from a start T
-
-            Vector3[] linePoints = new Vector3[3];
-            linePoints[2] = new Vector3(startx +lineOffset, starty +lineOffset, 0);
-            linePoints[1] = new Vector3(midx +lineOffset, midy +lineOffset, 0);
-            linePoints[0] = new Vector3(endx +lineOffset, endy +lineOffset, 0);
-            holderInfo.lineRenderer.SetPositions(linePoints);
-
-            holderInfo.startStation = endStation;
-            holderInfo.endStation = startStation;
-
-            holderInfo.FlipVariables(); //Flips the start/end angle and the start/end count
-
-        }
-        else
-        {
-            Vector3[] linePoints = new Vector3[3];
-            linePoints[0] = new Vector3(startx +lineOffset, starty +lineOffset, 0);
-            linePoints[1] = new Vector3(midx +lineOffset, midy +lineOffset, 0);
-            linePoints[2] = new Vector3(endx +lineOffset, endy +lineOffset, 0);
-            holderInfo.lineRenderer.SetPositions(linePoints);
-
-            holderInfo.startStation = startStation;
-            holderInfo.endStation = endStation;
-        }
 
         if (BridgeGenerator.reference.BridgeGen(holderInfo)) {
             if (WeeklyUpgradeManager.reference.tunnelCount <= 0) {
@@ -1050,7 +1097,7 @@ public class LineDrawer : MonoBehaviour
         return thisLine;
     }
 
-    bool CheckSegmentRemove()
+    bool CheckSegmentRemove(int lineInfoArrayIndex)
     {
 
         if (startStation == endStation) {
@@ -1061,10 +1108,14 @@ public class LineDrawer : MonoBehaviour
             return false;
         }
 
+        //Line remove
         LineInfo curLine = LineList.reference.lineList[targetLine];
 
         if (isStart) {
             if (endStation == curLine.LineSegments[0].endStation) {
+                //Remove first station
+                curLine.StationsInLine.Remove(curLine.LineSegments[0].startStation);
+
                 //Remove first segment
                 Destroy(curLine.LineSegments[0].gameObject);
                 curLine.LineSegments.RemoveAt(0);
@@ -1079,6 +1130,9 @@ public class LineDrawer : MonoBehaviour
             }
         } else {
             if (endStation == curLine.LineSegments.Last().startStation) {
+                //Remove last station
+                curLine.StationsInLine.Remove(curLine.LineSegments.Last().endStation);
+
                 //Remove last segment
                 Destroy(curLine.LineSegments.Last().gameObject);
                 curLine.LineSegments.RemoveAt(curLine.LineSegments.Count-1);
@@ -1089,6 +1143,18 @@ public class LineDrawer : MonoBehaviour
                 } else {
                     Destroy(curLine.startT);
                 }
+                return true;
+            }
+        }
+
+        if (LineList.reference.lineList[lineInfoArrayIndex].LineSegments.Count() != 0 && (endStation == LineList.reference.lineList[lineInfoArrayIndex].LineSegments.Last().endStation ||
+            endStation == LineList.reference.lineList[lineInfoArrayIndex].LineSegments[0].startStation)) {
+            return false;
+        }
+
+        //Stop from connecting to middle of line
+        foreach (GameObject station in LineList.reference.lineList[lineInfoArrayIndex].StationsInLine) {
+            if (station == endStation) {
                 return true;
             }
         }

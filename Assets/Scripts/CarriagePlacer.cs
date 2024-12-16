@@ -38,7 +38,7 @@ public class CarriagePlacer : MonoBehaviour
 
     void SpawnObject()
     {
-        if (WeeklyUpgradeManager.reference.interchangeCount > 0 && spawnedObject == null)
+        if (WeeklyUpgradeManager.reference.carriageCount > 0 && spawnedObject == null)
         {
             // Instantiate the object at the cursor's position
             Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
